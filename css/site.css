@@ -2527,6 +2527,29 @@ section {
     font-size: 16px;
   }
 
+  /* The pill has no room to stay on one line here: left as a nowrap row the
+     tag gets crushed into a blob with its text wrapped inside it. Stack the
+     two parts instead and centre them. */
+  .badge-v2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    gap: 9px 10px;
+    padding: 15px 18px;
+    border-radius: var(--radius-lg);
+  }
+
+  .badge-v2 .tag {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  /* Once the badge stacks, the arrow ends up stranded on a row of its own. */
+  .badge-v2 .arrow {
+    display: none;
+  }
+
   .chat-body {
     padding: 20px 16px 16px;
     min-height: 0;
@@ -2560,10 +2583,14 @@ section {
     display: none;
   }
 
+  /* Shrink to the widest step and centre the block, rather than stretching the
+     rows across the sheet and leaving the labels hanging on the left. */
   .flow-steps {
     display: grid;
     list-style: none;
-    margin: 0;
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
     padding: 0;
   }
 
