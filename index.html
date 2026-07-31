@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>OpenRAG — Sovereign, Open Source Retrieval-Augmented Generation</title>
+<meta name="description" content="OpenRAG is a lightweight, modular and extensible Retrieval-Augmented Generation (RAG) framework by LINAGORA. Partition isolation, distributed indexing with Ray, multimodal parsing, Milvus vector search and an OpenAI-compatible API. AGPL-3.0, version 2 out now.">
+<meta name="author" content="LINAGORA">
+<meta name="publisher" content="LINAGORA">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#c71f45">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://open-rag.ai/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OpenRAG">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="OpenRAG — Sovereign, Open Source Retrieval-Augmented Generation">
+<meta property="og:description" content="Version 2 is here. Hexagonal architecture, a new console, pipeline presets and hardened tenant isolation. A digital common, and the RAG engine behind Twake.ai. 100% open source, AGPL-3.0.">
+<meta property="og:url" content="https://open-rag.ai/">
+<meta property="og:image" content="https://open-rag.ai/images/openrag-card.png">
+<meta property="og:image:alt" content="The OpenRAG logo: a beaver wearing round glasses, reading a book.">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@linagora">
+<meta name="twitter:title" content="OpenRAG — Sovereign, Open Source Retrieval-Augmented Generation">
+<meta name="twitter:description" content="A lightweight, modular and extensible RAG framework by LINAGORA. Partition isolation, distributed indexing with Ray, multimodal parsing. AGPL-3.0.">
+<meta name="twitter:image" content="https://open-rag.ai/images/openrag-card.png">
+
+<link rel="icon" href="images/OpenRAG-logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="images/openrag-card.png">
+<link rel="stylesheet" href="css/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://open-rag.ai/#software",
+      "name": "OpenRAG",
+      "alternateName": "OpenRag",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Retrieval-Augmented Generation framework",
+      "operatingSystem": "Linux, Docker, Kubernetes",
+      "softwareVersion": "2.0.1",
+      "url": "https://open-rag.ai/",
+      "downloadUrl": "https://github.com/linagora/openrag",
+      "codeRepository": "https://github.com/linagora/openrag",
+      "license": "https://www.gnu.org/licenses/agpl-3.0.en.html",
+      "programmingLanguage": "Python",
+      "isAccessibleForFree": true,
+      "description": "OpenRAG is a lightweight, modular and extensible Retrieval-Augmented Generation framework designed to explore and test advanced RAG techniques. It offers partition-based isolation, distributed indexing with Ray, multimodal parsing, Milvus vector search and an OpenAI-compatible API.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "author": { "@id": "https://linagora.com/#organization" },
+      "publisher": { "@id": "https://linagora.com/#organization" },
+      "sameAs": ["https://github.com/linagora/openrag"]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://linagora.com/#organization",
+      "name": "LINAGORA",
+      "url": "https://linagora.com/",
+      "logo": "https://open-rag.ai/images/LINAGORA.svg",
+      "foundingDate": "2000",
+      "slogan": "Good Tech For Good, Made in France",
+      "email": "ventes@linagora.com",
+      "sameAs": [
+        "https://github.com/linagora",
+        "https://www.linkedin.com/company/linagora/",
+        "https://x.com/linagora",
+        "https://www.instagram.com/linagora/",
+        "https://www.youtube.com/user/groupelinagora",
+        "https://peertube.linagora.com/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://open-rag.ai/#website",
+      "url": "https://open-rag.ai/",
+      "name": "OpenRAG",
+      "inLanguage": "en",
+      "description": "Sovereign, Open Source Retrieval-Augmented Generation.",
+      "publisher": { "@id": "https://linagora.com/#organization" },
+      "about": { "@id": "https://open-rag.ai/#software" }
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Understand everything about RAG in 5 minutes",
+      "description": "A five-minute explainer on Retrieval-Augmented Generation, produced by LINAGORA.",
+      "thumbnailUrl": "https://open-rag.ai/images/video-poster.jpg",
+      "contentUrl": "https://open-rag.ai/video/openrag-rag-in-5-minutes.mp4",
+      "uploadDate": "2025-07-02",
+      "duration": "PT5M15S",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://linagora.com/#organization" }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ====================== HEADER ====================== -->
+<header class="site-header" id="header">
+  <div class="shell">
+    <a class="brand" href="#top" aria-label="OpenRAG home">
+      <img src="images/OpenRAG-title.svg" alt="OpenRAG">
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#console">Console</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#security">Security</a>
+      <a href="#deploy">Deploy</a>
+      <a class="btn btn-primary header-cta" href="https://github.com/linagora/openrag" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.1 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ====================== HERO ====================== -->
+<section class="hero" id="top">
+  <div class="shell">
+    <a class="badge-v2 reveal" href="https://github.com/linagora/openrag/releases/tag/v2.0.1" rel="noopener">
+      <span class="tag">Version 2 is here!</span>
+      Hexagonal architecture, new console, pipeline presets
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+
+    <h1 class="reveal reveal-d1">Sovereign, Open Source <span class="accent">Retrieval&#8209;Augmented</span> Generation</h1>
+
+    <p class="lede reveal reveal-d2">
+      Built by <a href="https://linagora.com/" rel="noopener">LINAGORA</a>, OpenRAG is a
+      modular framework to explore
+      <a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" rel="noopener">Retrieval-Augmented Generation</a>
+      (RAG) techniques. Designed for experimentation and transparency, it empowers teams to
+      develop state-of-the-art document-grounded AI systems, with full control of their stack.
+      It is the RAG engine behind <a href="https://twake.ai/" rel="noopener">Twake.ai</a>.
+    </p>
+
+    <div class="btn-row reveal reveal-d3">
+      <a class="btn btn-primary" href="#deploy">
+        Deploy it yourself
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/linagora/openrag" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.1 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        View the source
+      </a>
+    </div>
+
+    <dl class="hero-facts reveal reveal-d3">
+      <div class="hero-fact"><dt>License</dt><dd>AGPL-3.0</dd></div>
+      <div class="hero-fact"><dt>Latest release</dt><dd>v2.0.1</dd></div>
+      <div class="hero-fact"><dt>Vector store</dt><dd>Milvus</dd></div>
+      <div class="hero-fact"><dt>Distributed by</dt><dd>Ray</dd></div>
+      <div class="hero-fact"><dt>API</dt><dd>OpenAI-compatible</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ====================== CHAT REPLAY ====================== -->
+<section class="panel-gray" id="ask">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Ask your documents</p>
+      <h2>Grounded answers, with the sources attached.</h2>
+      <p class="section-sub">
+        Every answer cites the exact document and page it came from &mdash; and the
+        citation is a link. Click one and the source opens, at that page.
+      </p>
+    </div>
+
+    <div class="chat-window reveal reveal-d1" id="chatWindow">
+      <div class="chat-bar">
+        <span class="chat-model"><span class="dot" aria-hidden="true"></span>openrag-OpenRAG</span>
+        <span class="chat-scope">Grounded only on the partition <b>OpenRAG</b></span>
+      </div>
+
+      <div class="chat-split" id="chatSplit">
+        <div class="chat-col">
+          <div class="chat-body">
+            <div class="chat-user" id="chatUser"><span id="chatUserText"></span><span class="caret" aria-hidden="true"></span></div>
+
+            <div class="chat-trace" id="chatTrace">
+              <span class="spin" aria-hidden="true"></span>
+              <span id="chatTraceText">Searching for relevant documents&hellip;</span>
+            </div>
+
+            <div class="chat-answer" id="chatAnswer" aria-live="polite"></div>
+
+            <div class="chat-sources" id="chatSources">
+              <p class="label">Sources</p>
+              <div class="source-chips">
+                <a class="source-chip" href="images/source-openrag-p10.png" data-page="10">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+                  OpenRAG.pdf (page: 10)
+                </a>
+                <a class="source-chip" href="images/source-openrag-p18.png" data-page="18">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+                  OpenRAG.pdf (page: 18)
+                </a>
+                <a class="source-chip" href="images/source-openrag-p16.png" data-page="16">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+                  OpenRAG.pdf (page: 16)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-foot">
+            <span class="chat-input">Type your message here&hellip;</span>
+            <button class="chat-replay" id="chatReplay" type="button">Replay</button>
+          </div>
+        </div>
+
+        <aside class="source-panel" id="sourcePanel" aria-label="Cited source" hidden>
+          <header class="source-head">
+            <button class="source-back" id="sourceClose" type="button" aria-label="Close source">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <span class="source-title" id="sourceTitle"></span>
+          </header>
+          <div class="source-doc">
+            <img id="sourceImage" src="" alt="">
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <p class="chat-note reveal">
+      Answer recorded verbatim from an OpenRAG deployment, on the
+      <span class="mono">OpenRAG</span> partition. The three citations it returned are the
+      links above.
+    </p>
+  </div>
+</section>
+
+<!-- ====================== HOW IT WORKS (red panel) ====================== -->
+<section class="panel-red" id="how">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">How it works</p>
+      <h2>RAG combines search and AI to deliver grounded answers.</h2>
+      <p class="section-sub">
+        Instead of relying only on the model's internal knowledge,
+        <a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" rel="noopener">RAG</a>
+        retrieves relevant documents and uses them to generate grounded, reliable answers with a
+        <a href="https://en.wikipedia.org/wiki/Large_language_model" rel="noopener">large language model</a>.
+      </p>
+    </div>
+
+    <div class="flow-wrap reveal reveal-d1">
+      <div class="flow-canvas">
+        <!--
+          The RAG loop, drawn as line art.
+          Every connector exists twice: once as the visible line, once as an
+          invisible copy carrying the travelling dot. The two copies must keep
+          the same "d" attribute.
+          The custom property --i is the position in the loop: it drives the
+          entrance order, the highlight behind each icon and the travelling dot.
+        -->
+        <svg class="flow-svg" id="flowSvg" viewBox="0 0 1010 690" role="img"
+             aria-label="The RAG loop. Documents of any kind are parsed and indexed into a vector database. A question is turned into an embedding, retrieval picks the matching passages, augmentation adds them to the prompt, the language model generates the answer, and the answer goes back to the user with its citations.">
+
+          <defs>
+            <!-- Halftone used inside the database. -->
+            <pattern id="fdots" width="8" height="8" patternUnits="userSpaceOnUse">
+              <circle class="fdot" cx="2" cy="2" r="1.15"/>
+            </pattern>
+            <!-- Coarse grid standing for the numbers of an embedding. -->
+            <pattern id="vdots" width="17" height="17" patternUnits="userSpaceOnUse">
+              <circle class="vdot" cx="8.5" cy="8.5" r="3.2"/>
+            </pattern>
+            <marker id="arw" viewBox="0 0 10 10" refX="8.4" refY="5"
+                    markerWidth="6.5" markerHeight="6.5" orient="auto" markerUnits="strokeWidth">
+              <path class="arw" d="M1.2 1.2 L8.4 5 L1.2 8.8"/>
+            </marker>
+          </defs>
+
+          <!-- connectors -->
+          <g class="links">
+            <path class="link step" style="--i:0" marker-end="url(#arw)" d="M520 95 H606"/>
+            <path class="link step" style="--i:1" marker-end="url(#arw)" d="M670 216 V278"/>
+            <path class="link step" style="--i:2" marker-end="url(#arw)" d="M70 385 V330 H176"/>
+            <path class="link step" style="--i:3" marker-end="url(#arw)" d="M300 330 H386"/>
+            <path class="link step" style="--i:4" marker-end="url(#arw)" d="M510 330 H620"/>
+            <path class="link step" style="--i:5" marker-end="url(#arw)" d="M700 330 H848"/>
+            <path class="link step" style="--i:6" marker-end="url(#arw)" d="M900 444 V520"/>
+            <path class="link step" style="--i:7" marker-end="url(#arw)" d="M852 570 H722"/>
+            <path class="link step" style="--i:8" marker-end="url(#arw)" d="M618 570 H502"/>
+            <path class="link step" style="--i:9" marker-end="url(#arw)" d="M400 570 H296"/>
+            <path class="link dashed step" style="--i:10" marker-end="url(#arw)" d="M184 570 H70 V465"/>
+          </g>
+
+          <!-- icons -->
+          <g class="nodes">
+
+            <!-- documents -->
+            <g class="node step" style="--i:0">
+              <circle class="halo" cx="450" cy="95" r="76"/>
+              <g class="art">
+                <path d="M396 54 h34 l12 12 h62 a10 10 0 0 1 10 10 v60 a10 10 0 0 1 -10 10 h-108 a10 10 0 0 1 -10 -10 v-72 a10 10 0 0 1 10 -10 z"/>
+                <g class="fine">
+                  <path d="M414 72 h13 l9 9 v15 a3 3 0 0 1 -3 3 h-19 a3 3 0 0 1 -3 -3 v-21 a3 3 0 0 1 3 -3 z"/>
+                  <path class="nofill" d="M427 72 v9 h9"/>
+                  <path class="nofill" d="M418 89 h13 M418 94 h9"/>
+                  <rect x="464" y="72" width="24" height="24" rx="5"/>
+                  <path d="M472 79 l11 5 -11 5 z"/>
+                  <rect x="412" y="104" width="24" height="19" rx="3"/>
+                  <path class="nofill" d="M413 106.5 l11 8.5 11 -8.5"/>
+                  <rect class="tint" x="464" y="103" width="24" height="21" rx="4"/>
+                  <path class="nofill" d="M467 119 l6.5 -7 5 5.5 4 -3.5 5.5 5"/>
+                  <circle cx="471.5" cy="109.5" r="2.4"/>
+                </g>
+              </g>
+              <text class="lbl" x="450" y="173">Documents</text>
+              <text class="cap" x="450" y="196">PDF &middot; video &middot; e-mail</text>
+            </g>
+
+            <!-- vector database -->
+            <g class="node step" style="--i:1">
+              <circle class="halo" cx="670" cy="95" r="68"/>
+              <g class="art">
+                <path style="fill:url(#fdots)" d="M618 65 v59 a52 15 0 0 0 104 0 v-59"/>
+                <ellipse cx="670" cy="65" rx="52" ry="15"/>
+                <path class="nofill" d="M670 88 L652 104 M670 88 L688 104"/>
+                <circle class="tint" cx="670" cy="88" r="6"/>
+                <circle class="tint" cx="652" cy="104" r="6"/>
+                <circle class="tint" cx="688" cy="104" r="6"/>
+              </g>
+              <text class="lbl" x="670" y="173">Vector database</text>
+              <text class="cap" x="670" y="196">indexed once</text>
+            </g>
+
+            <!-- the person asking -->
+            <g class="node step" style="--i:2">
+              <circle class="halo" cx="70" cy="425" r="48"/>
+              <g class="art">
+                <circle cx="70" cy="425" r="34"/>
+                <path class="nofill" d="M52 420 q6 -8 12 0 M76 420 q6 -8 12 0"/>
+                <path class="nofill" d="M56 434 q14 13 28 0"/>
+              </g>
+            </g>
+
+            <!-- question -->
+            <g class="node step" style="--i:3">
+              <circle class="halo" cx="240" cy="330" r="66"/>
+              <g class="art">
+                <path class="tint" d="M200 292 h80 a14 14 0 0 1 14 14 v32 a14 14 0 0 1 -14 14 h-56 l-14 16 v-16 h-10 a14 14 0 0 1 -14 -14 v-32 a14 14 0 0 1 14 -14 z"/>
+              </g>
+              <text class="glyph" x="240" y="334">?</text>
+              <text class="lbl" x="240" y="408">Question</text>
+              <text class="cap" x="240" y="431">any language</text>
+            </g>
+
+            <!-- vector query -->
+            <g class="node step" style="--i:4">
+              <circle class="halo" cx="450" cy="330" r="70"/>
+              <g class="art">
+                <rect class="dash" style="fill:url(#vdots)" x="396" y="276" width="108" height="108" rx="16"/>
+                <circle class="tint fine" cx="416.5" cy="297.5" r="4.4"/>
+                <circle class="tint fine" cx="467.5" cy="331.5" r="4.4"/>
+                <circle class="tint fine" cx="450.5" cy="365.5" r="4.4"/>
+              </g>
+              <text class="lbl" x="450" y="408">Vector query</text>
+              <text class="cap" x="450" y="431">embedding</text>
+            </g>
+
+            <!-- retrieval -->
+            <g class="node step" style="--i:5">
+              <circle class="halo" cx="670" cy="330" r="62"/>
+              <g class="art">
+                <path class="tint" d="M678.8 345.2 L687.2 336.8 L712.2 361.8 a6 6 0 0 1 -8.5 8.5 Z"/>
+                <circle cx="660" cy="318" r="34"/>
+              </g>
+              <text class="lbl" x="670" y="408">Retrieval</text>
+              <text class="cap" x="670" y="431">hybrid + rerank</text>
+            </g>
+
+            <!-- augmentation -->
+            <g class="node step" style="--i:6">
+              <circle class="halo" cx="900" cy="330" r="64"/>
+              <g class="art">
+                <rect x="856" y="288" width="70" height="80" rx="8"/>
+                <path class="nofill" d="M870 310 h42 M870 326 h42 M870 342 h28"/>
+                <circle class="soft nostroke" cx="930" cy="292" r="15"/>
+                <path class="nofill" d="M923 292 h14 M930 285 v14"/>
+              </g>
+              <text class="lbl" x="900" y="408">Augmentation</text>
+              <text class="cap" x="900" y="431">top passages</text>
+            </g>
+
+            <!-- prompt -->
+            <g class="node step" style="--i:7">
+              <circle class="halo" cx="900" cy="570" r="62"/>
+              <g class="art">
+                <rect class="tint" x="858" y="528" width="84" height="84" rx="12"/>
+                <path class="nofill" d="M876 552 h48 M876 570 h48 M876 588 h30"/>
+              </g>
+              <text class="lbl" x="900" y="648">Prompt</text>
+              <text class="cap" x="900" y="671">grounded</text>
+            </g>
+
+            <!-- language model -->
+            <g class="node step" style="--i:8">
+              <circle class="halo" cx="670" cy="570" r="64"/>
+              <g class="art">
+                <path class="nofill" d="M670 530 L704.6 550 L704.6 590 L670 610 L635.4 590 L635.4 550 Z M670 530 L670 610 M635.4 550 L704.6 590 M704.6 550 L635.4 590"/>
+                <circle class="soft" cx="670" cy="530" r="11"/>
+                <circle cx="704.6" cy="550" r="11"/>
+                <circle class="soft" cx="704.6" cy="590" r="11"/>
+                <circle cx="670" cy="610" r="11"/>
+                <circle class="soft" cx="635.4" cy="590" r="11"/>
+                <circle cx="635.4" cy="550" r="11"/>
+              </g>
+              <text class="lbl" x="670" y="648">LLM</text>
+              <text class="cap" x="670" y="671">your model</text>
+            </g>
+
+            <!-- generation -->
+            <g class="node step" style="--i:9">
+              <circle class="halo" cx="450" cy="570" r="64"/>
+              <g class="art">
+                <rect x="406" y="526" width="88" height="88" rx="10"/>
+                <path class="nofill" d="M420 548 h60 M420 570 h60 M420 592 h60"/>
+                <circle cx="440" cy="570" r="8"/>
+                <circle class="tint" cx="466" cy="592" r="8"/>
+              </g>
+              <text class="lbl" x="450" y="648">Generation</text>
+              <text class="cap" x="450" y="671">streamed</text>
+            </g>
+
+            <!-- answer -->
+            <g class="node step" style="--i:10">
+              <circle class="halo" cx="240" cy="570" r="66"/>
+              <g class="art">
+                <rect x="190" y="528" width="100" height="84" rx="10"/>
+                <path class="nofill" d="M206 550 h68 M206 566 h52"/>
+                <rect class="tint fine" x="206" y="580" width="26" height="17" rx="5"/>
+                <rect class="tint fine" x="238" y="580" width="26" height="17" rx="5"/>
+              </g>
+              <text class="chipnum" x="219" y="593">1</text>
+              <text class="chipnum" x="251" y="593">2</text>
+              <text class="lbl" x="240" y="648">Answer</text>
+              <text class="cap" x="240" y="671">with citations</text>
+            </g>
+
+          </g>
+
+          <!-- travelling dot, one copy per connector -->
+          <g class="pulses" aria-hidden="true">
+            <path class="pulse" style="--i:0" pathLength="100" d="M520 95 H606"/>
+            <path class="pulse" style="--i:1" pathLength="100" d="M670 216 V278"/>
+            <path class="pulse" style="--i:2" pathLength="100" d="M70 385 V330 H176"/>
+            <path class="pulse" style="--i:3" pathLength="100" d="M300 330 H386"/>
+            <path class="pulse" style="--i:4" pathLength="100" d="M510 330 H620"/>
+            <path class="pulse" style="--i:5" pathLength="100" d="M700 330 H848"/>
+            <path class="pulse" style="--i:6" pathLength="100" d="M900 444 V520"/>
+            <path class="pulse" style="--i:7" pathLength="100" d="M852 570 H722"/>
+            <path class="pulse" style="--i:8" pathLength="100" d="M618 570 H502"/>
+            <path class="pulse" style="--i:9" pathLength="100" d="M400 570 H296"/>
+            <path class="pulse" style="--i:10" pathLength="100" d="M184 570 H70 V465"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="flow-legend reveal">
+      <div>
+        <p class="step-n">STEP 1</p>
+        <h4>Query</h4>
+        <p>The user submits a question or request.</p>
+      </div>
+      <div>
+        <p class="step-n">STEP 2</p>
+        <h4>Retrieval</h4>
+        <p>The system searches the knowledge base for relevant documents.</p>
+      </div>
+      <div>
+        <p class="step-n">STEP 3</p>
+        <h4>Selection</h4>
+        <p>Key chunks of context are chosen and ranked.</p>
+      </div>
+      <div>
+        <p class="step-n">STEP 4</p>
+        <h4>Generation</h4>
+        <p>The language model combines the query with context to draft an answer.</p>
+      </div>
+      <div>
+        <p class="step-n">STEP 5</p>
+        <h4>Result</h4>
+        <p>The output is grounded, accurate, and explainable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== VIDEO ====================== -->
+<section id="video">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">In five minutes</p>
+      <h2>Understand everything about RAG.</h2>
+    </div>
+
+    <div class="chat-window video-chat reveal reveal-d1" id="videoChat">
+      <div class="chat-bar">
+        <span class="chat-model"><span class="dot" aria-hidden="true"></span>openrag-OpenRAG</span>
+        <span class="chat-scope">Multimodal &mdash; <b>video source</b></span>
+      </div>
+
+      <div class="chat-body">
+        <div class="chat-user" id="videoUser"><span id="videoUserText"></span><span class="caret" aria-hidden="true"></span></div>
+
+        <div class="chat-trace" id="videoTrace">
+          <span class="spin" aria-hidden="true"></span>
+          <span id="videoTraceText">Searching for relevant documents&hellip;</span>
+        </div>
+
+        <div class="chat-answer" id="videoAnswer" aria-live="polite"></div>
+
+        <div class="video-frame" id="videoFrame">
+          <video id="ragVideo" controls preload="metadata" poster="images/video-poster.jpg"
+                 playsinline muted width="1280" height="720">
+            <source src="video/openrag-rag-in-5-minutes.mp4" type="video/mp4">
+            Your browser does not support the video tag. You can
+            <a href="video/openrag-rag-in-5-minutes.mp4">download the video</a> instead.
+          </video>
+        </div>
+
+        <p class="video-meta">
+          <span>5&nbsp;min&nbsp;15&nbsp;s</span>
+          <span>English subtitles</span>
+          <span>Starts muted &mdash; unmute in the player</span>
+        </p>
+      </div>
+
+      <div class="chat-foot">
+        <span class="chat-input">Type your message here&hellip;</span>
+        <button class="chat-replay" id="videoReplay" type="button">Replay</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== PROBLEM / SOLUTION ====================== -->
+<section class="panel-gray" id="why">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Why OpenRAG</p>
+      <h2>Four blocking points. Four answers.</h2>
+      <p class="section-sub">
+        Retrieval-Augmented Generation is becoming the standard way to access enterprise
+        knowledge, but most existing tools hit critical limits.
+      </p>
+    </div>
+
+    <div class="ps-grid">
+      <article class="ps-item reveal">
+        <div class="ps-problem">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8.5 10.5V7.2a3.5 3.5 0 0 1 6.2-2.2"/><path d="m3 3 18 18"/></svg></span>
+            <div>
+              <span class="tag">The blocking point</span>
+              <h4>Confidentiality gaps</h4>
+            </div>
+          </div>
+          <p>Most RAG systems lack proper partitioning of data. Different users, teams, or
+            departments often share the same index, creating risks of unauthorized access
+            to sensitive information.</p>
+        </div>
+        <div class="ps-solution">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8.5 10.5V7a3.5 3.5 0 0 1 7 0v3.5"/><circle cx="12" cy="15.5" r="1.4"/></svg></span>
+            <div>
+              <span class="tag">How OpenRAG answers it</span>
+              <h4>Confidentiality first</h4>
+            </div>
+          </div>
+          <p>OpenRAG supports secure partitioning of data per user or team, ensuring access
+            control. Being fully open source and deployable on premises, it guarantees
+            sovereignty and compliance.</p>
+        </div>
+      </article>
+
+      <article class="ps-item reveal reveal-d1">
+        <div class="ps-problem">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m8 15 3-3 3 2 4-6"/><path d="m3 3 18 18"/></svg></span>
+            <div>
+              <span class="tag">The blocking point</span>
+              <h4>Scalability issues</h4>
+            </div>
+          </div>
+          <p>Standard RAG tools struggle when faced with millions of documents. Indexing
+            slows down and retrieval quality drops, making them unfit for large-scale use.</p>
+        </div>
+        <div class="ps-solution">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 16 4-5 3.5 3L20 7"/><path d="M16.5 7H20v3.5"/></svg></span>
+            <div>
+              <span class="tag">How OpenRAG answers it</span>
+              <h4>Handles massive document sets</h4>
+            </div>
+          </div>
+          <p>With Ray-based distributed indexing, OpenRAG can scale to millions of documents
+            across CPUs and GPUs, maintaining fast and reliable retrieval.</p>
+        </div>
+      </article>
+
+      <article class="ps-item reveal reveal-d2">
+        <div class="ps-problem">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="18" cy="12" r="2.2"/><path d="M8.2 12h1.6M14.2 12h1.6"/></svg></span>
+            <div>
+              <span class="tag">The blocking point</span>
+              <h4>No parallelization</h4>
+            </div>
+          </div>
+          <p>Ingestion and embedding are often sequential, with no distributed architecture.
+            This leads to bottlenecks and very long processing times for big datasets.</p>
+        </div>
+        <div class="ps-solution">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h7M4 12h7M4 18h7"/><path d="M15 6h5M15 12h5M15 18h5"/><circle cx="12.8" cy="6" r="0"/></svg></span>
+            <div>
+              <span class="tag">How OpenRAG answers it</span>
+              <h4>Parallelized architecture</h4>
+            </div>
+          </div>
+          <p>Ingestion, chunking, and embedding are run in parallel across clusters, reducing
+            processing time and enabling real-time knowledge base updates.</p>
+        </div>
+      </article>
+
+      <article class="ps-item reveal reveal-d3">
+        <div class="ps-problem">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/><path d="m9.5 13 5 4M14.5 13l-5 4"/></svg></span>
+            <div>
+              <span class="tag">The blocking point</span>
+              <h4>Poor document handling</h4>
+            </div>
+          </div>
+          <p>Documents of different types are treated the same way. Complex PDFs, scans, or
+            audio files are poorly parsed, resulting in weak indexing and irrelevant answers.</p>
+        </div>
+        <div class="ps-solution">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 14l4.5-4 3.5 3 3-2.5L21 15"/><circle cx="8.5" cy="8.5" r="1.4"/></svg></span>
+            <div>
+              <span class="tag">How OpenRAG answers it</span>
+              <h4>Smart, type-aware indexation</h4>
+            </div>
+          </div>
+          <p>Dedicated pipelines handle PDFs, images, audio, and scans with layout-aware
+            parsing and OCR, ensuring accurate indexing for every format.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== KEY FEATURES ====================== -->
+<section id="features">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Key features</p>
+      <h2>What makes it unique.</h2>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card reveal">
+        <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 8.3 8 9 4.8-.7 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Open Source &amp; Sovereign</h3>
+        <p>AGPL-licensed, auditable, and community-driven.</p>
+      </article>
+
+      <article class="card reveal reveal-d1">
+        <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="3.2"/></svg></div>
+        <h3>LLM-Agnostic</h3>
+        <p>Connect your own model (<a href="https://mistral.ai/" rel="noopener">Mistral</a>,
+          Qwen, <a href="https://openllm-france.fr/" rel="noopener">Lucie</a>, Claude, GPT, and
+          more) or use a hosted provider. You keep the freedom to choose the best model for your
+          use case, without being locked into a single provider.</p>
+      </article>
+
+      <article class="card reveal reveal-d2">
+        <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+        <h3>Vector Search with Milvus</h3>
+        <p>Fast and precise
+          <a href="https://en.wikipedia.org/wiki/Semantic_search" rel="noopener">semantic search</a>
+          on a <a href="https://en.wikipedia.org/wiki/Vector_database" rel="noopener">vector database</a>.
+          Knowledge bases can be segmented per team or per user, ensuring relevant and secure
+          information retrieval.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 15l4.5-4.5 3.5 3.5 3-3L21 16"/><circle cx="8.5" cy="8" r="1.5"/></svg></div>
+        <h3>Multimodal Parsing</h3>
+        <p><a href="https://en.wikipedia.org/wiki/Speech_recognition" rel="noopener">Audio transcription</a>,
+          image captioning,
+          <a href="https://en.wikipedia.org/wiki/Optical_character_recognition" rel="noopener">OCR</a>
+          and PDF layout awareness. From text and PDFs to audio and images, OpenRAG extracts and
+          structures knowledge across formats.</p>
+      </article>
+
+      <article class="card reveal reveal-d1">
+        <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13H11l-1 9 8.5-11H12l1-9Z"/></svg></div>
+        <h3>Scalable with Ray</h3>
+        <p>Process, embed, and rerank at cluster scale using
+          <a href="https://www.ray.io/" rel="noopener">Ray</a> distributed tasks. Handles
+          ingestion, chunking, and embedding at cluster scale, enabling efficient indexing
+          of millions of documents in parallel.</p>
+      </article>
+
+      <article class="card reveal reveal-d2">
+        <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="14" rx="2.5"/><path d="M2.5 8.5h19M6 12h6M6 15h9"/></svg></div>
+        <h3>Modern UIs</h3>
+        <p>Web-based indexer, <a href="https://fastapi.tiangolo.com/" rel="noopener">FastAPI</a>,
+          <a href="https://chainlit.io/" rel="noopener">Chainlit</a> chat, and an
+          OpenAI-compatible API.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== CONSOLE ====================== -->
+<section class="panel-gray" id="console">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">The console</p>
+      <h2>Run it like a platform, not a prototype.</h2>
+      <p class="section-sub">
+        Version 2 ships a React console covering partitions, documents, jobs, users, model
+        endpoints and pipeline presets &mdash; so the people who operate the stack never
+        have to touch a YAML file.
+      </p>
+    </div>
+
+    <div class="console reveal reveal-d1" id="console-app">
+      <div class="console-bar">
+        <span class="console-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="console-url mono">https://openrag.demo/app/</span>
+      </div>
+
+      <div class="console-main">
+        <div class="console-side">
+          <div class="console-brand">
+            <img src="images/OpenRAG-title-onred.svg" alt="OpenRAG">
+            <span>Admin console</span>
+          </div>
+
+          <div class="console-nav" role="tablist" aria-label="Console sections">
+            <button class="console-tab is-active" role="tab" aria-selected="true" aria-controls="v-overview" id="t-overview" data-view="v-overview" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/></svg>
+              Overview
+            </button>
+            <button class="console-tab" role="tab" aria-selected="false" aria-controls="v-partitions" id="t-partitions" data-view="v-partitions" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/></svg>
+              Partitions
+            </button>
+            <button class="console-tab" role="tab" aria-selected="false" aria-controls="v-documents" id="t-documents" data-view="v-documents" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+              Documents
+            </button>
+            <button class="console-tab" role="tab" aria-selected="false" aria-controls="v-jobs" id="t-jobs" data-view="v-jobs" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              Jobs
+            </button>
+            <button class="console-tab" role="tab" aria-selected="false" aria-controls="v-models" id="t-models" data-view="v-models" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><path d="M9 2.5v2M15 2.5v2M9 19.5v2M15 19.5v2M2.5 9h2M2.5 15h2M19.5 9h2M19.5 15h2"/></svg>
+              Models
+            </button>
+            <button class="console-tab" role="tab" aria-selected="false" aria-controls="v-presets" id="t-presets" data-view="v-presets" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg>
+              Presets
+            </button>
+            <button class="console-tab" role="tab" aria-selected="false" aria-controls="v-users" id="t-users" data-view="v-users" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
+              Users
+            </button>
+            <button class="console-tab" role="tab" aria-selected="false" aria-controls="v-system" id="t-system" data-view="v-system" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-6 5 12L17 12h4"/></svg>
+              System
+            </button>
+          </div>
+
+          <p class="foot">Settings</p>
+        </div>
+
+        <div style="min-width:0">
+          <div class="console-top">
+            <span class="chip-chat">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5.4A8 8 0 1 1 21 12Z"/></svg>
+              Chat
+            </span>
+            <span class="who">Signed in <span class="pill pill-red" style="margin-left:6px">Admin</span></span>
+          </div>
+
+          <div class="console-banner">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <span><b>Super Admin Mode enabled for this deployment.</b>
+              Admins can access all partitions and documents in this deployment.</span>
+          </div>
+
+        <!-- ---- Overview ---- -->
+        <div class="console-view is-active" id="v-overview" role="tabpanel" aria-labelledby="t-overview">
+          <div class="view-head">
+            <div>
+              <h3>Overview</h3>
+              <p>Dashboard and quick actions</p>
+            </div>
+          </div>
+
+          <dl class="stat-row">
+            <div class="stat"><dt>Partitions</dt><dd>76</dd></div>
+            <div class="stat"><dt>Documents</dt><dd>3365</dd></div>
+            <div class="stat"><dt>Users</dt><dd>48</dd></div>
+            <div class="stat"><dt>Active jobs</dt><dd>0</dd></div>
+          </dl>
+
+          <div class="mini-grid">
+            <div class="mini">
+              <div class="mini-head"><h4>System status</h4><span class="pill pill-dark">Up</span></div>
+              <dl>
+                <dt>API</dt><dd>up</dd>
+                <dt>Version</dt><dd>2.0.1</dd>
+                <dt>Ray actors</dt><dd>9/9 alive</dd>
+              </dl>
+            </div>
+            <div class="mini">
+              <div class="mini-head"><h4>Quick actions</h4></div>
+              <div class="tagline">
+                <span>+ Create partition</span>
+                <span>&uarr; Upload documents</span>
+                <span>+ Add endpoint</span>
+                <span>+ Add preset</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---- Partitions ---- -->
+        <div class="console-view" id="v-partitions" role="tabpanel" aria-labelledby="t-partitions" hidden>
+          <div class="view-head">
+            <div>
+              <h3>Partitions</h3>
+              <p>Manage document partitions and their configurations</p>
+            </div>
+            <span class="spacer"></span>
+            <span class="pill">76 partitions</span>
+            <span class="pill pill-red">+ Create partition</span>
+          </div>
+          <div class="table-scroll">
+            <table class="ctable">
+              <thead>
+                <tr><th>Name</th><th>Documents</th><th>Embedder</th><th>Indexation preset</th><th>Retrieval preset</th><th>Created</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="name">OpenRAG</td><td class="mono">20</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">default</td><td class="mono">default</td><td class="mono">7/9/2026</td></tr>
+                <tr><td class="name">digital-sovereignty</td><td class="mono">148</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">8000_chunk_size</td><td class="mono">default</td><td class="mono">7/15/2026</td></tr>
+                <tr><td class="name">my-partition</td><td class="mono">62</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">default</td><td class="mono">default</td><td class="mono">7/21/2026</td></tr>
+                <tr><td class="name">project-alpha</td><td class="mono">17</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">docling</td><td class="mono">default</td><td class="mono">7/24/2026</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ---- Documents ---- -->
+        <div class="console-view" id="v-documents" role="tabpanel" aria-labelledby="t-documents" hidden>
+          <div class="view-head">
+            <div>
+              <h3>Documents</h3>
+              <p>Files indexed in a partition</p>
+            </div>
+            <span class="spacer"></span>
+            <span class="pill">Partition: OpenRAG</span>
+            <span class="pill">&darr; Export CSV</span>
+          </div>
+          <div class="table-scroll">
+            <table class="ctable">
+              <thead>
+                <tr><th>Filename</th><th>Type</th><th>Parser</th><th>Chunks</th><th>Indexed</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="name">OpenRAG.pdf</td><td class="mono">pdf</td><td class="mono">marker</td><td class="mono">184</td><td class="mono">7/9/2026, 2:38:19 PM</td></tr>
+                <tr><td class="name">OpenRAG_Webinar_STEN_LQ.mp4</td><td class="mono">mp4</td><td class="mono">whisper</td><td class="mono">312</td><td class="mono">7/9/2026, 2:38:23 PM</td></tr>
+                <tr><td class="name">OpenRAG_Technical_Presentation.pdf</td><td class="mono">pdf</td><td class="mono">marker</td><td class="mono">96</td><td class="mono">7/9/2026, 2:38:19 PM</td></tr>
+                <tr><td class="name">RAG_architecture.png</td><td class="mono">png</td><td class="mono">vlm caption</td><td class="mono">3</td><td class="mono">7/9/2026, 2:38:18 PM</td></tr>
+                <tr><td class="name">quarterly-report.docx</td><td class="mono">docx</td><td class="mono">docling</td><td class="mono">71</td><td class="mono">7/9/2026, 2:38:21 PM</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ---- Jobs ---- -->
+        <div class="console-view" id="v-jobs" role="tabpanel" aria-labelledby="t-jobs" hidden>
+          <div class="view-head">
+            <div>
+              <h3>Jobs</h3>
+              <p>Monitor indexing tasks</p>
+            </div>
+            <span class="spacer"></span>
+            <span class="pill">Queued 4 &middot; Running 3/20</span>
+            <span class="pill">&darr; Export CSV</span>
+          </div>
+
+          <div class="seg">
+            <span class="on">All</span><span>Active</span><span>Completed</span>
+            <span>Failed</span><span>Cancelled</span>
+          </div>
+
+          <div class="table-scroll">
+            <table class="ctable">
+              <thead>
+                <tr><th>Task</th><th>File</th><th>Partition</th><th>Duration</th><th>Progress</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono">389288b7</td><td class="name">OpenRAG_Demo_5mn_STFR.mp4</td><td class="mono">OpenRAG</td><td class="mono">20s</td>
+                  <td><span class="bar" style="--w:100%"><i></i></span></td>
+                </tr>
+                <tr>
+                  <td class="mono">985733b5</td><td class="name">OpenRAG_Technical_Presentation.pdf</td><td class="mono">OpenRAG</td><td class="mono">45s</td>
+                  <td><span class="bar" style="--w:100%"><i></i></span></td>
+                </tr>
+                <tr>
+                  <td class="mono">d88fa83c</td><td class="name">OpenRAG_Webinar_STEN_LQ.mp4</td><td class="mono">OpenRAG</td><td class="mono">1m 3s</td>
+                  <td><span class="bar" style="--w:72%"><i></i></span></td>
+                </tr>
+                <tr>
+                  <td class="mono">f1ec1b90</td><td class="name">eu-regulation.pdf</td><td class="mono">digital-sovereignty</td><td class="mono">10s</td>
+                  <td><span class="bar" style="--w:34%"><i></i></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ---- Model endpoints ---- -->
+        <div class="console-view" id="v-models" role="tabpanel" aria-labelledby="t-models" hidden>
+          <div class="view-head">
+            <div>
+              <h3>Model endpoints</h3>
+              <p>Manage embedder, reranker, LLM, and VLM endpoints</p>
+            </div>
+            <span class="spacer"></span>
+            <span class="pill pill-red">+ Add endpoint</span>
+          </div>
+
+          <div class="seg">
+            <span class="on">Embedder</span><span>Reranker</span><span>Llm</span><span>Vlm</span>
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini">
+              <div class="mini-head"><h4>Qwen3-Embedding-0.6B</h4><span class="pill">Default</span></div>
+              <dl>
+                <dt>Batch size</dt><dd>32</dd>
+                <dt>Timeout</dt><dd>120s</dd>
+                <dt>Served by</dt><dd>Infinity</dd>
+              </dl>
+            </div>
+            <div class="mini">
+              <div class="mini-head"><h4>gte-multilingual-reranker-base</h4><span class="pill">Reranker</span></div>
+              <dl>
+                <dt>Vendor</dt><dd>Alibaba-NLP</dd>
+                <dt>Timeout</dt><dd>120s</dd>
+                <dt>Served by</dt><dd>Infinity</dd>
+              </dl>
+            </div>
+            <div class="mini">
+              <div class="mini-head"><h4>Qwen3-VL-8B-Instruct-FP8</h4><span class="pill">Vlm</span></div>
+              <dl>
+                <dt>Role</dt><dd>image captioning</dd>
+                <dt>Served by</dt><dd>vLLM</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---- Presets ---- -->
+        <div class="console-view" id="v-presets" role="tabpanel" aria-labelledby="t-presets" hidden>
+          <div class="view-head">
+            <div>
+              <h3>Presets</h3>
+              <p>Pipeline configuration presets for indexation and retrieval</p>
+            </div>
+            <span class="spacer"></span>
+            <span class="pill pill-red">+ Add preset</span>
+          </div>
+
+          <div class="seg"><span class="on">Indexation</span><span>Retrieval</span></div>
+
+          <div class="mini-grid">
+            <div class="mini">
+              <div class="mini-head"><h4>default</h4><span class="pill">used by 75 partitions</span></div>
+              <div class="tagline">
+                <span>vlm: Qwen3-VL-8B-Instruct-FP8</span>
+                <span>chunking: recursive_splitter</span>
+                <span>parsing_strategy: marker</span>
+                <span>enable_topic_tagging</span>
+              </div>
+            </div>
+            <div class="mini">
+              <div class="mini-head"><h4>8000_chunk_size</h4><span class="pill">used by 1 partition</span></div>
+              <div class="tagline">
+                <span>chunking: recursive_splitter</span>
+                <span>parsing_strategy: marker</span>
+                <span>contextualization_llm: Luciole-23</span>
+                <span>enable_contextualization</span>
+              </div>
+            </div>
+            <div class="mini">
+              <div class="mini-head"><h4>docling</h4><span class="pill">unused</span></div>
+              <div class="tagline">
+                <span>vlm: Qwen3-VL-8B-Instruct-FP8</span>
+                <span>chunking: recursive_splitter</span>
+                <span>parsing_strategy: docling</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---- Users ---- -->
+        <div class="console-view" id="v-users" role="tabpanel" aria-labelledby="t-users" hidden>
+          <div class="view-head">
+            <div>
+              <h3>Users &amp; roles</h3>
+              <p>Owner, editor and viewer roles are enforced per partition, all the way into Milvus.</p>
+            </div>
+            <span class="spacer"></span>
+            <span class="pill">Token or OIDC</span>
+          </div>
+          <div class="table-scroll">
+            <table class="ctable">
+              <thead>
+                <tr><th>User</th><th>Auth</th><th>Token</th><th>Partition role</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="name">Admin</td><td class="mono">token</td><td class="mono">or-&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</td><td><span class="pill pill-red">admin</span></td></tr>
+                <tr><td class="name">Knowledge team</td><td class="mono">oidc</td><td class="mono">&mdash;</td><td><span class="pill">owner</span></td></tr>
+                <tr><td class="name">Analysts</td><td class="mono">oidc</td><td class="mono">&mdash;</td><td><span class="pill">editor</span></td></tr>
+                <tr><td class="name">Read-only audit</td><td class="mono">token</td><td class="mono">or-&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</td><td><span class="pill">viewer</span></td></tr>
+              </tbody>
+            </table>
+            <p style="margin-top:16px;font-size:.88rem;color:var(--gray-500)">
+              Only a SHA-256 hash of each token is stored. The raw token is returned once, at
+              creation, and never persisted.
+            </p>
+          </div>
+        </div>
+
+        <!-- ---- System ---- -->
+        <div class="console-view" id="v-system" role="tabpanel" aria-labelledby="t-system" hidden>
+          <div class="view-head">
+            <div>
+              <h3>System</h3>
+              <p>Status, Ray actors, metrics and configuration</p>
+            </div>
+          </div>
+
+          <div class="seg">
+            <span class="on">Status</span><span>Actors</span><span>Metrics</span><span>Config</span>
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini">
+              <div class="mini-head"><h4>API status</h4><span class="pill pill-red">Up</span></div>
+              <dl>
+                <dt>Version</dt><dd>2.0.1</dd>
+                <dt>Ray actors</dt><dd>9/9 alive</dd>
+                <dt>Workers</dt><dd>1 &times; 20</dd>
+              </dl>
+            </div>
+            <div class="mini">
+              <div class="mini-head"><h4>Ray actors</h4></div>
+              <div class="tagline">
+                <span>Indexer</span><span>TaskStateManager</span><span>MarkerPool</span>
+                <span>Vectordb</span><span>SerializerQueue</span><span>vlmSemaphore</span>
+                <span>llmSemaphore</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="console-note reveal">
+      The OpenRAG v2 console, reproduced from the running product. Sections, controls and
+      configuration are real; the table rows are sample data.
+    </p>
+  </div>
+</section>
+
+<!-- ====================== ARCHITECTURE ====================== -->
+<section id="architecture">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Architecture</p>
+      <h2>Built to survive production.</h2>
+      <p class="section-sub">
+        Version 2 restructures OpenRAG into a
+        <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)" rel="noopener">hexagonal</a>
+        three-layer architecture, separating the domain from its adapters and its transport.
+      </p>
+    </div>
+
+    <div class="arch">
+      <div class="arch-row reveal">
+        <p class="arch-label">Application layers &mdash; v2.0.0</p>
+        <div class="chips">
+          <span class="chip is-key">core/ &mdash; domain + ports</span>
+          <span class="chip is-key">services/ &mdash; adapters</span>
+          <span class="chip is-key">api/ &mdash; transport</span>
+          <span class="chip is-key">di/ &mdash; composition</span>
+        </div>
+      </div>
+
+      <div class="arch-row reveal reveal-d1">
+        <p class="arch-label">Entry points</p>
+        <div class="chips">
+          <a class="chip" href="https://fastapi.tiangolo.com/" rel="noopener">FastAPI &mdash; /docs</a>
+          <a class="chip" href="https://chainlit.io/" rel="noopener">Chainlit chat &mdash; /chainlit</a>
+          <span class="chip">Admin console &mdash; /app/</span>
+          <span class="chip">OpenAI-compatible API &mdash; /v1</span>
+        </div>
+      </div>
+
+      <div class="arch-row reveal reveal-d1">
+        <p class="arch-label">Indexing pipeline &mdash; scheduled on
+          <a href="https://www.ray.io/" rel="noopener">Ray</a></p>
+        <div class="chips">
+          <a class="chip" href="https://github.com/datalab-to/marker" rel="noopener">Marker &mdash; layout analysis</a>
+          <a class="chip" href="https://github.com/docling-project/docling" rel="noopener">Docling</a>
+          <a class="chip" href="https://pymupdf.readthedocs.io/" rel="noopener">PyMuPDF</a>
+          <a class="chip" href="https://en.wikipedia.org/wiki/Optical_character_recognition" rel="noopener">OCR / VLM</a>
+          <a class="chip" href="https://github.com/openai/whisper" rel="noopener">Speech-to-text</a>
+          <span class="chip is-key">Enriched Markdown</span>
+          <span class="chip">Chunking</span>
+          <a class="chip" href="https://en.wikipedia.org/wiki/Word_embedding" rel="noopener">Embedding</a>
+        </div>
+      </div>
+
+      <div class="arch-row is-red reveal reveal-d2">
+        <p class="arch-label">Inference servers</p>
+        <div class="chips">
+          <a class="chip" href="https://docs.vllm.ai/" rel="noopener">LLM &mdash; vLLM</a>
+          <a class="chip" href="https://docs.vllm.ai/" rel="noopener">VLM &mdash; vLLM</a>
+          <a class="chip" href="https://github.com/michaelfeil/infinity" rel="noopener">Embedder &mdash; Infinity</a>
+          <a class="chip" href="https://github.com/michaelfeil/infinity" rel="noopener">Reranker &mdash; Infinity</a>
+          <a class="chip" href="https://github.com/openai/whisper" rel="noopener">Transcription &mdash; Whisper</a>
+        </div>
+      </div>
+
+      <div class="arch-row is-red reveal reveal-d2">
+        <p class="arch-label">Storage</p>
+        <div class="chips">
+          <a class="chip is-key" href="https://milvus.io/" rel="noopener">Milvus &mdash; vectors</a>
+          <a class="chip is-key" href="https://www.postgresql.org/" rel="noopener">PostgreSQL &mdash; metadata, tasks, users</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="split" style="margin-top:clamp(40px,6vw,68px)">
+      <div class="reveal">
+        <h3 style="margin-bottom:16px">Retrieval that earns its answers</h3>
+        <ul class="ticks">
+          <li><b>Hybrid search</b> &mdash; semantic similarity combined with
+            <a href="https://en.wikipedia.org/wiki/Okapi_BM25" rel="noopener">BM25</a> keyword matching.</li>
+          <li><b>Contextual retrieval</b> &mdash; each chunk is enriched with a generated context
+            sentence before <a href="https://en.wikipedia.org/wiki/Word_embedding" rel="noopener">embedding</a>.</li>
+          <li><b>Multi-query and HyDE</b> &mdash; reformulate vague queries, or generate a hypothetical answer to guide selection.</li>
+          <li><b>Multilingual reranking</b> &mdash;
+            <a class="mono" href="https://huggingface.co/Alibaba-NLP/gte-multilingual-reranker-base" rel="noopener">Alibaba-NLP/gte-multilingual-reranker-base</a>
+            filters the top candidates.</li>
+          <li><b>Web search augmentation</b> &mdash; optionally blend live web results alongside document sources, tagged separately in the response.</li>
+        </ul>
+      </div>
+      <div class="reveal reveal-d1">
+        <h3 style="margin-bottom:16px">Scale without rewriting</h3>
+        <ul class="ticks">
+          <li><b>Horizontal scaling</b> &mdash; distribute processing across
+            <a href="https://www.ray.io/" rel="noopener">Ray</a> worker nodes.</li>
+          <li><b>GPU acceleration</b> &mdash; optimise inference across available hardware.</li>
+          <li><b>Resource management</b> &mdash; intelligent allocation of compute across the cluster.</li>
+          <li><b>Monitoring</b> &mdash; real-time cluster health and performance metrics.</li>
+          <li><b><a href="https://kubernetes.io/" rel="noopener">Kubernetes</a> and OpenShift</b>
+            &mdash; <a href="https://helm.sh/" rel="noopener">Helm</a> chart published at
+            <span class="mono">oci://ghcr.io/linagora/openrag-stack</span>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== SECURITY ====================== -->
+<section class="panel-red" id="security">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Security &amp; governance</p>
+      <h2>Isolation you can prove.</h2>
+      <p class="section-sub">
+        Switch to another partition and ask the same question. The model answers that it does
+        not know &mdash; because the documents are genuinely unreachable from there.
+      </p>
+    </div>
+
+    <div class="split">
+      <div class="reveal">
+        <ul class="ticks">
+          <li><b><a href="https://en.wikipedia.org/wiki/Multitenancy" rel="noopener">Partition isolation</a></b>
+            &mdash; each partition is a separate knowledge base, selected through the model id <span class="mono">openrag-&lt;partition&gt;</span>.</li>
+          <li><b>Workspaces</b> &mdash; named subsets of files inside a partition, so search can be scoped further without restructuring anything.</li>
+          <li><b>Role-based access</b> &mdash; owner, editor and viewer roles per partition, enforced by dependency guards on every route.</li>
+          <li><b>Hashed credentials</b> &mdash; only a
+            <a href="https://en.wikipedia.org/wiki/SHA-2" rel="noopener">SHA-256</a> hash of each
+            API token is stored; the raw token is never persisted.</li>
+          <li><b>Token or OIDC</b> &mdash; bearer tokens for programmatic access,
+            <a href="https://en.wikipedia.org/wiki/OpenID_Connect" rel="noopener">OpenID Connect</a>
+            with <a href="https://www.keycloak.org/" rel="noopener">Keycloak</a> or
+            <a href="https://lemonldap-ng.org/" rel="noopener">LemonLDAP::NG</a> for people.</li>
+        </ul>
+      </div>
+
+      <div class="reveal reveal-d1">
+        <h4 style="color:#fff;margin-bottom:14px">Hardened in v2.0.1</h4>
+        <ul class="ticks">
+          <li>An empty partition scope now <b>fails closed</b> instead of searching everything.</li>
+          <li>Workspace file scoping is enforced all the way into Milvus.</li>
+          <li>Callers can no longer set the internal <span class="mono">source</span> field via REST metadata writes.</li>
+          <li>Web-search TLS verification is enabled by default.</li>
+          <li>Embedded HTML images are sanitised before indexing.</li>
+          <li>Plus SSRF guards, secret redaction, security headers, rate limiting and non-root images from v2.0.0.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== INTEGRATION ====================== -->
+<section id="integrate">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Integration</p>
+      <h2>It already speaks your stack's language.</h2>
+      <p class="section-sub">
+        OpenRAG speaks the OpenAI API language, making it easy to embed into chatbots,
+        workflows, and enterprise systems. Integration is seamless, with minimal adaptation
+        required.
+      </p>
+    </div>
+
+    <div class="split">
+      <div class="reveal">
+        <div class="code">
+          <div class="code-bar">
+            <span class="fname">openrag_example.py</span>
+            <button class="code-copy" id="copyCode" type="button">Copy</button>
+          </div>
+<pre id="codeBlock"><span class="k">from</span> openai <span class="k">import</span> AsyncOpenAI, OpenAI
+
+base_url = <span class="s">'https://demo-openrag.linagora.com/v1'</span>  <span class="c"># api base url</span>
+openrag_auth_key = <span class="s">'sk-####'</span>
+
+async_client = AsyncOpenAI(api_key=openrag_auth_key, base_url=base_url)
+sync_client = OpenAI(api_key=openrag_auth_key, base_url=base_url)
+
+<span class="c"># The partition is selected through the model id</span>
+data_partition = <span class="s">'digital-sovereignty'</span>
+model_id = <span class="s">f'openrag-{data_partition}'</span>
+
+chat_completion = sync_client.chat.completions.create(
+    model=model_id,
+    messages=[
+        {
+          <span class="s">"role"</span>: <span class="s">"user"</span>,
+          <span class="s">"content"</span>: <span class="s">"Can you tell me about digital sovereignty in Europe?"</span>
+        }
+    ]
+)
+response_content = chat_completion.choices[<span class="s">0</span>].message.content
+<span class="k">print</span>(response_content)</pre>
+        </div>
+      </div>
+
+      <div class="reveal reveal-d1">
+        <h3 style="margin-bottom:14px">Partition through the model id</h3>
+        <p style="color:var(--gray-600);font-size:.97rem">
+          There is no custom adapter to write. The partition is selected with the
+          <span class="mono">openrag-&lt;partition_name&gt;</span> convention, which is what makes
+          partition isolation work through a completely standard OpenAI client.
+        </p>
+
+        <h4 style="margin:30px 0 14px">Drops straight into</h4>
+        <div class="chips">
+          <a class="chip" href="https://openwebui.com/" rel="noopener">Open WebUI</a>
+          <a class="chip" href="https://www.langchain.com/" rel="noopener">LangChain</a>
+          <a class="chip" href="https://n8n.io/" rel="noopener">n8n</a>
+          <a class="chip" href="https://twake.ai/" rel="noopener">Twake.ai</a>
+        </div>
+
+        <h4 style="margin:30px 0 14px">Supported formats</h4>
+        <div class="chips">
+          <span class="chip">txt</span><span class="chip">md</span>
+          <span class="chip">pdf</span><span class="chip">docx</span>
+          <span class="chip">doc</span><span class="chip">pptx</span>
+          <span class="chip">wav</span><span class="chip">mp3</span>
+          <span class="chip">mp4</span><span class="chip">ogg</span>
+          <span class="chip">flv</span><span class="chip">wma</span>
+          <span class="chip">aac</span><span class="chip">png</span>
+          <span class="chip">jpeg</span><span class="chip">jpg</span>
+          <span class="chip">svg</span>
+        </div>
+        <p style="margin-top:14px;font-size:.9rem;color:var(--gray-500)">
+          All files are intelligently converted to Markdown, with images replaced by
+          AI-generated captions.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== VERSION 2 ====================== -->
+<section class="panel-gray" id="v2">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Release notes</p>
+      <h2>Version 2 is here!</h2>
+      <p class="section-sub">
+        A major release rebuilding OpenRAG on a clean hexagonal three-layer architecture,
+        followed by a stabilization release covering 55 merged pull requests.
+      </p>
+    </div>
+
+    <div class="grid grid-2">
+      <article class="rel reveal">
+        <div class="rel-head">
+          <span class="v mono">v2.0.0</span>
+          <span class="pill pill-red">Hexagonal architecture</span>
+          <span class="d">8 July 2026</span>
+        </div>
+        <div class="rel-body">
+          <ul class="ticks">
+            <li><b>Hexagonal architecture</b> &mdash; restructured into core, services, api and di layers, improving testability and easing long-term maintenance.</li>
+            <li><b>New admin UI</b> &mdash; React console: partitions, documents, jobs, users, model endpoints, pipeline presets.</li>
+            <li><b>Pipeline presets</b> &mdash; named indexation and retrieval configuration bundles, assignable per partition.</li>
+            <li><b>Security hardening</b> &mdash; search filter-injection fix, SSRF guards, secret redaction, security headers, rate limiting, and non-root images.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="rel reveal reveal-d1">
+        <div class="rel-head">
+          <span class="v mono">v2.0.1</span>
+          <span class="pill">Stabilization</span>
+          <span class="d">23 July 2026</span>
+        </div>
+        <div class="rel-body">
+          <ul class="ticks">
+            <li><b>Tenant isolation hardened</b> &mdash; three independent scoping fixes, including an empty partition scope that now fails closed.</li>
+            <li><b>Indexing reliability</b> &mdash; re-indexing no longer duplicates chunks, and wedged Marker workers are reclaimed on parse timeout.</li>
+            <li><b>Retrieval correctness</b> &mdash; multi-partition searches use each partition's own embedder, and streaming no longer drops the answer tail or its sources.</li>
+            <li><b>Admin UI</b> &mdash; queue pressure and job duration, bulk cancellation, filtered CSV exports, plus accessibility and responsive fixes.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <div class="btn-row reveal" style="margin-top:30px">
+      <a class="btn btn-ghost" href="https://github.com/linagora/openrag/releases" rel="noopener">
+        Read the full changelog
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== DEPLOY ====================== -->
+<section id="deploy">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Deploy</p>
+      <h2>Up and running with one command.</h2>
+    </div>
+
+    <div class="split">
+      <div class="reveal">
+        <div class="code">
+          <div class="code-bar"><span class="fname">shell</span></div>
+<pre><span class="c"># 1. Clone with submodules</span>
+git clone --recurse-submodules \
+  git@github.com:linagora/openrag.git
+<span class="k">cd</span> openrag
+
+<span class="c"># 2. Configure</span>
+cp infra/compose/.env.example infra/compose/.env
+<span class="k">cd</span> infra/compose
+
+<span class="c"># 3. Launch (GPU)</span>
+docker compose up -d
+
+<span class="c"># or, CPU only</span>
+docker compose --profile cpu up -d</pre>
+        </div>
+      </div>
+
+      <div class="reveal reveal-d1">
+        <h4 style="margin-bottom:14px">Prerequisites</h4>
+        <ul class="ticks">
+          <li>Python <b>3.12</b> or higher recommended</li>
+          <li><b><a href="https://www.docker.com/" rel="noopener">Docker</a></b> and
+            <b><a href="https://docs.docker.com/compose/" rel="noopener">Docker Compose</a></b></li>
+          <li>For GPU machines, the
+            <b><a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html" rel="noopener">NVIDIA Container Toolkit</a></b></li>
+        </ul>
+
+        <h4 style="margin:30px 0 14px">Minimum specifications</h4>
+        <ul class="ticks">
+          <li><b>Memory</b> &mdash; 16 GB RAM minimum, 32 GB or more recommended</li>
+          <li><b>GPU</b> &mdash; NVIDIA GPU with at least 16 GB VRAM</li>
+          <li>Unified-memory machines work with 16 GB, though 32 GB is recommended</li>
+        </ul>
+
+        <h4 style="margin:30px 0 14px">Then open</h4>
+        <ul class="ticks">
+          <li><span class="mono">/app/</span> &mdash; the admin console, on port <span class="mono">8081</span> by default</li>
+          <li><span class="mono">/chainlit</span> &mdash; the chat UI</li>
+          <li><span class="mono">/docs</span> &mdash; the full FastAPI documentation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid grid-3 reveal" style="margin-top:clamp(36px,5vw,56px)">
+      <article class="card">
+        <p class="card-n">CONTAINERS</p>
+        <h4>Published images</h4>
+        <p class="mono" style="margin-top:10px">ghcr.io/linagora/openrag<br>ghcr.io/linagora/openrag-ray<br>ghcr.io/linagora/openrag-admin-ui</p>
+      </article>
+      <article class="card">
+        <p class="card-n">KUBERNETES</p>
+        <h4>Helm chart</h4>
+        <p class="mono" style="margin-top:10px">oci://ghcr.io/linagora/openrag-stack</p>
+        <p style="margin-top:10px">Chart 0.5.2, app version 2.0.1. OpenShift deployment is documented too.</p>
+      </article>
+      <article class="card">
+        <p class="card-n">ROADMAP</p>
+        <h4>Coming soon</h4>
+        <p style="margin-top:10px">Expanded format support (csv, odt, html), format-specific chunkers, tool calling,
+          agentic RAG and MCP, plus encryption in transit and at rest.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== OPEN SOURCE ====================== -->
+<section class="panel-gray" id="opensource">
+  <div class="shell">
+    <div class="split">
+      <div class="reveal">
+        <p class="eyebrow">A digital common</p>
+        <h2>Built in the open, owned by everyone.</h2>
+        <p class="lede" style="margin-top:20px">
+          OpenRAG is a
+          <a href="https://en.wikipedia.org/wiki/Digital_commons_(economics)" rel="noopener">digital common</a>.
+          It is licensed under the
+          <a href="https://en.wikipedia.org/wiki/GNU_Affero_General_Public_License" rel="noopener">AGPL-3.0</a>,
+          developed in public, and already run by public administrations and private companies
+          alike &mdash; each on their own infrastructure, with their own models and their own data.
+        </p>
+        <p class="lede" style="margin-top:16px">
+          The code is shaped by contributors from well beyond
+          <a href="https://linagora.com/" rel="noopener">LINAGORA</a>. Everyone is welcome:
+          there is no contributor tier, no paid edition, and no feature held back.
+        </p>
+        <div class="btn-row" style="margin-top:28px">
+          <a class="btn btn-primary" href="https://github.com/linagora/openrag" rel="noopener">Fork the repository</a>
+          <a class="btn btn-ghost" href="https://linagora.github.io/openrag/" rel="noopener">Read the docs</a>
+        </div>
+      </div>
+
+      <div class="reveal reveal-d1">
+        <h4 style="margin-bottom:14px">How to get involved</h4>
+        <ul class="ticks">
+          <li>Fork this repository.</li>
+          <li>Create a new branch for your feature or fix.</li>
+          <li>Submit a pull request for review.</li>
+        </ul>
+        <p style="margin-top:20px;color:var(--gray-600);font-size:.96rem">
+          Feel free to ask <span class="mono">questions</span>, <span class="mono">suggest features</span>,
+          or <span class="mono">report bugs</span> via the GitHub Issues page. Your feedback helps us improve!
+        </p>
+
+        <div class="callout" style="margin-top:26px">
+          <div class="body">
+            <h3>The engine inside Twake.ai</h3>
+            <p>OpenRAG is the RAG engine that powers
+              <a href="https://twake.ai/" rel="noopener">Twake.ai</a> &mdash; the same code,
+              in production, at scale.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== LINAGORA ====================== -->
+<section id="linagora">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">The publisher</p>
+      <h2>Good Tech For Good, made in France.</h2>
+      <p class="section-sub">
+        With its software and services, <a href="https://linagora.com/" rel="noopener">LINAGORA</a>
+        enables large public and private organisations to develop their technological
+        independence.
+      </p>
+    </div>
+
+    <div class="grid grid-4 reveal">
+      <article class="card">
+        <p class="card-n">SINCE</p>
+        <h4>2000</h4>
+        <p style="margin-top:8px">An open source leader, in business for a quarter of a century.</p>
+      </article>
+      <article class="card">
+        <p class="card-n">PRESENCE</p>
+        <h4>4 continents</h4>
+        <p style="margin-top:8px">Offices in France, Tunisia, Vietnam, Mauritius and Canada.</p>
+      </article>
+      <article class="card">
+        <p class="card-n">TEAM</p>
+        <h4>200 employees</h4>
+        <p style="margin-top:8px">Building ethical, responsible and sustainable software.</p>
+      </article>
+      <article class="card">
+        <p class="card-n">COMMITMENT</p>
+        <h4>Digital sovereignty</h4>
+        <p style="margin-top:8px">A sovereign digital third way is possible &mdash; real
+          <a href="https://en.wikipedia.org/wiki/Technological_sovereignty" rel="noopener">technological sovereignty</a>
+          for Europe.</p>
+      </article>
+    </div>
+
+    <div class="stack-strip reveal" style="margin-top:34px">
+      <span class="chip">Respect for privacy</span>
+      <span class="chip">100% Open Source</span>
+      <span class="chip">GAFAM-free guarantee</span>
+      <a class="chip" href="https://twake.ai/" rel="noopener">Twake.ai</a>
+      <a class="chip" href="https://linshare.org/" rel="noopener">LinShare</a>
+      <a class="chip" href="https://linto.ai/" rel="noopener">LinTO</a>
+      <a class="chip" href="https://openllm-france.fr/" rel="noopener">Lucie &amp; OpenLLM France</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== CTA ====================== -->
+<section class="panel-red cta" id="contact">
+  <div class="shell">
+    <div class="reveal">
+      <p class="eyebrow" style="justify-content:center">Let's build together</p>
+      <h2>Want to integrate RAG in your business?</h2>
+      <p class="section-sub" style="text-align:center">
+        Whether you're building an AI assistant, a legal search engine, or multimodal
+        enterprise Q&amp;A, we can help you get there &mdash; fast, and with sovereignty.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary btn-lg" href="mailto:ventes@linagora.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>
+          Contact us
+        </a>
+        <a class="btn btn-ghost btn-lg" href="https://linagora.github.io/openrag/" rel="noopener">Read the docs</a>
+      </div>
+
+      <p class="cta-alt">
+        Technical questions about the project?
+        <a class="mono" href="mailto:openrag@linagora.com">openrag@linagora.com</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="site-footer">
+  <div class="shell">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img class="mark" src="images/OpenRAG-title.svg" alt="OpenRAG">
+        <p>Sovereign, open source Retrieval-Augmented Generation. A digital common, and the
+          RAG engine behind <a href="https://twake.ai/" rel="noopener">Twake.ai</a>.</p>
+        <a href="https://linagora.com/" rel="noopener" aria-label="LINAGORA">
+          <img class="lina" src="images/LINAGORA.svg" alt="LINAGORA">
+        </a>
+      </div>
+
+      <div class="foot-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#console">Console</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#security">Security</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="https://github.com/linagora/openrag" rel="noopener">Source code</a></li>
+          <li><a href="https://linagora.github.io/openrag/" rel="noopener">Documentation</a></li>
+          <li><a href="https://github.com/linagora/openrag/releases" rel="noopener">Releases</a></li>
+          <li><a href="#integrate">API</a></li>
+          <li><a href="#deploy">Deploy</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>Community</h5>
+        <ul>
+          <li><a href="https://github.com/linagora/openrag" rel="noopener">Contribute</a></li>
+          <li><a href="https://peertube.linagora.com/" rel="noopener">PeerTube</a></li>
+          <li><a href="https://twake.ai/" rel="noopener">Twake.ai</a></li>
+          <li><a href="mailto:openrag@linagora.com">Contact</a></li>
+          <li><a href="https://linagora.com/" rel="noopener">LINAGORA</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bot">
+      <p>&copy; 2026 <a href="https://linagora.com/" rel="noopener">LINAGORA</a> &middot; OpenRAG is
+        <a class="mono" href="https://www.gnu.org/licenses/agpl-3.0.en.html" rel="noopener">AGPL-3.0</a>
+        licensed and open to all &middot;
+        <a href="https://linagora.com/en/privacy" rel="noopener">Privacy policy</a>
+      </p>
+
+      <span class="no-cookies">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 3.2 3.2 0 0 1-4.3-4.3A3.2 3.2 0 0 1 12 3Z"/><path d="M9 10h.01M13 14h.01M8.5 15h.01M15 10.5h.01"/></svg>
+        This website sets no cookies
+      </span>
+
+      <div class="socials">
+        <a href="https://github.com/linagora/openrag" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.1 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/linagora/" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.03-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9z"/></svg>
+        </a>
+        <a href="https://x.com/linagora" rel="noopener" aria-label="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.01 4.13H5.05l12.03 15.64z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/linagora/" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.42.4.68.8.9 1.4.17.4.37 1 .42 2.2.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.05 1.2-.25 1.8-.42 2.2a3.9 3.9 0 0 1-.9 1.4c-.4.42-.8.68-1.4.9-.4.17-1 .37-2.2.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.05-1.8-.25-2.2-.42a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.17-.4-.37-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.05-1.2.25-1.8.42-2.2.22-.6.48-1 .9-1.4.4-.42.8-.68 1.4-.9.4-.17 1-.37 2.2-.42C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.3.83-.39.4-.63.8-.83 1.3-.16.4-.35 1-.4 2.1C2.6 8.5 2.6 8.9 2.6 12s0 3.5.07 4.7c.05 1.1.24 1.7.4 2.1.2.5.44.9.83 1.3.4.39.8.63 1.3.83.4.16 1 .35 2.1.4 1.2.07 1.6.07 4.7.07s3.5 0 4.7-.07c1.1-.05 1.7-.24 2.1-.4.5-.2.9-.44 1.3-.83.39-.4.63-.8.83-1.3.16-.4.35-1 .4-2.1.07-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.05-1.1-.24-1.7-.4-2.1a3.5 3.5 0 0 0-.83-1.3 3.5 3.5 0 0 0-1.3-.83c-.4-.16-1-.35-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2zm6.3-8.2a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/user/groupelinagora" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.4-.44-5.03a2.6 2.6 0 0 0-1.84-1.85C19.1 4.7 12 4.7 12 4.7s-7.1 0-8.72.42A2.6 2.6 0 0 0 1.44 7C1 8.6 1 12 1 12s0 3.4.44 5.03c.24.9.94 1.6 1.84 1.85 1.62.42 8.72.42 8.72.42s7.1 0 8.72-.42a2.6 2.6 0 0 0 1.84-1.85C23 15.4 23 12 23 12zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+        </a>
+        <a href="https://peertube.linagora.com/" rel="noopener" aria-label="PeerTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2v20l8-6.4V22l8-10-8-10v6.4L4 2zm2 4.1 4.3 3.5L6 13.1V6.1z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+</body>
+</html>

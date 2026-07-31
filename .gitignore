@@ -1,0 +1,11 @@
+# Local build output of the Pages workflow
+_site/
+
+# Archives
+*.zip
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
