@@ -13,9 +13,9 @@ js/             behaviour (no framework)
 fonts/          self-hosted web fonts
 images/         logos, illustrations, social card
 video/          embedded demonstration video
-robots.txt      crawler directives
+robots.txt      crawler directives (currently blocking, see below)
 sitemap.xml     sitemap referenced by robots.txt
-CNAME           custom domain served by GitHub Pages
+CNAME           production domain, applied on go-live
 ```
 
 ## Working locally
@@ -32,75 +32,53 @@ Then browse to <http://localhost:8000/>.
 ## Deployment
 
 The site is deployed to GitHub Pages by the
-[`Deploy website to GitHub Pages`](.github/workflows/deploy.yml) workflow.
+[`Deploy static content to Pages`](.github/workflows/static.yml) workflow, which
+uploads the repository as-is and publishes it.
 
-It runs on two events:
+It runs on every push to `main`, and on demand from the *Actions* tab. There is
+no build step and no staging: what is committed is what is served.
 
-- a push of a tag matching `v*` (for example `v1.0.0`) — this is the normal
-  release path;
-- a manual run from the *Actions* tab, to deploy the current state of a branch
-  without creating a tag.
+## Current state: preview
 
-Pushing to `main` does **not** publish anything. Merge freely, then tag when the
-site is ready to go live:
+The site is authored for the apex domain `https://open-rag.ai/`, but that domain
+still serves the previous site, hosted elsewhere. Until the DNS is switched over,
+this repository is published to the GitHub-provided URL instead:
 
-```sh
-git tag -a v1.0.0 -m "Website 1.0.0"
-git push origin v1.0.0
-```
+**<https://linagora.github.io/openrag-website/>**
 
-The workflow checks out the commit, stages the site into `_site/` (excluding
-hidden files, Markdown documentation and archives), adds `.nojekyll`, verifies
-that the expected files are present, then uploads and deploys the artifact.
+Two consequences, both temporary:
 
-### Preview mode and production mode
-
-The site is authored for the apex domain `https://open-rag.ai/`, but until the
-DNS records exist it is published to the GitHub-provided URL instead. The
-`CUSTOM_DOMAIN` variable at the top of the workflow selects which:
-
-| `CUSTOM_DOMAIN` | Published at | Behaviour |
-| --------------- | ------------ | --------- |
-| `''` (current) | `https://linagora.github.io/openrag-website/` | Preview |
-| `open-rag.ai` | `https://open-rag.ai/` | Production |
-
-In **preview** mode the workflow does three things so that the temporary URL
-behaves correctly, all of them on the staged copy only — the repository itself
-is never modified:
-
-- no `CNAME` is deployed, so Pages keeps serving the `github.io` URL;
-- the absolute `https://open-rag.ai/…` URLs — canonical, Open Graph and Twitter
-  cards, JSON-LD, sitemap — are repointed at the preview URL, so social cards
-  and structured data resolve. Relative links, assets and anchors already work
-  from a subpath and are left alone;
-- `robots.txt` becomes `Disallow: /` and the page gets `noindex, nofollow`, so
-  the preview is never indexed and cannot compete with the real domain later.
-
-In **production** mode the site is deployed exactly as authored, with a `CNAME`
-generated from `CUSTOM_DOMAIN`. The build fails if a preview is about to ship a
-`CNAME`, if any reference to the production domain survived the rewrite, or if
-the `noindex` directive is missing.
+- [`robots.txt`](robots.txt) is set to `Disallow: /` so the preview is never
+  indexed and cannot compete with the production domain later. The production
+  directives are kept, commented out, at the bottom of that file.
+- The absolute `https://open-rag.ai/…` URLs in the page — canonical link, Open
+  Graph and Twitter cards, JSON-LD, and the sitemap — still point at the
+  production domain, so social cards and structured data do not resolve against
+  the preview. This is harmless while testing and correct on go-live. Everything
+  else is relative and works unchanged from the `/openrag-website/` subpath.
 
 ## Going live
 
-1. Set up the DNS records below at the registrar.
-2. Change `CUSTOM_DOMAIN` in
-   [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) from `''` to
-   `open-rag.ai`.
-3. Tag and push. The deployment sets the custom domain from the `CNAME` in the
-   artifact.
-4. **Settings → Pages**: tick **Enforce HTTPS** once the certificate has been
-   issued (a few minutes after the records propagate).
+When the DNS for `open-rag.ai` is moved to GitHub Pages:
 
-Keep the root [`CNAME`](CNAME) file in sync with `CUSTOM_DOMAIN`; it records the
-production domain while preview mode is active.
+1. Point the apex domain at GitHub with the DNS records below. The domain
+   currently resolves elsewhere, so this is a migration, not a fresh setup.
+2. **Restore [`robots.txt`](robots.txt)** to the production directives commented
+   at the bottom of the file — `Allow: /` plus the `Sitemap:` line. This is easy
+   to forget and silently keeps the whole site out of search results.
+3. **Settings → Pages → Custom domain**: enter `open-rag.ai`. The [`CNAME`](CNAME)
+   file in the repository already records it.
+4. Tick **Enforce HTTPS** once the certificate has been issued, a few minutes
+   after the records propagate.
+5. Check the canonical link, `og:image` and the sitemap now resolve, and that
+   `https://linagora.github.io/openrag-website/` redirects to the custom domain.
 
 ## One-time repository configuration
 
 Not covered by the workflow:
 
 1. **Settings → Pages → Build and deployment → Source**: select
-   **GitHub Actions**. The first run fails without this.
+   **GitHub Actions**.
 2. DNS for the apex domain `open-rag.ai`, needed only when going live:
 
    | Type | Name | Value |
