@@ -106,23 +106,67 @@
      --------------------------------------------------------------------- */
 
   var flow = document.getElementById('flowSvg');
+  var flowSteps = document.querySelector('.flow-steps');
+  /* The canvas is observed rather than the diagram itself: below 640px the
+     diagram is hidden and the stepper takes its place, and a hidden element
+     never intersects. */
+  var flowCanvas = document.querySelector('.flow-canvas');
 
-  if (flow) {
-    if (reduceMotion || !('IntersectionObserver' in window)) {
+  function startFlow() {
+    if (flow) {
       flow.classList.add('is-running');
+    }
+    if (flowSteps) {
+      flowSteps.classList.add('is-running');
+    }
+  }
+
+  /* The stepper shown on phones re-uses the diagram's own artwork. The nodes are
+     cloned rather than referenced with <use>: document stylesheets do not reach
+     inside a use element's shadow tree, so the line art would come out as flat
+     black silhouettes. Cloning keeps one copy of the drawing in the markup and
+     lets the existing .flow-svg rules style both. */
+  if (flowSteps) {
+    var placeholders = flowSteps.querySelectorAll('.flow-step-art[data-art]');
+    var cloned = 0;
+
+    Array.prototype.forEach.call(placeholders, function (holder) {
+      var source = document.getElementById(holder.getAttribute('data-art'));
+
+      if (!source) {
+        return;
+      }
+
+      var copy = source.cloneNode(true);
+      copy.removeAttribute('id');
+      Array.prototype.forEach.call(copy.querySelectorAll('[id]'), function (el) {
+        el.removeAttribute('id');
+      });
+      holder.appendChild(copy);
+      cloned += 1;
+    });
+
+    if (cloned) {
+      flowSteps.classList.add('has-art');
+    }
+  }
+
+  if (flowCanvas) {
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      startFlow();
     } else {
       var flowObserver = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              flow.classList.add('is-running');
+              startFlow();
               flowObserver.unobserve(entry.target);
             }
           });
         },
         { threshold: 0.25 }
       );
-      flowObserver.observe(flow);
+      flowObserver.observe(flowCanvas);
     }
   }
 

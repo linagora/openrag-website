@@ -1036,6 +1036,12 @@ section {
   height: auto;
 }
 
+/* The stepper replaces the diagram on phones; it is laid out in the media
+   query at the end of the file. */
+.flow-steps {
+  display: none;
+}
+
 /* Line art: white shapes, one hairline outline, no other colour. */
 .flow-svg .art path,
 .flow-svg .art rect,
@@ -1216,7 +1222,7 @@ section {
 
 .flow-legend {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
   gap: 22px;
   margin-top: clamp(34px, 5vw, 52px);
   padding-top: 30px;
@@ -1353,15 +1359,15 @@ section {
 }
 
 .grid-2 {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
 }
 
 .grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
 }
 
 .grid-4 {
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
 }
 
 .card {
@@ -1438,7 +1444,7 @@ section {
 /* Problem / solution pairing */
 .ps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(390px, 100%), 1fr));
   gap: 20px;
 }
 
@@ -1745,7 +1751,7 @@ section {
 /* Cards used by the Models and Presets views */
 .mini-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
   gap: 14px;
 }
 
@@ -1958,7 +1964,7 @@ section {
 
 .stat-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
   gap: 14px;
   margin-bottom: 22px;
 }
@@ -2283,7 +2289,7 @@ section {
 
 .foot-top {
   display: grid;
-  grid-template-columns: minmax(240px, 1.4fr) repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: minmax(240px, 1.4fr) repeat(auto-fit, minmax(min(140px, 100%), 1fr));
   gap: 34px;
   margin-bottom: 40px;
 }
@@ -2543,18 +2549,134 @@ section {
     min-width: 520px;
   }
 
-  /* Below this width the labels stop being readable, so the sheet scrolls. */
+  /* Below this width the diagram's labels stop being readable at any scale, so
+     the drawing gives way to the vertical stepper, whose icons site.js clones
+     out of the diagram above. */
   .flow-canvas {
-    overflow-x: auto;
-    padding: 18px;
+    padding: 22px 18px;
   }
 
-  .flow-svg {
-    min-width: 640px;
+  #flowSvg {
+    display: none;
+  }
+
+  .flow-steps {
+    display: grid;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .flow-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 68px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding: 9px 0;
+  }
+
+  /* Connector standing in for the arrows of the diagram: a line down the middle
+     of the icon column, closed by a chevron pointing at the next step. */
+  .flow-step + .flow-step::before {
+    content: '';
+    position: absolute;
+    left: 33px;
+    top: -9px;
+    width: 2px;
+    height: 18px;
+    background: var(--gray-900);
+  }
+
+  .flow-step + .flow-step::after {
+    content: '';
+    position: absolute;
+    left: 29px;
+    top: 1px;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--gray-900);
+    border-bottom: 2px solid var(--gray-900);
+    transform: rotate(45deg);
+  }
+
+  .flow-step-art {
+    width: 68px;
+    height: 68px;
+  }
+
+  /* Without JavaScript the icons are never cloned in, so drop the icon column
+     and its connectors rather than leave a row of empty boxes. */
+  .flow-steps:not(.has-art) .flow-step {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .flow-steps:not(.has-art) .flow-step-art,
+  .flow-steps:not(.has-art) .flow-step + .flow-step::before,
+  .flow-steps:not(.has-art) .flow-step + .flow-step::after {
+    display: none;
+  }
+
+  .flow-step-label {
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.25;
+    color: var(--black);
+  }
+
+  .flow-step-cap {
+    display: block;
+    margin-top: 3px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+  }
+
+  /* Same staggered entrance as the diagram it replaces. */
+  .flow-steps .flow-step {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .flow-steps.is-running .flow-step {
+    animation: flowIn 0.55s var(--ease) both;
+    animation-delay: calc(var(--i) * 0.09s);
+  }
+
+  /* The brand keeps the full width, the link columns pair up underneath.
+     The default track minimums add up to more than a phone screen. */
+  .foot-top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 20px;
+  }
+
+  .foot-brand {
+    grid-column: 1 / -1;
   }
 
   .hero-facts {
     gap: 16px 24px;
+  }
+
+  /* "Retrieval-Augmented" is kept on a single line on wider screens, but it is
+     wider than a phone screen on its own, so let it break here. The underline
+     has to be drawn as a background to survive the wrap: the absolutely
+     positioned one below only covers the last line box. */
+  .hero h1 .accent {
+    white-space: normal;
+    background-image: linear-gradient(var(--red), var(--red));
+    background-repeat: no-repeat;
+    background-size: 100% 0.09em;
+    background-position: 0 calc(100% - 0.06em);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .hero h1 .accent::after {
+    display: none;
   }
 }
 
@@ -2579,6 +2701,11 @@ section {
   }
 
   .flow-svg .step {
+    opacity: 1;
+    transform: none;
+  }
+
+  .flow-steps .flow-step {
     opacity: 1;
     transform: none;
   }
