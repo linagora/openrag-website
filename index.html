@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>OpenRAG — Sovereign, Open Source Retrieval-Augmented Generation</title>
-<meta name="description" content="OpenRAG is a lightweight, modular and extensible Retrieval-Augmented Generation (RAG) framework by LINAGORA. Partition isolation, distributed indexing with Ray, multimodal parsing, Milvus vector search and an OpenAI-compatible API. AGPL-3.0, version 2 out now.">
+<meta name="description" content="OpenRAG is a lightweight, modular and extensible Retrieval-Augmented Generation (RAG) framework by LINAGORA. Partition isolation, distributed indexing with Ray, multimodal parsing, Milvus vector search and an OpenAI-compatible API. AGPL-3.0, version 2.1 out now.">
 <meta name="author" content="LINAGORA">
 <meta name="publisher" content="LINAGORA">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="OpenRAG">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="OpenRAG — Sovereign, Open Source Retrieval-Augmented Generation">
-<meta property="og:description" content="Version 2 is here. Hexagonal architecture, a new console, pipeline presets and hardened tenant isolation. A digital common, and the RAG engine behind Twake.ai. 100% open source, AGPL-3.0.">
+<meta property="og:description" content="Version 2.1 is here. A managed prompt library, hexagonal architecture, a new console, pipeline presets and hardened tenant isolation. A digital common, and the RAG engine behind Twake.ai. 100% open source, AGPL-3.0.">
 <meta property="og:url" content="https://open-rag.ai/">
 <meta property="og:image" content="https://open-rag.ai/images/openrag-card.png">
 <meta property="og:image:alt" content="The OpenRAG logo: a beaver wearing round glasses, reading a book.">
@@ -44,7 +44,7 @@
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Retrieval-Augmented Generation framework",
       "operatingSystem": "Linux, Docker, Kubernetes",
-      "softwareVersion": "2.0.1",
+      "softwareVersion": "2.1.0",
       "url": "https://open-rag.ai/",
       "downloadUrl": "https://github.com/linagora/openrag",
       "codeRepository": "https://github.com/linagora/openrag",
@@ -139,9 +139,9 @@
 <!-- ====================== HERO ====================== -->
 <section class="hero" id="top">
   <div class="shell">
-    <a class="badge-v2 reveal" href="https://github.com/linagora/openrag/releases/tag/v2.0.1" rel="noopener">
-      <span class="tag">Version 2 is here!</span>
-      Hexagonal architecture, new console, pipeline presets
+    <a class="badge-v2 reveal" href="https://github.com/linagora/openrag/releases/tag/v2.1.0" rel="noopener">
+      <span class="tag">Version 2.1 is here!</span>
+      Prompt management, admin UI search, Helm chart overhaul
       <span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
 
@@ -168,7 +168,7 @@
 
     <dl class="hero-facts reveal reveal-d3">
       <div class="hero-fact"><dt>License</dt><dd>AGPL-3.0</dd></div>
-      <div class="hero-fact"><dt>Latest release</dt><dd>v2.0.1</dd></div>
+      <div class="hero-fact"><dt>Latest release</dt><dd>v2.1.0</dd></div>
       <div class="hero-fact"><dt>Vector store</dt><dd>Milvus</dd></div>
       <div class="hero-fact"><dt>Distributed by</dt><dd>Ray</dd></div>
       <div class="hero-fact"><dt>API</dt><dd>OpenAI-compatible</dd></div>
@@ -813,8 +813,8 @@
       <h2>Run it like a platform, not a prototype.</h2>
       <p class="section-sub">
         Version 2 ships a React console covering partitions, documents, jobs, users, model
-        endpoints and pipeline presets &mdash; so the people who operate the stack never
-        have to touch a YAML file.
+        endpoints, pipeline presets and, since 2.1, the prompt library &mdash; so the people
+        who operate the stack never have to touch a YAML file.
       </p>
     </div>
 
@@ -905,7 +905,7 @@
               <div class="mini-head"><h4>System status</h4><span class="pill pill-dark">Up</span></div>
               <dl>
                 <dt>API</dt><dd>up</dd>
-                <dt>Version</dt><dd>2.0.1</dd>
+                <dt>Version</dt><dd>2.1.0</dd>
                 <dt>Ray actors</dt><dd>9/9 alive</dd>
               </dl>
             </div>
@@ -1149,7 +1149,7 @@
             <div class="mini">
               <div class="mini-head"><h4>API status</h4><span class="pill pill-red">Up</span></div>
               <dl>
-                <dt>Version</dt><dd>2.0.1</dd>
+                <dt>Version</dt><dd>2.1.0</dd>
                 <dt>Ray actors</dt><dd>9/9 alive</dd>
                 <dt>Workers</dt><dd>1 &times; 20</dd>
               </dl>
@@ -1306,8 +1306,9 @@
       </div>
 
       <div class="reveal reveal-d1">
-        <h4 style="color:#fff;margin-bottom:14px">Hardened in v2.0.1</h4>
+        <h4 style="color:#fff;margin-bottom:14px">Hardened in v2.0.1 and v2.1.0</h4>
         <ul class="ticks">
+          <li>Model-endpoint names are validated, so an unsafe name is rejected rather than silently producing an unreachable endpoint.</li>
           <li>An empty partition scope now <b>fails closed</b> instead of searching everything.</li>
           <li>Workspace file scoping is enforced all the way into Milvus.</li>
           <li>Callers can no longer set the internal <span class="mono">source</span> field via REST metadata writes.</li>
@@ -1411,11 +1412,12 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
       <h2>Version 2 is here!</h2>
       <p class="section-sub">
         A major release rebuilding OpenRAG on a clean hexagonal three-layer architecture,
-        followed by a stabilization release covering 55 merged pull requests.
+        then a stabilization release covering 55 merged pull requests, and now a prompt
+        library managed from the console rather than from template files on disk.
       </p>
     </div>
 
-    <div class="grid grid-2">
+    <div class="grid grid-3">
       <article class="rel reveal">
         <div class="rel-head">
           <span class="v mono">v2.0.0</span>
@@ -1444,6 +1446,22 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
             <li><b>Indexing reliability</b> &mdash; re-indexing no longer duplicates chunks, and wedged Marker workers are reclaimed on parse timeout.</li>
             <li><b>Retrieval correctness</b> &mdash; multi-partition searches use each partition's own embedder, and streaming no longer drops the answer tail or its sources.</li>
             <li><b>Admin UI</b> &mdash; queue pressure and job duration, bulk cancellation, filtered CSV exports, plus accessibility and responsive fixes.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="rel reveal reveal-d2">
+        <div class="rel-head">
+          <span class="v mono">v2.1.0</span>
+          <span class="pill pill-red">Prompt management</span>
+          <span class="d">31 July 2026</span>
+        </div>
+        <div class="rel-body">
+          <ul class="ticks">
+            <li><b>Prompt management</b> &mdash; prompts become a managed library in Postgres: create, edit and delete named prompts per type, mark one default per type, and assign them per partition.</li>
+            <li><b>Admin UI</b> &mdash; full prompt CRUD, search in user management, and a partition-member picker replacing manual user-id entry.</li>
+            <li><b>Safer model endpoints</b> &mdash; endpoint names with unsafe characters are rejected instead of silently becoming unreachable, and renaming one cascades to every stored reference.</li>
+            <li><b>Helm chart overhaul</b> &mdash; per-component ingress, a global image registry, extra objects, and an admin-UI image that runs under a restricted OpenShift SCC.</li>
           </ul>
         </div>
       </article>
@@ -1522,7 +1540,7 @@ docker compose --profile cpu up -d</pre>
         <p class="card-n">KUBERNETES</p>
         <h4>Helm chart</h4>
         <p class="mono" style="margin-top:10px">oci://ghcr.io/linagora/openrag-stack</p>
-        <p style="margin-top:10px">Chart 0.5.2, app version 2.0.1. OpenShift deployment is documented too.</p>
+        <p style="margin-top:10px">Chart 0.6.1, app version 2.1.0. OpenShift deployment is documented too.</p>
       </article>
       <article class="card">
         <p class="card-n">ROADMAP</p>
