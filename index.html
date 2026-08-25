@@ -170,7 +170,7 @@
       <div class="hero-fact"><dt>License</dt><dd>AGPL-3.0</dd></div>
       <div class="hero-fact"><dt>Latest release</dt><dd>v2.1.0</dd></div>
       <div class="hero-fact"><dt>Vector store</dt><dd>Milvus</dd></div>
-      <div class="hero-fact"><dt>Distributed by</dt><dd>Ray</dd></div>
+      <div class="hero-fact"><dt>Distributed with</dt><dd>Ray</dd></div>
       <div class="hero-fact"><dt>API</dt><dd>OpenAI-compatible</dd></div>
     </dl>
   </div>
@@ -347,7 +347,7 @@
                 <circle class="tint" cx="688" cy="104" r="6"/>
               </g>
               <text class="lbl" x="670" y="173">Vector database</text>
-              <text class="cap" x="670" y="196">indexed once</text>
+              <text class="cap" x="670" y="196">indexed and kept up to date</text>
             </g>
 
             <!-- the person asking -->
@@ -498,7 +498,7 @@
           <li class="flow-step" style="--i:1">
             <svg class="flow-svg flow-step-art" viewBox="556 -19.5 228 228"
                  data-art="fa-vector-database" aria-hidden="true"></svg>
-            <p class="flow-step-label">Vector database<span class="flow-step-cap">indexed once</span></p>
+            <p class="flow-step-label">Vector database<span class="flow-step-cap">indexed and kept up to date</span></p>
           </li>
           <li class="flow-step" style="--i:2">
             <svg class="flow-svg flow-step-art" viewBox="162 245 156 156"
@@ -569,7 +569,7 @@
       <div>
         <p class="step-n">STEP 5</p>
         <h4>Result</h4>
-        <p>The output is grounded, accurate, and explainable.</p>
+        <p>The output is grounded, traceable and explainable.</p>
       </div>
     </div>
   </div>
@@ -669,51 +669,28 @@
             <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m8 15 3-3 3 2 4-6"/><path d="m3 3 18 18"/></svg></span>
             <div>
               <span class="tag">The blocking point</span>
-              <h4>Scalability issues</h4>
+              <h4>Scale breaks the pipeline</h4>
             </div>
           </div>
-          <p>Standard RAG tools struggle when faced with millions of documents. Indexing
-            slows down and retrieval quality drops, making them unfit for large-scale use.</p>
+          <p>Most RAG tools process documents one at a time. As a collection grows from
+            thousands to hundreds of thousands, indexing stretches into days and results
+            get noisier.</p>
         </div>
         <div class="ps-solution">
           <div class="ps-head">
             <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 16 4-5 3.5 3L20 7"/><path d="M16.5 7H20v3.5"/></svg></span>
             <div>
               <span class="tag">How OpenRAG answers it</span>
-              <h4>Handles massive document sets</h4>
+              <h4>Built to scale from the start</h4>
             </div>
           </div>
-          <p>With Ray-based distributed indexing, OpenRAG can scale to millions of documents
-            across CPUs and GPUs, maintaining fast and reliable retrieval.</p>
+          <p>Parsing, chunking and indexing run in parallel across as many machines as you
+            give it: add nodes, not workarounds. Hybrid search and reranking keep results
+            sharp as the corpus grows.</p>
         </div>
       </article>
 
       <article class="ps-item reveal reveal-d2">
-        <div class="ps-problem">
-          <div class="ps-head">
-            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="18" cy="12" r="2.2"/><path d="M8.2 12h1.6M14.2 12h1.6"/></svg></span>
-            <div>
-              <span class="tag">The blocking point</span>
-              <h4>No parallelization</h4>
-            </div>
-          </div>
-          <p>Ingestion and embedding are often sequential, with no distributed architecture.
-            This leads to bottlenecks and very long processing times for big datasets.</p>
-        </div>
-        <div class="ps-solution">
-          <div class="ps-head">
-            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h7M4 12h7M4 18h7"/><path d="M15 6h5M15 12h5M15 18h5"/><circle cx="12.8" cy="6" r="0"/></svg></span>
-            <div>
-              <span class="tag">How OpenRAG answers it</span>
-              <h4>Parallelized architecture</h4>
-            </div>
-          </div>
-          <p>Ingestion, chunking, and embedding are run in parallel across clusters, reducing
-            processing time and enabling real-time knowledge base updates.</p>
-        </div>
-      </article>
-
-      <article class="ps-item reveal reveal-d3">
         <div class="ps-problem">
           <div class="ps-head">
             <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/><path d="m9.5 13 5 4M14.5 13l-5 4"/></svg></span>
@@ -735,6 +712,32 @@
           </div>
           <p>Dedicated pipelines handle PDFs, images, audio, and scans with layout-aware
             parsing and OCR, ensuring accurate indexing for every format.</p>
+        </div>
+      </article>
+
+      <article class="ps-item reveal reveal-d3">
+        <div class="ps-problem">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.8"/><path d="m3 3 18 18"/></svg></span>
+            <div>
+              <span class="tag">The blocking point</span>
+              <h4>No way to verify the answer</h4>
+            </div>
+          </div>
+          <p>Most assistants produce fluent text with no trace of where it came from. In
+            regulated environments, an answer you can't audit is an answer you can't use.</p>
+        </div>
+        <div class="ps-solution">
+          <div class="ps-head">
+            <span class="ps-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.6 13.6a4 4 0 0 0 5.7 0l2.5-2.5a4 4 0 1 0-5.7-5.7l-1.4 1.4"/><path d="M14.4 10.4a4 4 0 0 0-5.7 0l-2.5 2.5a4 4 0 1 0 5.7 5.7l1.4-1.4"/></svg></span>
+            <div>
+              <span class="tag">How OpenRAG answers it</span>
+              <h4>Every answer traceable to its source</h4>
+            </div>
+          </div>
+          <p>Answers cite the document and the page they came from, and each citation is a
+            link that opens the source at that page. Reviewers check in one click instead of
+            taking the model's word for it.</p>
         </div>
       </article>
     </div>
@@ -789,17 +792,16 @@
         <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13H11l-1 9 8.5-11H12l1-9Z"/></svg></div>
         <h3>Scalable with Ray</h3>
         <p>Process, embed, and rerank at cluster scale using
-          <a href="https://www.ray.io/" rel="noopener">Ray</a> distributed tasks. Handles
-          ingestion, chunking, and embedding at cluster scale, enabling efficient indexing
-          of millions of documents in parallel.</p>
+          <a href="https://www.ray.io/" rel="noopener">Ray</a> distributed tasks. Ingestion,
+          chunking and embedding scale horizontally as your corpus grows &mdash; add machines,
+          not workarounds.</p>
       </article>
 
       <article class="card reveal reveal-d2">
         <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="14" rx="2.5"/><path d="M2.5 8.5h19M6 12h6M6 15h9"/></svg></div>
-        <h3>Modern UIs</h3>
-        <p>Web-based indexer, <a href="https://fastapi.tiangolo.com/" rel="noopener">FastAPI</a>,
-          <a href="https://chainlit.io/" rel="noopener">Chainlit</a> chat, and an
-          OpenAI-compatible API.</p>
+        <h3>Interfaces</h3>
+        <p>A full admin console, a ready-to-use chat interface, and an OpenAI-compatible
+          API for everything else.</p>
       </article>
     </div>
   </div>
@@ -814,7 +816,7 @@
       <p class="section-sub">
         Version 2 ships a React console covering partitions, documents, jobs, users, model
         endpoints, pipeline presets and, since 2.1, the prompt library &mdash; so the people
-        who operate the stack never have to touch a YAML file.
+        who operate the stack rarely have to touch a configuration file.
       </p>
     </div>
 
@@ -1108,7 +1110,7 @@
           <div class="view-head">
             <div>
               <h3>Users &amp; roles</h3>
-              <p>Owner, editor and viewer roles are enforced per partition, all the way into Milvus.</p>
+              <p>Owner, editor and viewer roles are enforced per partition, all the way down to the data itself.</p>
             </div>
             <span class="spacer"></span>
             <span class="pill">Token or OIDC</span>
@@ -1182,9 +1184,9 @@
       <p class="eyebrow">Architecture</p>
       <h2>Built to survive production.</h2>
       <p class="section-sub">
-        Version 2 restructures OpenRAG into a
-        <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)" rel="noopener">hexagonal</a>
-        three-layer architecture, separating the domain from its adapters and its transport.
+        Version 2 rebuilt OpenRAG on a clean, layered architecture that keeps the core
+        independent of the tools around it &mdash; so components can be swapped without
+        rewriting the system.
       </p>
     </div>
 
@@ -1229,9 +1231,8 @@
         <div class="chips">
           <a class="chip" href="https://docs.vllm.ai/" rel="noopener">LLM &mdash; vLLM</a>
           <a class="chip" href="https://docs.vllm.ai/" rel="noopener">VLM &mdash; vLLM</a>
-          <a class="chip" href="https://github.com/michaelfeil/infinity" rel="noopener">Embedder &mdash; Infinity</a>
+          <a class="chip" href="https://docs.vllm.ai/" rel="noopener">Embedder &mdash; vLLM</a>
           <a class="chip" href="https://github.com/michaelfeil/infinity" rel="noopener">Reranker &mdash; Infinity</a>
-          <a class="chip" href="https://github.com/openai/whisper" rel="noopener">Transcription &mdash; Whisper</a>
         </div>
       </div>
 
@@ -1252,10 +1253,9 @@
             <a href="https://en.wikipedia.org/wiki/Okapi_BM25" rel="noopener">BM25</a> keyword matching.</li>
           <li><b>Contextual retrieval</b> &mdash; each chunk is enriched with a generated context
             sentence before <a href="https://en.wikipedia.org/wiki/Word_embedding" rel="noopener">embedding</a>.</li>
-          <li><b>Multi-query and HyDE</b> &mdash; reformulate vague queries, or generate a hypothetical answer to guide selection.</li>
-          <li><b>Multilingual reranking</b> &mdash;
-            <a class="mono" href="https://huggingface.co/Alibaba-NLP/gte-multilingual-reranker-base" rel="noopener">Alibaba-NLP/gte-multilingual-reranker-base</a>
-            filters the top candidates.</li>
+          <li><b>Smart query handling</b> &mdash; vague questions are automatically reformulated to find better matches.</li>
+          <li><b>Multilingual reranking</b> &mdash; a dedicated model re-ranks results so the most
+            relevant passages come first, in any supported language.</li>
           <li><b>Web search augmentation</b> &mdash; optionally blend live web results alongside document sources, tagged separately in the response.</li>
         </ul>
       </div>
@@ -1266,9 +1266,10 @@
             <a href="https://www.ray.io/" rel="noopener">Ray</a> worker nodes.</li>
           <li><b>GPU acceleration</b> &mdash; optimise inference across available hardware.</li>
           <li><b>Resource management</b> &mdash; intelligent allocation of compute across the cluster.</li>
-          <li><b>Monitoring</b> &mdash; real-time cluster health and performance metrics.</li>
-          <li><b><a href="https://kubernetes.io/" rel="noopener">Kubernetes</a></b>
-            &mdash; <a href="https://helm.sh/" rel="noopener">Helm</a> chart published at
+          <li><b>Monitoring</b> &mdash; built-in metrics, with ready-made dashboards.</li>
+          <li><b><a href="https://kubernetes.io/" rel="noopener">Kubernetes</a>, OpenShift included</b>
+            &mdash; the <a href="https://helm.sh/" rel="noopener">Helm</a> chart runs under
+            OpenShift's restricted security policies without modification. Published at
             <span class="mono">oci://ghcr.io/linagora/openrag-stack</span>.</li>
         </ul>
       </div>
@@ -1292,9 +1293,11 @@
       <div class="reveal">
         <ul class="ticks">
           <li><b><a href="https://en.wikipedia.org/wiki/Multitenancy" rel="noopener">Partition isolation</a></b>
-            &mdash; each partition is a separate knowledge base, selected through the model id <span class="mono">openrag-&lt;partition&gt;</span>.</li>
+            &mdash; each partition behaves as its own knowledge base. Documents in one are
+            unreachable from another.</li>
           <li><b>Workspaces</b> &mdash; named subsets of files inside a partition, so search can be scoped further without restructuring anything.</li>
-          <li><b>Role-based access</b> &mdash; owner, editor and viewer roles per partition, enforced by dependency guards on every route.</li>
+          <li><b>Role-based access</b> &mdash; owner, editor and viewer roles per partition, enforced on every request,
+            all the way down to the database query.</li>
           <li><b>Hashed credentials</b> &mdash; only a
             <a href="https://en.wikipedia.org/wiki/SHA-2" rel="noopener">SHA-256</a> hash of each
             API token is stored; the raw token is never persisted.</li>
@@ -1306,15 +1309,13 @@
       </div>
 
       <div class="reveal reveal-d1">
-        <h4 style="color:#fff;margin-bottom:14px">Hardened in v2.0.1 and v2.1.0</h4>
+        <h4 style="color:#fff;margin-bottom:14px">Secure by default</h4>
         <ul class="ticks">
-          <li>Model-endpoint names are validated, so an unsafe name is rejected rather than silently producing an unreachable endpoint.</li>
-          <li>An empty partition scope now <b>fails closed</b> instead of searching everything.</li>
-          <li>Workspace file scoping is enforced all the way into Milvus.</li>
-          <li>Callers can no longer set the internal <span class="mono">source</span> field via REST metadata writes.</li>
-          <li>Web-search TLS verification is enabled by default.</li>
-          <li>Embedded HTML images are sanitised before indexing.</li>
-          <li>Plus SSRF guards, secret redaction, security headers, rate limiting and non-root images from v2.0.0.</li>
+          <li>Scopes <b>fail closed</b>: an unresolved or empty scope returns nothing, never everything.</li>
+          <li>Internal fields are server-controlled and cannot be set by callers.</li>
+          <li>Outbound connections are verified, and secrets are redacted from logs and responses.</li>
+          <li>Containers run without root privileges, with rate limiting and security headers enabled by default.</li>
+          <li>Every release is audited, and fixes are published openly in the changelog.</li>
         </ul>
       </div>
     </div>
@@ -1329,8 +1330,8 @@
       <h2>It already speaks your stack's language.</h2>
       <p class="section-sub">
         OpenRAG speaks the OpenAI API language, making it easy to embed into chatbots,
-        workflows, and enterprise systems. Integration is seamless, with minimal adaptation
-        required.
+        workflows, and enterprise systems. Point an existing OpenAI-compatible client at
+        OpenRAG and it works.
       </p>
     </div>
 
@@ -1388,12 +1389,12 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
           <span class="chip">txt</span><span class="chip">md</span>
           <span class="chip">pdf</span><span class="chip">docx</span>
           <span class="chip">doc</span><span class="chip">pptx</span>
-          <span class="chip">wav</span><span class="chip">mp3</span>
-          <span class="chip">mp4</span><span class="chip">ogg</span>
-          <span class="chip">flv</span><span class="chip">wma</span>
-          <span class="chip">aac</span><span class="chip">png</span>
-          <span class="chip">jpeg</span><span class="chip">jpg</span>
-          <span class="chip">svg</span>
+          <span class="chip">eml</span><span class="chip">wav</span>
+          <span class="chip">mp3</span><span class="chip">mp4</span>
+          <span class="chip">ogg</span><span class="chip">flv</span>
+          <span class="chip">wma</span><span class="chip">aac</span>
+          <span class="chip">png</span><span class="chip">jpeg</span>
+          <span class="chip">jpg</span><span class="chip">svg</span>
         </div>
         <p style="margin-top:14px;font-size:.9rem;color:var(--gray-500)">
           All files are intelligently converted to Markdown, with images replaced by
@@ -1411,7 +1412,7 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
       <p class="eyebrow">Release notes</p>
       <h2>Version 2 is here!</h2>
       <p class="section-sub">
-        A major release rebuilding OpenRAG on a clean hexagonal three-layer architecture,
+        A major release rebuilding OpenRAG on a clean, layered architecture,
         then a stabilization release covering 55 merged pull requests, and now a prompt
         library managed from the console rather than from template files on disk.
       </p>
@@ -1507,7 +1508,6 @@ docker compose --profile cpu up -d</pre>
       <div class="reveal reveal-d1">
         <h4 style="margin-bottom:14px">Prerequisites</h4>
         <ul class="ticks">
-          <li>Python <b>3.12</b> or higher recommended</li>
           <li><b><a href="https://www.docker.com/" rel="noopener">Docker</a></b> and
             <b><a href="https://docs.docker.com/compose/" rel="noopener">Docker Compose</a></b></li>
           <li>For GPU machines, the
@@ -1517,7 +1517,8 @@ docker compose --profile cpu up -d</pre>
         <h4 style="margin:30px 0 14px">Minimum specifications</h4>
         <ul class="ticks">
           <li><b>Memory</b> &mdash; 16 GB RAM minimum, 32 GB or more recommended</li>
-          <li><b>GPU</b> &mdash; NVIDIA GPU with at least 16 GB VRAM</li>
+          <li><b>GPU</b> &mdash; an NVIDIA GPU with at least 16 GB VRAM is recommended for best
+            performance. A CPU-only profile is available for evaluation and smaller deployments.</li>
           <li>Unified-memory machines work with 16 GB, though 32 GB is recommended</li>
         </ul>
 
