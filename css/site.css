@@ -203,7 +203,8 @@ p:last-child {
 /* Links inside running copy. The text stays black or gray; the red is carried
    by the underline only, so the palette rule holds. */
 p a,
-.ticks li a {
+.ticks li a,
+.hero-fact dd a {
   color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--red);
@@ -213,7 +214,8 @@ p a,
 }
 
 p a:hover,
-.ticks li a:hover {
+.ticks li a:hover,
+.hero-fact dd a:hover {
   text-decoration-thickness: 3px;
 }
 
