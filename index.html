@@ -69,7 +69,6 @@
       "logo": "https://open-rag.ai/images/LINAGORA.svg",
       "foundingDate": "2000",
       "slogan": "Good Tech For Good, Made in France",
-      "email": "ventes@linagora.com",
       "sameAs": [
         "https://github.com/linagora",
         "https://www.linkedin.com/company/linagora/",
@@ -126,6 +125,7 @@
       <a href="#architecture">Architecture</a>
       <a href="#security">Security</a>
       <a href="#deploy">Deploy</a>
+      <a class="contact-trigger" href="#contact">Contact</a>
       <a class="btn btn-primary header-cta" href="https://github.com/linagora/openrag" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.1 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
         GitHub
@@ -1649,17 +1649,24 @@ docker compose --profile cpu up -d</pre>
         enterprise Q&amp;A, we can help you get there &mdash; fast, and with sovereignty.
       </p>
       <div class="btn-row">
-        <a class="btn btn-primary btn-lg" href="mailto:ventes@linagora.com">
+        <button class="btn btn-primary btn-lg contact-trigger" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>
           Contact us
-        </a>
+        </button>
         <a class="btn btn-ghost btn-lg" href="https://linagora.github.io/openrag/" rel="noopener">Read the docs</a>
       </div>
 
       <p class="cta-alt">
         Technical questions about the project?
-        <a class="mono" href="mailto:openrag@linagora.com">openrag@linagora.com</a>
+        <a href="https://github.com/linagora/openrag/issues" rel="noopener">Open an issue on GitHub</a>.
       </p>
+
+      <noscript>
+        <p class="cta-alt">
+          The contact form needs JavaScript.
+          <a href="https://github.com/linagora/openrag/issues" rel="noopener">Reach us on GitHub</a> instead.
+        </p>
+      </noscript>
     </div>
   </div>
 </section>
@@ -1707,7 +1714,7 @@ docker compose --profile cpu up -d</pre>
           <li><a href="https://github.com/linagora/openrag" rel="noopener">Contribute</a></li>
           <li><a href="https://peertube.linagora.com/" rel="noopener">PeerTube</a></li>
           <li><a href="https://twake.ai/" rel="noopener">Twake.ai</a></li>
-          <li><a href="mailto:openrag@linagora.com">Contact</a></li>
+          <li><a class="contact-trigger" href="#contact">Contact</a></li>
           <li><a href="https://linagora.com/" rel="noopener">LINAGORA</a></li>
         </ul>
       </div>
@@ -1748,6 +1755,71 @@ docker compose --profile cpu up -d</pre>
     </div>
   </div>
 </footer>
+
+<!-- ====================== CONTACT DIALOG ====================== -->
+<dialog class="contact-modal" id="contactDialog" aria-labelledby="contactTitle">
+  <button class="contact-close" type="button" id="contactClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+  </button>
+
+  <form class="contact-form" id="contactForm">
+    <p class="eyebrow">Contact us</p>
+    <h2 id="contactTitle">Tell us about your project</h2>
+
+    <div class="contact-field">
+      <label class="sr-only" for="cfName">Name</label>
+      <input id="cfName" name="name" type="text" placeholder="Name" autocomplete="name" required>
+    </div>
+
+    <div class="contact-field">
+      <label class="sr-only" for="cfEmail">Email</label>
+      <input id="cfEmail" name="email" type="email" placeholder="Email" autocomplete="email" required>
+    </div>
+
+    <div class="contact-field">
+      <label class="sr-only" for="cfCompany">Company</label>
+      <input id="cfCompany" name="company" type="text" placeholder="Company" autocomplete="organization" required>
+    </div>
+
+    <div class="contact-field">
+      <label for="cfInquiry">Inquiry type</label>
+      <select id="cfInquiry" name="inquiry" required>
+        <option value="" selected disabled>Select&hellip;</option>
+        <option>Marketing</option>
+        <option>HR</option>
+        <option>Sales</option>
+        <option>Press &amp; public relations</option>
+        <option>Support</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="contact-field">
+      <label for="cfMessage">Message</label>
+      <textarea id="cfMessage" name="message" rows="4" maxlength="1200" required></textarea>
+    </div>
+
+    <div class="contact-human">
+      <input type="checkbox" id="cfHuman" required>
+      <label for="cfHuman">I am human</label>
+      <span class="contact-status" id="contactStatus" role="status"></span>
+    </div>
+    <div class="contact-progress" id="contactProgress" hidden><span id="contactBar"></span></div>
+
+    <button class="btn btn-primary btn-lg contact-send" type="submit">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>
+      Send
+    </button>
+
+    <p class="contact-note" id="contactNote" hidden></p>
+
+    <div class="contact-fallback" id="contactFallback" hidden>
+      <p>Mail app didn&rsquo;t open? Copy the message and send it to
+        <span class="mono" id="contactAddress"></span>.</p>
+      <button class="btn btn-ghost" type="button" id="contactCopy">Copy message</button>
+    </div>
+  </form>
+</dialog>
 
 <script src="js/site.js"></script>
 </body>

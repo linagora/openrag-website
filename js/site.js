@@ -648,3 +648,306 @@
     copyBtn.hidden = true;
   }
 })();
+
+/* ==========================================================================
+   Contact dialog
+
+   The address is never present in the page. It ships encrypted with AES-GCM
+   under a key that exists only once the visitor's browser has redone an
+   iterated PBKDF2 derivation, costing a fraction of a second of CPU.
+
+   Harvesters that do not execute JavaScript get nothing at all. A headless
+   crawler would have to drive the form and pay that cost on every page it
+   visits, which does not pay at harvesting scale. It is a cost barrier, not
+   a secret: nothing is withheld from the constants below.
+
+   Regenerate them with tools/encrypt-address.mjs.
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  var dialog = document.getElementById('contactDialog');
+  var form = document.getElementById('contactForm');
+  if (!dialog || !form || !dialog.showModal) return;
+
+  var triggers = document.querySelectorAll('.contact-trigger');
+  var closeBtn = document.getElementById('contactClose');
+  var humanBox = document.getElementById('cfHuman');
+  var statusEl = document.getElementById('contactStatus');
+  var progress = document.getElementById('contactProgress');
+  var bar = document.getElementById('contactBar');
+  var note = document.getElementById('contactNote');
+  var fallback = document.getElementById('contactFallback');
+  var addressEl = document.getElementById('contactAddress');
+  var copyBtn = document.getElementById('contactCopy');
+  var sendBtn = form.querySelector('.contact-send');
+
+  var nameEl = document.getElementById('cfName');
+  var emailEl = document.getElementById('cfEmail');
+  var companyEl = document.getElementById('cfCompany');
+  var inquiryEl = document.getElementById('cfInquiry');
+  var messageEl = document.getElementById('cfMessage');
+
+  var POW_SALT = 'SHdiudyez8Xxwy/EtqfHtw==';
+  var POW_IV = 'eo6hDINSMpwozEuK';
+  var POW_CIPHER = 'HZsJtTRo1mU4QKz463xaAlUdP/NbxZiX3gqq8fzMYx6ECOTv';
+  var POW_CHUNKS = 20;
+  var POW_ITERS = 50000;
+  var POW_SEED = 'openrag-contact-v1';
+
+  /* Most mail handlers choke well before the 2048-character shell limit. */
+  var MAX_URL = 1900;
+
+  var address = null;
+  var pending = null;
+  var lastBody = '';
+  /* Bumped on every open. Work started before a reopen must not land after it. */
+  var session = 0;
+
+  function subtle() {
+    return window.crypto && window.crypto.subtle;
+  }
+
+  function bytes(base64) {
+    var raw = window.atob(base64);
+    var out = new Uint8Array(raw.length);
+    for (var i = 0; i < raw.length; i++) {
+      out[i] = raw.charCodeAt(i);
+    }
+    return out;
+  }
+
+  function showNote(text) {
+    note.textContent = text;
+    note.hidden = false;
+  }
+
+  function setProgress(fraction) {
+    progress.hidden = false;
+    bar.style.width = Math.round(fraction * 100) + '%';
+  }
+
+  /* One PBKDF2 pass. Each call is asynchronous and hands control back to the
+     event loop, which is what keeps the dialog responsive while the work runs
+     and lets the progress bar move. */
+  function deriveChunk(bits, salt) {
+    return subtle()
+      .importKey('raw', bits, { name: 'PBKDF2' }, false, ['deriveBits'])
+      .then(function (material) {
+        return subtle().deriveBits(
+          { name: 'PBKDF2', salt: salt, iterations: POW_ITERS, hash: 'SHA-256' },
+          material,
+          256
+        );
+      })
+      .then(function (out) {
+        return new Uint8Array(out);
+      });
+  }
+
+  /* Built as a factory so each step captures its own index. Work abandoned by
+     a reopen still runs to completion, so it must not drive the fresh form's
+     progress bar. */
+  function step(salt, index, forSession) {
+    return function (bits) {
+      return deriveChunk(bits, salt).then(function (next) {
+        if (forSession === session) setProgress((index + 1) / POW_CHUNKS);
+        return next;
+      });
+    };
+  }
+
+  function unlocked() {
+    statusEl.textContent = 'Verified';
+    statusEl.classList.add('is-done');
+    progress.hidden = true;
+  }
+
+  /* Every open starts from nothing: the address is decrypted afresh each time,
+     and only ever by beginUnlock, which only the checkbox calls. */
+  function reset() {
+    session++;
+    address = null;
+    pending = null;
+    humanBox.checked = false;
+    humanBox.disabled = false;
+    statusEl.textContent = '';
+    statusEl.classList.remove('is-done');
+    progress.hidden = true;
+    bar.style.width = '0';
+    note.hidden = true;
+    fallback.hidden = true;
+    sendBtn.disabled = false;
+  }
+
+  function beginUnlock() {
+    if (pending) return pending;
+
+    var mySession = session;
+    var salt = bytes(POW_SALT);
+    var chain = Promise.resolve(new TextEncoder().encode(POW_SEED));
+
+    humanBox.disabled = true;
+    statusEl.textContent = 'Verifying…';
+    setProgress(0);
+
+    for (var i = 0; i < POW_CHUNKS; i++) {
+      chain = chain.then(step(salt, i, mySession));
+    }
+
+    pending = chain
+      .then(function (keyBits) {
+        return subtle().importKey('raw', keyBits, { name: 'AES-GCM' }, false, ['decrypt']);
+      })
+      .then(function (key) {
+        /* A wrong key fails the GCM tag check, so this doubles as verification
+           that the published constants are intact. */
+        return subtle().decrypt({ name: 'AES-GCM', iv: bytes(POW_IV) }, key, bytes(POW_CIPHER));
+      })
+      .then(function (plain) {
+        var value = new TextDecoder().decode(plain);
+        /* The dialog was closed and reopened while this ran: drop the result
+           rather than mark a fresh form as already verified. */
+        if (mySession !== session) return null;
+        address = value;
+        unlocked();
+        return address;
+      })
+      .catch(function (err) {
+        if (mySession === session) pending = null;
+        throw err;
+      });
+
+    return pending;
+  }
+
+  function fail(err) {
+    console.error('Contact form: could not unlock the address', err);
+    statusEl.textContent = 'Verification failed';
+    progress.hidden = true;
+    /* Let the visitor tick the box again rather than stranding them. */
+    humanBox.disabled = false;
+    humanBox.checked = false;
+    showNote('Verification failed. Tick the box to try again, or use the GitHub link on the page.');
+  }
+
+  function compose() {
+    var inquiry = inquiryEl.value;
+    var company = companyEl.value.trim();
+
+    lastBody = [
+      'Name: ' + nameEl.value.trim(),
+      'Company: ' + company,
+      'Email: ' + emailEl.value.trim(),
+      'Inquiry type: ' + inquiry,
+      '',
+      'Message:',
+      messageEl.value.trim()
+    ].join('\r\n');
+
+    addressEl.textContent = address;
+    fallback.hidden = false;
+
+    var url =
+      'mailto:' +
+      address +
+      '?subject=' +
+      encodeURIComponent('[OpenRAG] ' + inquiry + ' — ' + company) +
+      '&body=' +
+      encodeURIComponent(lastBody);
+
+    if (url.length > MAX_URL) {
+      showNote('That message is too long to hand over to a mail app. Copy it below and send it directly.');
+      return;
+    }
+
+    window.location.href = url;
+  }
+
+  function open() {
+    reset();
+    dialog.showModal();
+    document.documentElement.classList.add('contact-open');
+    nameEl.focus();
+
+    if (!subtle()) {
+      /* crypto.subtle only exists in a secure context. */
+      showNote('A secure (https) connection is required to reveal the contact address. Please use the GitHub link on the page instead.');
+      sendBtn.disabled = true;
+      humanBox.disabled = true;
+    }
+  }
+
+  /* The header and footer triggers are real anchors to #contact, so without
+     JavaScript they still land on the section and its noscript fallback. */
+  Array.prototype.forEach.call(triggers, function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      open();
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () {
+      dialog.close();
+    });
+  }
+
+  dialog.addEventListener('close', function () {
+    document.documentElement.classList.remove('contact-open');
+  });
+
+  /* A click landing on the dialog itself is a click on the backdrop: the form
+     covers the whole box. */
+  dialog.addEventListener('click', function (e) {
+    if (e.target === dialog) dialog.close();
+  });
+
+  /* The only thing that starts a decryption. */
+  humanBox.addEventListener('change', function () {
+    if (humanBox.checked) beginUnlock().catch(fail);
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    if (address) {
+      compose();
+      return;
+    }
+
+    /* The checkbox is required, so reaching here means it was ticked and the
+       work is still running. Wait for it rather than starting anything. */
+    if (pending) {
+      pending.then(function (value) {
+        if (value) compose();
+      }, fail);
+      return;
+    }
+
+    /* Reachable after a failed attempt, which clears the in-flight work. */
+    showNote('Tick the "I am human" box to continue.');
+  });
+
+  if (copyBtn && navigator.clipboard) {
+    copyBtn.addEventListener('click', function () {
+      navigator.clipboard.writeText(lastBody).then(
+        function () {
+          copyBtn.textContent = 'Copied';
+          setTimeout(function () {
+            copyBtn.textContent = 'Copy message';
+          }, 1800);
+        },
+        function () {
+          copyBtn.textContent = 'Press Ctrl+C';
+          setTimeout(function () {
+            copyBtn.textContent = 'Copy message';
+          }, 1800);
+        }
+      );
+    });
+  } else if (copyBtn) {
+    copyBtn.hidden = true;
+  }
+})();

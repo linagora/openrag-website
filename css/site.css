@@ -459,6 +459,7 @@ section {
   text-decoration: none;
   position: relative;
   padding: 4px 0;
+  white-space: nowrap;
   transition: color 0.2s var(--ease);
 }
 
@@ -2438,6 +2439,15 @@ section {
 
 /* --- Responsive ---------------------------------------------------------- */
 
+/* Seven links plus the GitHub button stop clearing the logo at the bottom of
+   the desktop range. Tighten the spacing rather than let the row break.
+   The lower bound keeps this away from the mobile nav's own gap. */
+@media (min-width: 901px) and (max-width: 999px) {
+  .nav {
+    gap: 14px;
+  }
+}
+
 @media (max-width: 900px) {
   .nav-toggle {
     display: block;
@@ -2752,5 +2762,223 @@ section {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* --- Contact modal ------------------------------------------------------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Set while the dialog is open: showModal() makes the page inert but does not
+   stop it scrolling behind the backdrop. */
+html.contact-open {
+  overflow: hidden;
+}
+
+.contact-modal {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  color: var(--gray-900);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.contact-modal::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.contact-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gray-500);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.contact-close:hover {
+  background: var(--gray-100);
+  color: var(--gray-900);
+}
+
+.contact-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.contact-form {
+  padding: 38px 38px 34px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+
+.contact-form h2 {
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  line-height: 1.15;
+  margin: 0 0 24px;
+}
+
+.contact-field {
+  margin-bottom: 16px;
+}
+
+.contact-field label:not(.sr-only) {
+  display: block;
+  font-family: var(--font-subtitle);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 7px;
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  padding: 13px 15px;
+  font-family: var(--font-body);
+  font-size: 0.97rem;
+  color: var(--gray-900);
+  background: var(--white);
+  border: 1.5px solid var(--gray-300);
+  border-radius: 10px;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.contact-field select {
+  appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a7a7a' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+}
+
+.contact-field textarea {
+  min-height: 104px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: var(--gray-400);
+}
+
+.contact-field input:focus,
+.contact-field select:focus,
+.contact-field textarea:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--red-tint);
+}
+
+/* :user-invalid rather than :invalid, so nothing turns red before the visitor
+   has actually typed something. */
+.contact-field input:user-invalid,
+.contact-field select:user-invalid,
+.contact-field textarea:user-invalid {
+  border-color: var(--red);
+}
+
+.contact-human {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.contact-human input {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  accent-color: var(--red);
+  cursor: pointer;
+}
+
+.contact-human label {
+  font-family: var(--font-subtitle);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.contact-status {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--gray-500);
+}
+
+.contact-status.is-done {
+  color: var(--red);
+}
+
+.contact-progress {
+  height: 4px;
+  margin-top: 10px;
+  background: var(--gray-200);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.contact-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--red);
+  transition: width 0.1s linear;
+}
+
+.contact-send {
+  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.contact-note {
+  margin: 14px 0 0;
+  font-size: 0.88rem;
+  color: var(--gray-600);
+}
+
+.contact-fallback {
+  margin-top: 20px;
+  padding: 18px;
+  background: var(--gray-50);
+  border-radius: 12px;
+}
+
+.contact-fallback p {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+
+@media (max-width: 560px) {
+  .contact-form {
+    padding: 30px 22px 26px;
   }
 }
