@@ -150,7 +150,7 @@
     <p class="lede reveal reveal-d2">
       Built by <a href="https://linagora.com/" rel="noopener">LINAGORA</a>, OpenRAG is a
       modular framework for
-      <a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" rel="noopener">Retrieval-Augmented Generation</a>
+      <a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" rel="nofollow noopener" target="_blank">Retrieval-Augmented Generation</a>
       (RAG). Production-ready and transparent by design, it empowers teams to
       develop state-of-the-art document-grounded AI systems, with full control of their stack.
       It is the RAG engine behind <a href="https://twake.ai/" rel="noopener">Twake.ai</a>.
@@ -262,9 +262,9 @@
       <h2>RAG combines search and AI to deliver grounded answers.</h2>
       <p class="section-sub">
         Instead of relying only on the model's internal knowledge,
-        <a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" rel="noopener">RAG</a>
+        <a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" rel="nofollow noopener" target="_blank">RAG</a>
         retrieves relevant documents and uses them to generate grounded, reliable answers with a
-        <a href="https://en.wikipedia.org/wiki/Large_language_model" rel="noopener">large language model</a>.
+        <a href="https://en.wikipedia.org/wiki/Large_language_model" rel="nofollow noopener" target="_blank">large language model</a>.
       </p>
     </div>
 
@@ -763,7 +763,7 @@
       <article class="card reveal reveal-d1">
         <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="3.2"/></svg></div>
         <h3>LLM-Agnostic</h3>
-        <p>Connect your own model (<a href="https://mistral.ai/" rel="noopener">Mistral</a>,
+        <p>Connect your own model (<a href="https://mistral.ai/" rel="nofollow noopener" target="_blank">Mistral</a>,
           Qwen, <a href="https://openllm-france.fr/" rel="noopener">Lucie</a>, Claude, GPT, and
           more) or use a hosted provider. You keep the freedom to choose the best model for your
           use case, without being locked into a single provider.</p>
@@ -773,8 +773,8 @@
         <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
         <h3>Vector Search with Milvus</h3>
         <p>Fast and precise
-          <a href="https://en.wikipedia.org/wiki/Semantic_search" rel="noopener">semantic search</a>
-          on a <a href="https://en.wikipedia.org/wiki/Vector_database" rel="noopener">vector database</a>.
+          <a href="https://en.wikipedia.org/wiki/Semantic_search" rel="nofollow noopener" target="_blank">semantic search</a>
+          on a <a href="https://en.wikipedia.org/wiki/Vector_database" rel="nofollow noopener" target="_blank">vector database</a>.
           Knowledge bases can be segmented per team or per user, ensuring relevant and secure
           information retrieval.</p>
       </article>
@@ -782,9 +782,9 @@
       <article class="card reveal">
         <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 15l4.5-4.5 3.5 3.5 3-3L21 16"/><circle cx="8.5" cy="8" r="1.5"/></svg></div>
         <h3>Multimodal Parsing</h3>
-        <p><a href="https://en.wikipedia.org/wiki/Speech_recognition" rel="noopener">Audio transcription</a>,
+        <p><a href="https://en.wikipedia.org/wiki/Speech_recognition" rel="nofollow noopener" target="_blank">Audio transcription</a>,
           image captioning,
-          <a href="https://en.wikipedia.org/wiki/Optical_character_recognition" rel="noopener">OCR</a>
+          <a href="https://en.wikipedia.org/wiki/Optical_character_recognition" rel="nofollow noopener" target="_blank">OCR</a>
           and PDF layout awareness. From text and PDFs to audio and images, OpenRAG extracts and
           structures knowledge across formats.</p>
       </article>
@@ -793,7 +793,7 @@
         <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13H11l-1 9 8.5-11H12l1-9Z"/></svg></div>
         <h3>Scalable with Ray</h3>
         <p>Process, embed, and rerank at cluster scale using
-          <a href="https://www.ray.io/" rel="noopener">Ray</a> distributed tasks. Ingestion,
+          <a href="https://www.ray.io/" rel="nofollow noopener" target="_blank">Ray</a> distributed tasks. Ingestion,
           chunking and embedding scale horizontally as your corpus grows &mdash; add machines,
           not workarounds.</p>
       </article>
@@ -820,6 +820,11 @@
         who operate the stack rarely have to touch a configuration file.
       </p>
     </div>
+
+    <p class="console-hint reveal" id="consoleHint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 4 6.4 16 2.3-6.7 6.7-2.3z"/></svg>
+      <span id="consoleHintText">Click any section to explore</span>
+    </p>
 
     <div class="console reveal reveal-d1" id="console-app">
       <div class="console-bar">
@@ -859,6 +864,10 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg>
               Presets
             </button>
+            <button class="console-tab" role="tab" aria-selected="false" aria-controls="v-prompts" id="t-prompts" data-view="v-prompts" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8Z"/><path d="M8.5 10.5h7M8.5 14h4"/></svg>
+              Prompts
+            </button>
             <button class="console-tab" role="tab" aria-selected="false" aria-controls="v-users" id="t-users" data-view="v-users" type="button">
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
               Users
@@ -867,9 +876,11 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-6 5 12L17 12h4"/></svg>
               System
             </button>
+            <button class="console-tab is-foot" role="tab" aria-selected="false" aria-controls="v-settings" id="t-settings" data-view="v-settings" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8.9 19a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 5 8.9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9.5a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+              Settings
+            </button>
           </div>
-
-          <p class="foot">Settings</p>
         </div>
 
         <div style="min-width:0">
@@ -897,29 +908,46 @@
           </div>
 
           <dl class="stat-row">
-            <div class="stat"><dt>Partitions</dt><dd>76</dd></div>
+            <div class="stat"><dt>Partitions</dt><dd>77</dd></div>
             <div class="stat"><dt>Documents</dt><dd>3365</dd></div>
             <div class="stat"><dt>Users</dt><dd>48</dd></div>
-            <div class="stat"><dt>Active jobs</dt><dd>0</dd></div>
+            <div class="stat"><dt>Active Jobs</dt><dd>0</dd></div>
           </dl>
 
           <div class="mini-grid">
             <div class="mini">
-              <div class="mini-head"><h4>System status</h4><span class="pill pill-dark">Up</span></div>
+              <div class="mini-head"><h4>System status</h4></div>
               <dl>
-                <dt>API</dt><dd>up</dd>
+                <dt>API</dt><dd><span class="pill pill-ok">Up</span></dd>
                 <dt>Version</dt><dd>2.1.1</dd>
-                <dt>Ray actors</dt><dd>9/9 alive</dd>
+                <dt>Ray actors</dt><dd>7/7 alive</dd>
               </dl>
             </div>
             <div class="mini">
-              <div class="mini-head"><h4>Quick actions</h4></div>
-              <div class="tagline">
-                <span>+ Create partition</span>
-                <span>&uarr; Upload documents</span>
-                <span>+ Add endpoint</span>
-                <span>+ Add preset</span>
+              <div class="mini-head"><h4>Quick Actions</h4></div>
+              <div class="qa">
+                <span><b>Create Partition</b>Set up a new document partition</span>
+                <span><b>Upload Documents</b>Add documents to a writable partition</span>
               </div>
+            </div>
+          </div>
+
+          <div class="mini" style="margin-top:14px">
+            <div class="mini-head"><h4>Recent Jobs</h4><span class="spacer"></span><span class="pill">View all</span></div>
+            <div class="table-scroll">
+              <table class="ctable">
+                <thead>
+                  <tr><th>Task</th><th>File</th><th>Partition</th><th>State</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mono">c7c0ab36</td>
+                    <td class="name">annual-report-2026.pdf</td>
+                    <td class="mono">demo</td>
+                    <td><span class="state state-done">COMPLETED</span></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -932,19 +960,20 @@
               <p>Manage document partitions and their configurations</p>
             </div>
             <span class="spacer"></span>
-            <span class="pill">76 partitions</span>
-            <span class="pill pill-red">+ Create partition</span>
+            <span class="view-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search partitions&hellip;</span>
+            <span class="pill">77 partitions</span>
+            <span class="pill pill-red">+ Create Partition</span>
           </div>
           <div class="table-scroll">
             <table class="ctable">
               <thead>
-                <tr><th>Name</th><th>Documents</th><th>Embedder</th><th>Indexation preset</th><th>Retrieval preset</th><th>Created</th></tr>
+                <tr><th>Name</th><th>Description</th><th>Documents</th><th>Embedder</th><th>Indexation Preset</th><th>Retrieval Preset</th><th>Created</th><th>Actions</th></tr>
               </thead>
               <tbody>
-                <tr><td class="name">OpenRAG</td><td class="mono">20</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">default</td><td class="mono">default</td><td class="mono">7/9/2026</td></tr>
-                <tr><td class="name">digital-sovereignty</td><td class="mono">148</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">8000_chunk_size</td><td class="mono">default</td><td class="mono">7/15/2026</td></tr>
-                <tr><td class="name">my-partition</td><td class="mono">62</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">default</td><td class="mono">default</td><td class="mono">7/21/2026</td></tr>
-                <tr><td class="name">project-alpha</td><td class="mono">17</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">docling</td><td class="mono">default</td><td class="mono">7/24/2026</td></tr>
+                                <tr><td class="name">OpenRAG</td><td class="mono">&mdash;</td><td class="mono">20</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">default</td><td class="mono">default</td><td class="mono">7/9/2026</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">digital-sovereignty</td><td class="mono">&mdash;</td><td class="mono">148</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">8000_chunk_size</td><td class="mono">default</td><td class="mono">7/15/2026</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">my-partition</td><td class="mono">&mdash;</td><td class="mono">62</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">default</td><td class="mono">default</td><td class="mono">7/21/2026</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">project-alpha</td><td class="mono">&mdash;</td><td class="mono">17</td><td class="mono">Qwen3-Embedding-0.6B</td><td class="mono">docling</td><td class="mono">default</td><td class="mono">7/24/2026</td><td class="mono">&ctdot;</td></tr>
               </tbody>
             </table>
           </div>
@@ -958,20 +987,23 @@
               <p>Files indexed in a partition</p>
             </div>
             <span class="spacer"></span>
+            <span class="view-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search files&hellip;</span>
             <span class="pill">Partition: OpenRAG</span>
+            <span class="pill">5 file(s)</span>
+            <span class="pill pill-red">&uarr; Upload</span>
             <span class="pill">&darr; Export CSV</span>
           </div>
           <div class="table-scroll">
             <table class="ctable">
               <thead>
-                <tr><th>Filename</th><th>Type</th><th>Parser</th><th>Chunks</th><th>Indexed</th></tr>
+                <tr><th>Filename</th><th>Type</th><th>Indexed</th><th>Actions</th></tr>
               </thead>
               <tbody>
-                <tr><td class="name">OpenRAG.pdf</td><td class="mono">pdf</td><td class="mono">marker</td><td class="mono">184</td><td class="mono">7/9/2026, 2:38:19 PM</td></tr>
-                <tr><td class="name">OpenRAG_Webinar_STEN_LQ.mp4</td><td class="mono">mp4</td><td class="mono">whisper</td><td class="mono">312</td><td class="mono">7/9/2026, 2:38:23 PM</td></tr>
-                <tr><td class="name">OpenRAG_Technical_Presentation.pdf</td><td class="mono">pdf</td><td class="mono">marker</td><td class="mono">96</td><td class="mono">7/9/2026, 2:38:19 PM</td></tr>
-                <tr><td class="name">RAG_architecture.png</td><td class="mono">png</td><td class="mono">vlm caption</td><td class="mono">3</td><td class="mono">7/9/2026, 2:38:18 PM</td></tr>
-                <tr><td class="name">quarterly-report.docx</td><td class="mono">docx</td><td class="mono">docling</td><td class="mono">71</td><td class="mono">7/9/2026, 2:38:21 PM</td></tr>
+                <tr><td class="name">OpenRAG.pdf</td><td class="mono">&mdash;</td><td class="mono">7/9/2026, 2:38:19 PM</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">OpenRAG_Webinar_STEN_LQ.mp4</td><td class="mono">&mdash;</td><td class="mono">7/9/2026, 2:38:23 PM</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">OpenRAG_Technical_Presentation.pdf</td><td class="mono">&mdash;</td><td class="mono">7/9/2026, 2:38:19 PM</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">RAG_architecture.png</td><td class="mono">&mdash;</td><td class="mono">7/9/2026, 2:38:18 PM</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">quarterly-report.docx</td><td class="mono">&mdash;</td><td class="mono">7/9/2026, 2:38:21 PM</td><td class="mono">&ctdot;</td></tr>
               </tbody>
             </table>
           </div>
@@ -985,36 +1017,58 @@
               <p>Monitor indexing tasks</p>
             </div>
             <span class="spacer"></span>
-            <span class="pill">Queued 4 &middot; Running 3/20</span>
+            <span class="view-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search jobs&hellip;</span>
+            <span class="pill">All partitions</span>
+            <span class="pill">6 jobs</span>
             <span class="pill">&darr; Export CSV</span>
           </div>
 
-          <div class="seg">
-            <span class="on">All</span><span>Active</span><span>Completed</span>
-            <span>Failed</span><span>Cancelled</span>
+          <div class="seg" data-seg="jobs">
+            <span class="on" data-val="all">All</span><span data-val="active">Active</span><span data-val="completed">Completed</span>
+            <span data-val="failed">Failed</span><span data-val="cancelled">Cancelled</span>
           </div>
 
           <div class="table-scroll">
             <table class="ctable">
               <thead>
-                <tr><th>Task</th><th>File</th><th>Partition</th><th>Duration</th><th>Progress</th></tr>
+                <tr><th>Task</th><th>State</th><th>File</th><th>Partition</th><th>Created</th><th>Duration</th></tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="mono">389288b7</td><td class="name">OpenRAG_Demo_5mn_STFR.mp4</td><td class="mono">OpenRAG</td><td class="mono">20s</td>
-                  <td><span class="bar" style="--w:100%"><i></i></span></td>
+                <tr data-seg-item="jobs" data-val="completed">
+                  <td class="mono">389288b7</td>
+                  <td><span class="state state-done">COMPLETED</span></td>
+                  <td class="name">annual-report-2026.pdf</td><td class="mono">demo</td>
+                  <td class="mono">8/25/2026, 11:49:32 AM</td><td class="mono">20s</td>
                 </tr>
-                <tr>
-                  <td class="mono">985733b5</td><td class="name">OpenRAG_Technical_Presentation.pdf</td><td class="mono">OpenRAG</td><td class="mono">45s</td>
-                  <td><span class="bar" style="--w:100%"><i></i></span></td>
+                <tr data-seg-item="jobs" data-val="completed">
+                  <td class="mono">985733b5</td>
+                  <td><span class="state state-done">COMPLETED</span></td>
+                  <td class="name">technical-overview.pdf</td><td class="mono">demo</td>
+                  <td class="mono">8/25/2026, 11:31:08 AM</td><td class="mono">45s</td>
                 </tr>
-                <tr>
-                  <td class="mono">d88fa83c</td><td class="name">OpenRAG_Webinar_STEN_LQ.mp4</td><td class="mono">OpenRAG</td><td class="mono">1m 3s</td>
-                  <td><span class="bar" style="--w:72%"><i></i></span></td>
+                <tr data-seg-item="jobs" data-val="active">
+                  <td class="mono">d88fa83c</td>
+                  <td><span class="state state-run">RUNNING</span></td>
+                  <td class="name">quarterly-review.mp4</td><td class="mono">demo</td>
+                  <td class="mono">8/25/2026, 11:28:44 AM</td><td class="mono">1m 3s</td>
                 </tr>
-                <tr>
-                  <td class="mono">f1ec1b90</td><td class="name">eu-regulation.pdf</td><td class="mono">digital-sovereignty</td><td class="mono">10s</td>
-                  <td><span class="bar" style="--w:34%"><i></i></span></td>
+                <tr data-seg-item="jobs" data-val="active">
+                  <td class="mono">f1ec1b90</td>
+                  <td><span class="state state-run">RUNNING</span></td>
+                  <td class="name">eu-regulation.pdf</td><td class="mono">digital-sovereignty</td>
+                  <td class="mono">8/25/2026, 11:27:02 AM</td><td class="mono">10s</td>
+                </tr>
+                <tr data-seg-item="jobs" data-val="failed">
+                  <td class="mono">7c3ab920</td>
+                  <td><span class="state state-fail">FAILED</span></td>
+                  <td class="name">scan-1998-annexe.tiff</td><td class="mono">archives</td>
+                  <td class="mono">8/24/2026, 4:12:55 PM</td><td class="mono">4s</td>
+                </tr>
+                <tr data-seg-item="jobs" data-val="cancelled">
+                  <td class="mono">b0417ee5</td>
+                  <td><span class="state state-idle">CANCELLED</span></td>
+                  <td class="name">deliberations-2024.zip</td><td class="mono">archives</td>
+                  <td class="mono">8/24/2026, 3:58:10 PM</td><td class="mono">1m 12s</td>
                 </tr>
               </tbody>
             </table>
@@ -1025,40 +1079,97 @@
         <div class="console-view" id="v-models" role="tabpanel" aria-labelledby="t-models" hidden>
           <div class="view-head">
             <div>
-              <h3>Model endpoints</h3>
+              <h3>Model Endpoints</h3>
               <p>Manage embedder, reranker, LLM, and VLM endpoints</p>
             </div>
             <span class="spacer"></span>
-            <span class="pill pill-red">+ Add endpoint</span>
+            <span class="pill pill-red">+ Add Endpoint</span>
           </div>
 
-          <div class="seg">
-            <span class="on">Embedder</span><span>Reranker</span><span>Llm</span><span>Vlm</span>
+          <div class="seg" data-seg="models">
+            <span class="on" data-val="embedder">Embedder</span><span data-val="reranker">Reranker</span><span data-val="llm">Llm</span><span data-val="vlm">Vlm</span>
           </div>
 
           <div class="mini-grid">
-            <div class="mini">
-              <div class="mini-head"><h4>Qwen3-Embedding-0.6B</h4><span class="pill">Default</span></div>
+            <div class="mini" data-seg-item="models" data-val="embedder">
+              <div class="mini-head"><h4>Qwen3-Embedding-0.6B</h4><span class="spacer"></span><span class="pill pill-ok">Default</span></div>
+              <p class="mono-sub">Qwen3-Embedding-0.6B</p>
               <dl>
-                <dt>Batch size</dt><dd>32</dd>
+                <dt>Endpoint</dt><dd>http://vllm:8000/v1</dd>
+                <dt>Batch Size</dt><dd>32</dd>
                 <dt>Timeout</dt><dd>120s</dd>
-                <dt>Served by</dt><dd>Infinity</dd>
               </dl>
+              <p class="mini-foot">Updated 7/9/2026</p>
             </div>
-            <div class="mini">
-              <div class="mini-head"><h4>gte-multilingual-reranker-base</h4><span class="pill">Reranker</span></div>
+            <div class="mini" data-seg-item="models" data-val="reranker">
+              <div class="mini-head"><h4>gte-multilingual-reranker-base</h4><span class="spacer"></span></div>
+              <p class="mono-sub">gte-multilingual-reranker-base</p>
               <dl>
-                <dt>Vendor</dt><dd>Alibaba-NLP</dd>
-                <dt>Timeout</dt><dd>120s</dd>
-                <dt>Served by</dt><dd>Infinity</dd>
+                <dt>Endpoint</dt><dd>http://reranker:7997</dd>
+                <dt>Batch Size</dt><dd>32</dd>
+                <dt>Timeout</dt><dd>60s</dd>
               </dl>
+              <p class="mini-foot">Updated 7/30/2026</p>
             </div>
-            <div class="mini">
-              <div class="mini-head"><h4>Qwen3-VL-8B-Instruct-FP8</h4><span class="pill">Vlm</span></div>
+            <div class="mini" data-seg-item="models" data-val="reranker">
+              <div class="mini-head"><h4>local_reranker</h4><span class="spacer"></span><span class="pill pill-ok">Default</span></div>
+              <p class="mono-sub">Alibaba-NLP/gte-multilingual-reranker-base</p>
               <dl>
-                <dt>Role</dt><dd>image captioning</dd>
-                <dt>Served by</dt><dd>vLLM</dd>
+                <dt>Endpoint</dt><dd>http://reranker:7997</dd>
+                <dt>Batch Size</dt><dd>32</dd>
+                <dt>Timeout</dt><dd>30s</dd>
               </dl>
+              <p class="mini-foot">Updated 7/30/2026</p>
+            </div>
+            <div class="mini" data-seg-item="models" data-val="llm">
+              <div class="mini-head"><h4>gpt-oss</h4><span class="spacer"></span></div>
+              <p class="mono-sub">gpt-oss-120b</p>
+              <dl>
+                <dt>Endpoint</dt><dd>http://vllm:8000/v1</dd>
+                <dt>Batch Size</dt><dd>32</dd>
+                <dt>Timeout</dt><dd>30s</dd>
+              </dl>
+              <p class="mini-foot">Updated 7/28/2026</p>
+            </div>
+            <div class="mini" data-seg-item="models" data-val="llm">
+              <div class="mini-head"><h4>Luciole-23</h4><span class="spacer"></span></div>
+              <p class="mono-sub">Luciole-23B-Instruct-1.1-FP8</p>
+              <dl>
+                <dt>Endpoint</dt><dd>http://vllm:8000/v1</dd>
+                <dt>Batch Size</dt><dd>32</dd>
+                <dt>Timeout</dt><dd>30s</dd>
+              </dl>
+              <p class="mini-foot">Updated 7/28/2026</p>
+            </div>
+            <div class="mini" data-seg-item="models" data-val="llm">
+              <div class="mini-head"><h4>Mistral-Small-3.2-24B</h4><span class="spacer"></span><span class="pill pill-ok">Default</span></div>
+              <p class="mono-sub">Mistral-Small-3.2-24B-Instruct-2506-FP8</p>
+              <dl>
+                <dt>Endpoint</dt><dd>http://vllm:8000/v1</dd>
+                <dt>Batch Size</dt><dd>32</dd>
+                <dt>Timeout</dt><dd>60s</dd>
+              </dl>
+              <p class="mini-foot">Updated 7/28/2026</p>
+            </div>
+            <div class="mini" data-seg-item="models" data-val="vlm">
+              <div class="mini-head"><h4>nemotron-3-nano-omni-30b-a3b-reasoning:free</h4><span class="spacer"></span></div>
+              <p class="mono-sub">nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free</p>
+              <dl>
+                <dt>Endpoint</dt><dd>https://openrouter.ai/api/v1</dd>
+                <dt>Batch Size</dt><dd>32</dd>
+                <dt>Timeout</dt><dd>30s</dd>
+              </dl>
+              <p class="mini-foot">Updated 7/30/2026</p>
+            </div>
+            <div class="mini" data-seg-item="models" data-val="vlm">
+              <div class="mini-head"><h4>Qwen3-VL-8B-Instruct-FP8</h4><span class="spacer"></span><span class="pill pill-ok">Default</span></div>
+              <p class="mono-sub">Qwen3-VL-8B-Instruct-FP8</p>
+              <dl>
+                <dt>Endpoint</dt><dd>http://vllm:8000/v1</dd>
+                <dt>Batch Size</dt><dd>32</dd>
+                <dt>Timeout</dt><dd>60s</dd>
+              </dl>
+              <p class="mini-foot">Updated 7/24/2026</p>
             </div>
           </div>
         </div>
@@ -1071,66 +1182,148 @@
               <p>Pipeline configuration presets for indexation and retrieval</p>
             </div>
             <span class="spacer"></span>
-            <span class="pill pill-red">+ Add preset</span>
+            <span class="pill pill-red">+ Add Preset</span>
           </div>
 
-          <div class="seg"><span class="on">Indexation</span><span>Retrieval</span></div>
+          <div class="seg" data-seg="presets"><span class="on" data-val="indexation">Indexation</span><span data-val="retrieval">Retrieval</span></div>
 
           <div class="mini-grid">
-            <div class="mini">
-              <div class="mini-head"><h4>default</h4><span class="pill">used by 75 partitions</span></div>
-              <div class="tagline">
-                <span>vlm: Qwen3-VL-8B-Instruct-FP8</span>
-                <span>chunking: recursive_splitter</span>
-                <span>parsing_strategy: marker</span>
-                <span>enable_topic_tagging</span>
-              </div>
+            <div class="mini" data-seg-item="presets" data-val="indexation">
+              <div class="mini-head"><h4>default</h4><span class="spacer"></span><span class="pill pill-use">used by 76 partitions</span></div>
+              <div class="tagline"><span>vlm: Qwen3-VL-8B-Instruct-FP8</span><span>chunking: recursive_splitter</span><span>parsing_strategy: marker</span><span>topic_tagging_llm: Mistral-Small-3.2-24B-Instruct-2506-FP8</span><span>enable_topic_tagging</span><span>+4 more</span></div>
             </div>
-            <div class="mini">
-              <div class="mini-head"><h4>8000_chunk_size</h4><span class="pill">used by 1 partition</span></div>
-              <div class="tagline">
-                <span>chunking: recursive_splitter</span>
-                <span>parsing_strategy: marker</span>
-                <span>contextualization_llm: Luciole-23</span>
-                <span>enable_contextualization</span>
-              </div>
+            <div class="mini" data-seg-item="presets" data-val="indexation">
+              <div class="mini-head"><h4>8000_chunk_size</h4><span class="spacer"></span><span class="pill pill-use">used by 1 partition</span></div>
+              <div class="tagline"><span>vlm: Qwen3-VL-8B-Instruct-FP8</span><span>chunking: recursive_splitter</span><span>parsing_strategy: marker</span><span>contextualization_llm: Luciole-23</span><span>enable_contextualization</span></div>
             </div>
-            <div class="mini">
-              <div class="mini-head"><h4>docling</h4><span class="pill">unused</span></div>
-              <div class="tagline">
-                <span>vlm: Qwen3-VL-8B-Instruct-FP8</span>
-                <span>chunking: recursive_splitter</span>
-                <span>parsing_strategy: docling</span>
-              </div>
+            <div class="mini" data-seg-item="presets" data-val="indexation">
+              <div class="mini-head"><h4>docling</h4><span class="spacer"></span><span class="pill">unused</span></div>
+              <div class="tagline"><span>vlm: Qwen3-VL-8B-Instruct-FP8</span><span>chunking: recursive_splitter</span><span>parsing_strategy: docling</span><span>topic_tagging_llm: Mistral-Small-3.2-24B-Instruct-2506-FP8</span><span>+1 more</span></div>
+            </div>
+            <div class="mini" data-seg-item="presets" data-val="retrieval">
+              <div class="mini-head"><h4>default</h4><span class="spacer"></span><span class="pill pill-use">used by 76 partitions</span></div>
+              <div class="tagline"><span>type: single</span><span>top_k: 60</span><span>top_n: 15</span><span>enable_reranker</span><span>similarity_threshold: 0.6</span></div>
+            </div>
+            <div class="mini" data-seg-item="presets" data-val="retrieval">
+              <div class="mini-head"><h4>hyde</h4><span class="spacer"></span><span class="pill">unused</span></div>
+              <div class="tagline"><span>type: hyde</span><span>top_k: 50</span><span>top_n: 10</span><span>enable_reranker</span></div>
+            </div>
+            <div class="mini" data-seg-item="presets" data-val="retrieval">
+              <div class="mini-head"><h4>multiquery</h4><span class="spacer"></span><span class="pill pill-use">used by 1 partition</span></div>
+              <div class="tagline"><span>type: multiQuery</span><span>top_k: 50</span><span>top_n: 10</span><span>enable_reranker</span></div>
             </div>
           </div>
+        </div>
+
+        <!-- ---- Prompts ---- -->
+        <div class="console-view" id="v-prompts" role="tabpanel" aria-labelledby="t-prompts" hidden>
+          <div class="view-head">
+            <div>
+              <h3>Prompt Library</h3>
+              <p>Author the prompts your presets and partitions select. Edits take effect on the
+                next request &mdash; no redeploy.</p>
+            </div>
+            <span class="spacer"></span>
+            <span class="pill pill-red">+ New Prompt</span>
+          </div>
+
+          <div class="seg" data-seg="prompts">
+            <span class="on" data-val="all">All types</span><span data-val="final">Final Answer</span><span data-val="indexation">Indexation</span><span data-val="retrieval">Retrieval</span>
+          </div>
+          <p class="prompt-count">7 prompts &middot; 0 custom</p>
+
+            <div data-seg-item="prompts" data-val="final">
+              <p class="group-label">FINAL ANSWER</p>
+              <p class="group-desc">The final-answer prompt &mdash; selected per partition</p>
+              <div class="mini-grid">
+              <div class="mini">
+                <div class="mini-head"><p class="mono-sub">sys_prompt</p><span class="spacer"></span><span class="pill pill-use">77 partitions</span></div>
+                <div class="mini-head"><h4>default_sys_prompt</h4><span class="pill pill-ok">Default</span></div>
+                <p class="prompt-body">You are **OpenRAG**, a retrieval-augmented generation system built by **LINAGORA**. Your goal is to provide **precise, reliable, and well-structured…</p>
+                <p class="mini-foot">Updated 8/24/2026</p>
+              </div>
+              </div>
+            </div>
+
+            <div data-seg-item="prompts" data-val="indexation">
+              <p class="group-label">INDEXATION</p>
+              <p class="group-desc">Document-enrichment prompts &mdash; selected on the indexation preset</p>
+              <div class="mini-grid">
+              <div class="mini">
+                <div class="mini-head"><p class="mono-sub">chunk_contextualizer</p><span class="spacer"></span><span class="pill pill-use">77 partitions</span></div>
+                <div class="mini-head"><h4>default_chunk_contextualizer</h4><span class="pill pill-ok">Default</span></div>
+                <p class="prompt-body">You are an AI assistant and your task is to write a short, contextual summary (1-2 sentences) for the current chunk using the following elements. - Filename: D</p>
+                <p class="mini-foot">Updated 8/24/2026</p>
+              </div>
+              <div class="mini">
+                <div class="mini-head"><p class="mono-sub">image_captioning</p><span class="spacer"></span><span class="pill pill-use">77 partitions</span></div>
+                <div class="mini-head"><h4>default_image_captioning</h4><span class="pill pill-ok">Default</span></div>
+                <p class="prompt-body">You are an expert in image description. ## Rules - Use the language shown in the image. - Do not describe colors, shapes, or styles unless they are part of the</p>
+                <p class="mini-foot">Updated 8/24/2026</p>
+              </div>
+              <div class="mini">
+                <div class="mini-head"><p class="mono-sub">topic_tagger</p><span class="spacer"></span><span class="pill pill-use">77 partitions</span></div>
+                <div class="mini-head"><h4>default_topic_tagger</h4><span class="pill pill-ok">Default</span></div>
+                <p class="prompt-body">You extract concise topic labels from document chunks for search and filtering. Guidelines: - Return only a JSON array of strings. - Use the same language as t</p>
+                <p class="mini-foot">Updated 8/24/2026</p>
+              </div>
+              </div>
+            </div>
+
+            <div data-seg-item="prompts" data-val="retrieval">
+              <p class="group-label">RETRIEVAL</p>
+              <p class="group-desc">Query-transformation prompts &mdash; selected on the retrieval preset</p>
+              <div class="mini-grid">
+              <div class="mini">
+                <div class="mini-head"><p class="mono-sub">hyde</p><span class="spacer"></span><span class="pill pill-use">77 partitions</span></div>
+                <div class="mini-head"><h4>default_hyde</h4><span class="pill pill-ok">Default</span></div>
+                <p class="prompt-body">Answer the user&#x27;s question by writing a clear, concise and informative paragraph. Question: {question}</p>
+                <p class="mini-foot">Updated 8/24/2026</p>
+              </div>
+              <div class="mini">
+                <div class="mini-head"><p class="mono-sub">multi_query</p><span class="spacer"></span><span class="pill pill-use">77 partitions</span></div>
+                <div class="mini-head"><h4>default_multi_query</h4><span class="pill pill-ok">Default</span></div>
+                <p class="prompt-body">Generate {k_queries} different versions of the given question. These variants will help find relevant documents in a vector database. Write these alternative qu</p>
+                <p class="mini-foot">Updated 8/24/2026</p>
+              </div>
+              <div class="mini">
+                <div class="mini-head"><p class="mono-sub">query_contextualizer</p><span class="spacer"></span><span class="pill pill-use">77 partitions</span></div>
+                <div class="mini-head"><h4>default_query_contextualizer</h4><span class="pill pill-ok">Default</span></div>
+                <p class="prompt-body">Produce a JSON object listing sub-queries derived from the user&#x27;s last message. Output shape (return this JSON object, nothing else): {{&quot;requires_retrieval&quot;: &lt;</p>
+                <p class="mini-foot">Updated 8/24/2026</p>
+              </div>
+              </div>
+            </div>
+
         </div>
 
         <!-- ---- Users ---- -->
         <div class="console-view" id="v-users" role="tabpanel" aria-labelledby="t-users" hidden>
           <div class="view-head">
             <div>
-              <h3>Users &amp; roles</h3>
-              <p>Owner, editor and viewer roles are enforced per partition, all the way down to the data itself.</p>
+              <h3>Users</h3>
+              <p>Create SSO users (linked to an IdP identity) or token-only users
+                (programmatic/service accounts), then manage admin rights, quota and partition roles.</p>
             </div>
             <span class="spacer"></span>
-            <span class="pill">Token or OIDC</span>
+            <span class="pill">48 users</span>
+            <span class="pill pill-red">+ New user</span>
           </div>
           <div class="table-scroll">
             <table class="ctable">
               <thead>
-                <tr><th>User</th><th>Auth</th><th>Token</th><th>Partition role</th></tr>
+                <tr><th>Name</th><th>External ID (sub)</th><th>Email</th><th>Admin</th><th>Usage</th><th>Actions</th></tr>
               </thead>
               <tbody>
-                <tr><td class="name">Admin</td><td class="mono">token</td><td class="mono">or-&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</td><td><span class="pill pill-red">admin</span></td></tr>
-                <tr><td class="name">Knowledge team</td><td class="mono">oidc</td><td class="mono">&mdash;</td><td><span class="pill">owner</span></td></tr>
-                <tr><td class="name">Analysts</td><td class="mono">oidc</td><td class="mono">&mdash;</td><td><span class="pill">editor</span></td></tr>
-                <tr><td class="name">Read-only audit</td><td class="mono">token</td><td class="mono">or-&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</td><td><span class="pill">viewer</span></td></tr>
+                <tr><td class="name">Knowledge team</td><td class="mono">8f2c1a94&hellip;</td><td class="mono">knowledge@&bull;&bull;&bull;&bull;&bull;</td><td><span class="pill pill-red">Admin</span></td><td class="mono">1.2k</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">Analysts</td><td class="mono">3b71de08&hellip;</td><td class="mono">analysts@&bull;&bull;&bull;&bull;&bull;</td><td class="mono">&mdash;</td><td class="mono">840</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">indexer-service</td><td class="mono">&mdash;</td><td class="mono">&mdash;</td><td class="mono">&mdash;</td><td class="mono">17.4k</td><td class="mono">&ctdot;</td></tr>
+                <tr><td class="name">Read-only audit</td><td class="mono">c05a7712&hellip;</td><td class="mono">audit@&bull;&bull;&bull;&bull;&bull;</td><td class="mono">&mdash;</td><td class="mono">96</td><td class="mono">&ctdot;</td></tr>
               </tbody>
             </table>
             <p style="margin-top:16px;font-size:.88rem;color:var(--gray-500)">
-              Only a SHA-256 hash of each token is stored. The raw token is returned once, at
-              creation, and never persisted.
+              API tokens are stored only as a SHA-256 hash. The raw token is shown once at
+              creation and never written to the database.
             </p>
           </div>
         </div>
@@ -1144,26 +1337,106 @@
             </div>
           </div>
 
-          <div class="seg">
-            <span class="on">Status</span><span>Actors</span><span>Metrics</span><span>Config</span>
+          <div class="seg" data-seg="system">
+            <span class="on" data-val="status">Status</span><span data-val="actors">Actors</span><span data-val="metrics">Metrics</span><span data-val="config">Config</span>
           </div>
 
-          <div class="mini-grid">
+          <div class="mini-grid" data-seg-item="system" data-val="status">
             <div class="mini">
-              <div class="mini-head"><h4>API status</h4><span class="pill pill-red">Up</span></div>
+              <div class="mini-head"><h4>API Status</h4><span class="spacer"></span><span class="pill">Refresh</span></div>
               <dl>
+                <dt>API</dt><dd><span class="pill pill-red">Up</span></dd>
                 <dt>Version</dt><dd>2.1.1</dd>
-                <dt>Ray actors</dt><dd>9/9 alive</dd>
-                <dt>Workers</dt><dd>1 &times; 20</dd>
               </dl>
             </div>
+          </div>
+
+          <div data-seg-item="system" data-val="actors" hidden>
             <div class="mini">
-              <div class="mini-head"><h4>Ray actors</h4></div>
-              <div class="tagline">
-                <span>Indexer</span><span>TaskStateManager</span><span>MarkerPool</span>
-                <span>Vectordb</span><span>SerializerQueue</span><span>vlmSemaphore</span>
-                <span>llmSemaphore</span>
+              <div class="mini-head"><h4>Ray Actors</h4><span class="spacer"></span><span class="pill">7/7 alive</span></div>
+              <ul class="actors">
+                <li><b>TaskCompletionTracker</b><span>TaskCompletionTracker &middot; alive</span></li>
+                <li><b>vlmSemaphore</b><span>DistributedSemaphoreActor &middot; alive</span></li>
+                <li><b>audioSemaphore</b><span>DistributedSemaphoreActor &middot; alive</span></li>
+                <li><b>IndexerPoolDispatcher-v2</b><span>IndexerPool &middot; alive</span></li>
+                <li><b>TaskStateManager</b><span>TaskStateManager &middot; alive</span></li>
+                <li><b>llmSemaphore</b><span>DistributedSemaphoreActor &middot; alive</span></li>
+                <li><b>IndexerWorker-v2-0</b><span>IndexerWorkerActor &middot; alive</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div data-seg-item="system" data-val="metrics" hidden>
+            <div class="mini">
+              <div class="mini-head"><h4>Prometheus Metrics</h4></div>
+              <div class="table-scroll metrics-scroll">
+                <table class="ctable">
+                  <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+                  <tbody>
+                  <tr><td class="mono">python_gc_objects_collected_total{generation=&quot;0&quot;}</td><td class="mono">156785.0</td></tr>
+                  <tr><td class="mono">python_gc_collections_total{generation=&quot;0&quot;}</td><td class="mono">1794.0</td></tr>
+                  <tr><td class="mono">process_virtual_memory_bytes</td><td class="mono">1.9538161664e+010</td></tr>
+                  <tr><td class="mono">process_resident_memory_bytes</td><td class="mono">5.8769408e+08</td></tr>
+                  <tr><td class="mono">process_cpu_seconds_total</td><td class="mono">1449.71</td></tr>
+                  <tr><td class="mono">process_open_fds</td><td class="mono">67.0</td></tr>
+                  <tr><td class="mono">openrag_http_requests_total{endpoint=&quot;/users/info&quot;,method=&quot;GET&quot;,status_code=&quot;200&quot;}</td><td class="mono">22.0</td></tr>
+                  <tr><td class="mono">openrag_http_requests_total{endpoint=&quot;/config&quot;,method=&quot;GET&quot;,status_code=&quot;200&quot;}</td><td class="mono">34.0</td></tr>
+                  </tbody>
+                </table>
               </div>
+            </div>
+          </div>
+
+          <div data-seg-item="system" data-val="config" hidden>
+            <div class="mini">
+              <div class="mini-head"><h4>System Configuration</h4></div>
+              <pre class="sys-config">{
+  &quot;llm&quot;: {
+    &quot;temperature&quot;: 0.1,
+    &quot;timeout&quot;: 60,
+    &quot;max_retries&quot;: 2,
+    &quot;model&quot;: &quot;Mistral-Small-3.2-24B-Instruct-2506-FP8&quot;,
+    &quot;api_key&quot;: &quot;&lt;redacted&gt;&quot;
+  },
+  &quot;vlm&quot;: {
+    &quot;temperature&quot;: 0.1,
+    &quot;timeout&quot;: 60,
+    &quot;model&quot;: &quot;Qwen3-VL-8B-Instruct-FP8&quot;,
+    &quot;api_key&quot;: &quot;&lt;redacted&gt;&quot;
+  },
+  &quot;semaphore&quot;: { &quot;llm_semaphore&quot;: 10, &quot;vlm_semaphore&quot;: 40 },
+  &quot;embedder&quot;: {
+    &quot;provider&quot;: &quot;openai&quot;,
+    &quot;model_name&quot;: &quot;Qwen3-Embedding-0.6B&quot;,
+    &quot;max_model_len&quot;: 2047,
+    &quot;timeout&quot;: 120,
+    &quot;batch_size&quot;: 32,
+    &quot;embed_concurrency&quot;: 4
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="console-view" id="v-settings" role="tabpanel" aria-labelledby="t-settings" hidden>
+          <div class="view-head">
+            <div>
+              <h3>Account Settings</h3>
+              <p>Manage your API access and authentication.</p>
+            </div>
+          </div>
+
+          <div class="settings-cards">
+            <div class="mini">
+              <div class="mini-head"><h4>Sign-in</h4></div>
+              <p>Authentication is managed through your organization&rsquo;s SSO. OpenRAG does not
+                manage passwords.</p>
+            </div>
+            <div class="mini">
+              <div class="mini-head"><h4>API Token</h4></div>
+              <p>Use this token to authenticate API requests from the CLI, scripts, or other tools.
+                Regenerating it immediately revokes the previous token.</p>
+              <div class="tagline"><span>Regenerate token</span></div>
             </div>
           </div>
         </div>
@@ -1205,8 +1478,8 @@
       <div class="arch-row reveal reveal-d1">
         <p class="arch-label">Entry points</p>
         <div class="chips">
-          <a class="chip" href="https://fastapi.tiangolo.com/" rel="noopener">FastAPI &mdash; /docs</a>
-          <a class="chip" href="https://chainlit.io/" rel="noopener">Chainlit chat &mdash; /chainlit</a>
+          <a class="chip" href="https://fastapi.tiangolo.com/" rel="nofollow noopener" target="_blank">FastAPI &mdash; /docs</a>
+          <a class="chip" href="https://chainlit.io/" rel="nofollow noopener" target="_blank">Chainlit chat &mdash; /chainlit</a>
           <span class="chip">Admin console &mdash; /app/</span>
           <span class="chip">OpenAI-compatible API &mdash; /v1</span>
         </div>
@@ -1214,34 +1487,34 @@
 
       <div class="arch-row reveal reveal-d1">
         <p class="arch-label">Indexing pipeline &mdash; scheduled on
-          <a href="https://www.ray.io/" rel="noopener">Ray</a></p>
+          <a href="https://www.ray.io/" rel="nofollow noopener" target="_blank">Ray</a></p>
         <div class="chips">
-          <a class="chip" href="https://github.com/datalab-to/marker" rel="noopener">Marker &mdash; layout analysis</a>
-          <a class="chip" href="https://github.com/docling-project/docling" rel="noopener">Docling</a>
-          <a class="chip" href="https://pymupdf.readthedocs.io/" rel="noopener">PyMuPDF</a>
-          <a class="chip" href="https://en.wikipedia.org/wiki/Optical_character_recognition" rel="noopener">OCR / VLM</a>
-          <a class="chip" href="https://github.com/openai/whisper" rel="noopener">Speech-to-text</a>
+          <a class="chip" href="https://github.com/datalab-to/marker" rel="nofollow noopener" target="_blank">Marker &mdash; layout analysis</a>
+          <a class="chip" href="https://github.com/docling-project/docling" rel="nofollow noopener" target="_blank">Docling</a>
+          <a class="chip" href="https://pymupdf.readthedocs.io/" rel="nofollow noopener" target="_blank">PyMuPDF</a>
+          <a class="chip" href="https://en.wikipedia.org/wiki/Optical_character_recognition" rel="nofollow noopener" target="_blank">OCR / VLM</a>
+          <a class="chip" href="https://github.com/openai/whisper" rel="nofollow noopener" target="_blank">Speech-to-text</a>
           <span class="chip is-key">Enriched Markdown</span>
           <span class="chip">Chunking</span>
-          <a class="chip" href="https://en.wikipedia.org/wiki/Word_embedding" rel="noopener">Embedding</a>
+          <a class="chip" href="https://en.wikipedia.org/wiki/Word_embedding" rel="nofollow noopener" target="_blank">Embedding</a>
         </div>
       </div>
 
       <div class="arch-row is-red reveal reveal-d2">
         <p class="arch-label">Inference servers</p>
         <div class="chips">
-          <a class="chip" href="https://docs.vllm.ai/" rel="noopener">LLM &mdash; vLLM</a>
-          <a class="chip" href="https://docs.vllm.ai/" rel="noopener">VLM &mdash; vLLM</a>
-          <a class="chip" href="https://docs.vllm.ai/" rel="noopener">Embedder &mdash; vLLM</a>
-          <a class="chip" href="https://github.com/michaelfeil/infinity" rel="noopener">Reranker &mdash; Infinity</a>
+          <a class="chip" href="https://docs.vllm.ai/" rel="nofollow noopener" target="_blank">LLM &mdash; vLLM</a>
+          <a class="chip" href="https://docs.vllm.ai/" rel="nofollow noopener" target="_blank">VLM &mdash; vLLM</a>
+          <a class="chip" href="https://docs.vllm.ai/" rel="nofollow noopener" target="_blank">Embedder &mdash; vLLM</a>
+          <a class="chip" href="https://github.com/michaelfeil/infinity" rel="nofollow noopener" target="_blank">Reranker &mdash; Infinity</a>
         </div>
       </div>
 
       <div class="arch-row is-red reveal reveal-d2">
         <p class="arch-label">Storage</p>
         <div class="chips">
-          <a class="chip is-key" href="https://milvus.io/" rel="noopener">Milvus &mdash; vectors</a>
-          <a class="chip is-key" href="https://www.postgresql.org/" rel="noopener">PostgreSQL &mdash; metadata, tasks, users</a>
+          <a class="chip is-key" href="https://milvus.io/" rel="nofollow noopener" target="_blank">Milvus &mdash; vectors</a>
+          <a class="chip is-key" href="https://www.postgresql.org/" rel="nofollow noopener" target="_blank">PostgreSQL &mdash; metadata, tasks, users</a>
         </div>
       </div>
     </div>
@@ -1251,9 +1524,9 @@
         <h3 style="margin-bottom:16px">Retrieval that earns its answers</h3>
         <ul class="ticks">
           <li><b>Hybrid search</b> &mdash; semantic similarity combined with
-            <a href="https://en.wikipedia.org/wiki/Okapi_BM25" rel="noopener">BM25</a> keyword matching.</li>
+            <a href="https://en.wikipedia.org/wiki/Okapi_BM25" rel="nofollow noopener" target="_blank">BM25</a> keyword matching.</li>
           <li><b>Contextual retrieval</b> &mdash; each chunk is enriched with a generated context
-            sentence before <a href="https://en.wikipedia.org/wiki/Word_embedding" rel="noopener">embedding</a>.</li>
+            sentence before <a href="https://en.wikipedia.org/wiki/Word_embedding" rel="nofollow noopener" target="_blank">embedding</a>.</li>
           <li><b>Smart query handling</b> &mdash; vague questions are automatically reformulated to find better matches.</li>
           <li><b>Multilingual reranking</b> &mdash; a dedicated model re-ranks results so the most
             relevant passages come first, in any supported language.</li>
@@ -1264,15 +1537,35 @@
         <h3 style="margin-bottom:16px">Scale without rewriting</h3>
         <ul class="ticks">
           <li><b>Horizontal scaling</b> &mdash; distribute processing across
-            <a href="https://www.ray.io/" rel="noopener">Ray</a> worker nodes.</li>
+            <a href="https://www.ray.io/" rel="nofollow noopener" target="_blank">Ray</a> worker nodes.</li>
           <li><b>GPU acceleration</b> &mdash; optimise inference across available hardware.</li>
           <li><b>Resource management</b> &mdash; intelligent allocation of compute across the cluster.</li>
           <li><b>Monitoring</b> &mdash; built-in metrics, with ready-made dashboards.</li>
-          <li><b><a href="https://kubernetes.io/" rel="noopener">Kubernetes</a>, OpenShift included</b>
-            &mdash; the <a href="https://helm.sh/" rel="noopener">Helm</a> chart runs under
+          <li><b><a href="https://kubernetes.io/" rel="nofollow noopener" target="_blank">Kubernetes</a>, OpenShift included</b>
+            &mdash; the <a href="https://helm.sh/" rel="nofollow noopener" target="_blank">Helm</a> chart runs under
             OpenShift's restricted security policies without modification. Published at
             <span class="mono">oci://ghcr.io/linagora/openrag-stack</span>.</li>
         </ul>
+      </div>
+    </div>
+
+    <div class="reveal reveal-d2" style="margin-top:clamp(38px,5vw,58px)">
+      <p class="strip-label">Built on</p>
+      <div class="logo-strip">
+        <a href="https://www.ray.io/" rel="nofollow noopener" target="_blank" aria-label="Ray"><img src="images/logos/ray.svg" alt="Ray" loading="lazy"></a>
+        <a href="https://milvus.io/" rel="nofollow noopener" target="_blank" aria-label="Milvus"><img src="images/logos/milvus-logo.svg" alt="Milvus" loading="lazy"></a>
+        <a href="https://docs.vllm.ai/" rel="nofollow noopener" target="_blank" aria-label="vLLM"><img src="images/logos/vLLM-Full-Logo.svg" alt="vLLM" loading="lazy"></a>
+        <a href="https://chainlit.io/" rel="nofollow noopener" target="_blank" aria-label="Chainlit"><img src="images/logos/chainlit.svg" alt="Chainlit" loading="lazy"></a>
+        <a href="https://huggingface.co/" rel="nofollow noopener" target="_blank" aria-label="Hugging Face"><img src="images/logos/hf-logo-with-title.svg" alt="Hugging Face" loading="lazy"></a>
+        <a href="https://www.docker.com/" rel="nofollow noopener" target="_blank" aria-label="Docker"><img src="images/logos/docker-logo-ocean-blue.svg" alt="Docker" loading="lazy"></a>
+        <a href="https://kubernetes.io/" rel="nofollow noopener" target="_blank" aria-label="Kubernetes"><img src="images/logos/k8s.svg" alt="Kubernetes" loading="lazy"></a>
+      </div>
+
+      <p class="strip-label" style="margin-top:34px">Works with</p>
+      <div class="logo-strip">
+        <a href="https://openwebui.com/" rel="nofollow noopener" target="_blank" aria-label="Open WebUI"><img src="images/logos/openwebui.svg" alt="Open WebUI" loading="lazy"></a>
+        <a href="https://www.langchain.com/" rel="nofollow noopener" target="_blank" aria-label="LangChain"><img src="images/logos/LangChain.svg" alt="LangChain" loading="lazy"></a>
+        <a href="https://n8n.io/" rel="nofollow noopener" target="_blank" aria-label="n8n"><img src="images/logos/n8n-logo-dark.svg" alt="n8n" loading="lazy"></a>
       </div>
     </div>
   </div>
@@ -1293,19 +1586,20 @@
     <div class="split">
       <div class="reveal">
         <ul class="ticks">
-          <li><b><a href="https://en.wikipedia.org/wiki/Multitenancy" rel="noopener">Partition isolation</a></b>
+          <li><b><a href="https://en.wikipedia.org/wiki/Multitenancy" rel="nofollow noopener" target="_blank">Partition isolation</a></b>
             &mdash; each partition behaves as its own knowledge base. Documents in one are
             unreachable from another.</li>
           <li><b>Workspaces</b> &mdash; named subsets of files inside a partition, so search can be scoped further without restructuring anything.</li>
           <li><b>Role-based access</b> &mdash; owner, editor and viewer roles per partition, enforced on every request,
             all the way down to the database query.</li>
-          <li><b>Hashed credentials</b> &mdash; only a
-            <a href="https://en.wikipedia.org/wiki/SHA-2" rel="noopener">SHA-256</a> hash of each
-            API token is stored; the raw token is never persisted.</li>
-          <li><b>Token or OIDC</b> &mdash; bearer tokens for programmatic access,
-            <a href="https://en.wikipedia.org/wiki/OpenID_Connect" rel="noopener">OpenID Connect</a>
-            with <a href="https://www.keycloak.org/" rel="noopener">Keycloak</a> or
-            <a href="https://lemonldap-ng.org/" rel="noopener">LemonLDAP::NG</a> for people.</li>
+          <li><b>Hashed credentials</b> &mdash; API tokens are stored only as a
+            <a href="https://en.wikipedia.org/wiki/SHA-2" rel="nofollow noopener" target="_blank">SHA-256</a>
+            hash; the raw token is shown once at creation and never written to the database.</li>
+          <li><b>Token or single sign-on</b> &mdash; bearer tokens for programmatic access, and any
+            standards-compliant <a href="https://en.wikipedia.org/wiki/OpenID_Connect" rel="nofollow noopener" target="_blank">OpenID Connect</a>
+            provider for people: <a href="https://www.keycloak.org/" rel="nofollow noopener" target="_blank">Keycloak</a>,
+            <a href="https://lemonldap-ng.org/" rel="nofollow noopener" target="_blank">LemonLDAP::NG</a>,
+            Entra ID, Okta and others.</li>
         </ul>
       </div>
 
@@ -1317,6 +1611,27 @@
           <li>Outbound connections are verified, and secrets are redacted from logs and responses.</li>
           <li>Containers run without root privileges, with rate limiting and security headers enabled by default.</li>
           <li>Every release is audited, and fixes are published openly in the changelog.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal reveal-d2" style="margin-top:clamp(30px,4vw,46px)">
+      <h4 style="color:#fff;margin-bottom:14px">Sovereignty &amp; compliance</h4>
+      <div class="grid grid-2">
+        <ul class="ticks" style="margin:0">
+          <li><b>Your perimeter</b> &mdash; OpenRAG runs on your own infrastructure. Documents, embeddings
+            and queries stay where you put them, and no third party sees them.</li>
+          <li><b>Sovereign hosting</b> &mdash; deployable onto your machines, or into hosting qualified
+            <a href="https://cyber.gouv.fr/secnumcloud-pour-les-fournisseurs-de-services-cloud" rel="nofollow noopener" target="_blank">SecNumCloud</a>.</li>
+        </ul>
+        <ul class="ticks" style="margin:0">
+          <li><b>Beyond extraterritorial reach</b> &mdash; run it yourself and there is no foreign operator
+            for the <a href="https://en.wikipedia.org/wiki/CLOUD_Act" rel="nofollow noopener" target="_blank">Cloud Act</a>, or any
+            comparable law, to compel.</li>
+          <li><b>Evidence for <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation" rel="nofollow noopener" target="_blank">GDPR</a>
+            and the <a href="https://en.wikipedia.org/wiki/Artificial_Intelligence_Act" rel="nofollow noopener" target="_blank">AI Act</a></b>
+            &mdash; answers trace to their source passage, and the code is auditable end to end.
+            The obligations fall on you as deployer; OpenRAG is built to let you meet them.</li>
         </ul>
       </div>
     </div>
@@ -1379,9 +1694,9 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
 
         <h4 style="margin:30px 0 14px">Drops straight into</h4>
         <div class="chips">
-          <a class="chip" href="https://openwebui.com/" rel="noopener">Open WebUI</a>
-          <a class="chip" href="https://www.langchain.com/" rel="noopener">LangChain</a>
-          <a class="chip" href="https://n8n.io/" rel="noopener">n8n</a>
+          <a class="chip" href="https://openwebui.com/" rel="nofollow noopener" target="_blank">Open WebUI</a>
+          <a class="chip" href="https://www.langchain.com/" rel="nofollow noopener" target="_blank">LangChain</a>
+          <a class="chip" href="https://n8n.io/" rel="nofollow noopener" target="_blank">n8n</a>
           <a class="chip" href="https://twake.ai/" rel="noopener">Twake.ai</a>
         </div>
 
@@ -1492,10 +1807,10 @@ docker compose --profile cpu up -d</pre>
       <div class="reveal reveal-d1">
         <h4 style="margin-bottom:14px">Prerequisites</h4>
         <ul class="ticks">
-          <li><b><a href="https://www.docker.com/" rel="noopener">Docker</a></b> and
-            <b><a href="https://docs.docker.com/compose/" rel="noopener">Docker Compose</a></b></li>
+          <li><b><a href="https://www.docker.com/" rel="nofollow noopener" target="_blank">Docker</a></b> and
+            <b><a href="https://docs.docker.com/compose/" rel="nofollow noopener" target="_blank">Docker Compose</a></b></li>
           <li>For GPU machines, the
-            <b><a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html" rel="noopener">NVIDIA Container Toolkit</a></b></li>
+            <b><a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html" rel="nofollow noopener" target="_blank">NVIDIA Container Toolkit</a></b></li>
         </ul>
 
         <h4 style="margin:30px 0 14px">Minimum specifications</h4>
@@ -1534,6 +1849,12 @@ docker compose --profile cpu up -d</pre>
           agentic RAG and MCP, plus encryption in transit and at rest.</p>
       </article>
     </div>
+
+    <p class="reveal" style="margin-top:clamp(28px,4vw,40px);text-align:center;color:var(--gray-600)">
+      Would rather not operate it yourself?
+      <a href="https://linagora.ai/en/services-manages" rel="noopener">LINAGORA runs OpenRAG as a managed
+      service</a>, on platforms subject neither to the Cloud Act nor to any other extraterritorial law.
+    </p>
   </div>
 </section>
 
@@ -1546,12 +1867,22 @@ docker compose --profile cpu up -d</pre>
         <h2>Built in the open, owned by everyone.</h2>
         <p class="lede" style="margin-top:20px">
           OpenRAG is a
-          <a href="https://en.wikipedia.org/wiki/Digital_commons_(economics)" rel="noopener">digital common</a>.
+          <a href="https://en.wikipedia.org/wiki/Digital_commons_(economics)" rel="nofollow noopener" target="_blank">digital common</a>.
           It is licensed under the
-          <a href="https://en.wikipedia.org/wiki/GNU_Affero_General_Public_License" rel="noopener">AGPL-3.0</a>,
+          <a href="https://en.wikipedia.org/wiki/GNU_Affero_General_Public_License" rel="nofollow noopener" target="_blank">AGPL-3.0</a>,
           developed in public, and already run by public administrations and private companies
           alike &mdash; each on their own infrastructure, with their own models and their own data.
+          The <a href="https://www.ille-et-vilaine.fr/" rel="nofollow noopener" target="_blank">Conseil D&eacute;partemental
+          d&rsquo;Ille-et-Vilaine</a> searches its administrative corpus with it &mdash; deliberations,
+          reports and agreements, queried in plain language.
         </p>
+        <div class="logo-credit">
+          <p class="strip-label">Among them</p>
+          <a href="https://www.ille-et-vilaine.fr/" rel="nofollow noopener" aria-label="Conseil D&eacute;partemental d&rsquo;Ille-et-Vilaine" target="_blank">
+            <img src="images/logos/logo-ille-et-vilaine.svg" alt="Conseil D&eacute;partemental d&rsquo;Ille-et-Vilaine" loading="lazy">
+          </a>
+        </div>
+
         <p class="lede" style="margin-top:16px">
           The code is shaped by contributors from well beyond
           <a href="https://linagora.com/" rel="noopener">LINAGORA</a>. Everyone is welcome:
@@ -1564,7 +1895,19 @@ docker compose --profile cpu up -d</pre>
       </div>
 
       <div class="reveal reveal-d1">
-        <h4 style="margin-bottom:14px">How to get involved</h4>
+        <h4 style="margin-bottom:14px">What that commits to</h4>
+        <ul class="ticks">
+          <li>Code that can be audited line by line, not a published binary.</li>
+          <li>Models you choose and hold yourself &mdash; nothing embedded that you cannot swap.</li>
+          <li>A documented pipeline, so you can explain how any answer was produced.</li>
+          <li>A community whose existence does not depend on one company surviving.</li>
+        </ul>
+        <p style="margin-top:16px;color:var(--gray-600);font-size:.96rem">
+          That last one carries the most weight. Software published under a free licence by a vendor
+          that disappears stays legally free and becomes technically dead.
+        </p>
+
+        <h4 style="margin:30px 0 14px">How to get involved</h4>
         <ul class="ticks">
           <li>Fork this repository.</li>
           <li>Create a new branch for your feature or fix.</li>
@@ -1577,7 +1920,7 @@ docker compose --profile cpu up -d</pre>
 
         <div class="callout" style="margin-top:26px">
           <div class="body">
-            <h3>The engine inside Twake.ai</h3>
+            <h3><a class="inline-mark-link" href="https://twake.ai/" rel="noopener" aria-label="Twake"><img class="inline-mark" src="images/logos/twake.svg" alt="Twake" loading="lazy"></a>The engine inside Twake.ai</h3>
             <p>OpenRAG is the RAG engine that powers
               <a href="https://twake.ai/" rel="noopener">Twake.ai</a> &mdash; the same code,
               in production, at scale.</p>
@@ -1621,9 +1964,22 @@ docker compose --profile cpu up -d</pre>
         <p class="card-n">COMMITMENT</p>
         <h4>Digital sovereignty</h4>
         <p style="margin-top:8px">A sovereign digital third way is possible &mdash; real
-          <a href="https://en.wikipedia.org/wiki/Technological_sovereignty" rel="noopener">technological sovereignty</a>
+          <a href="https://en.wikipedia.org/wiki/Technological_sovereignty" rel="nofollow noopener" target="_blank">technological sovereignty</a>
           for Europe.</p>
       </article>
+    </div>
+
+    <div class="reveal" style="margin-top:clamp(34px,4.5vw,50px)">
+      <h4 style="margin-bottom:12px">OpenRAG is one of four</h4>
+      <p style="color:var(--gray-600);max-width:74ch">
+        LINAGORA publishes four AI building blocks, each with its own job:
+        <a href="https://huggingface.co/OpenLLM-France" rel="noopener">Luciole</a> for open language
+        models &mdash; Apache-2.0 weights at 1, 8 and 23 billion parameters &mdash;
+        <a href="https://linto.ai/" rel="noopener">LinTO</a> for speech,
+        <a href="https://twake.ai/" rel="noopener">Twake AI</a> for collaboration, and OpenRAG for
+        documents. Luciole works natively with OpenRAG for corpus querying, so the model and the
+        retrieval layer come from the same place &mdash; and neither locks you into the other.
+      </p>
     </div>
 
     <div class="stack-strip reveal" style="margin-top:34px">
@@ -1722,7 +2078,7 @@ docker compose --profile cpu up -d</pre>
 
     <div class="foot-bot">
       <p>&copy; 2026 <a href="https://linagora.com/" rel="noopener">LINAGORA</a> &middot; OpenRAG is
-        <a class="mono" href="https://www.gnu.org/licenses/agpl-3.0.en.html" rel="noopener">AGPL-3.0</a>
+        <a class="mono" href="https://www.gnu.org/licenses/agpl-3.0.en.html" rel="nofollow noopener" target="_blank">AGPL-3.0</a>
         licensed and open to all &middot;
         <a href="https://linagora.com/en/privacy" rel="noopener">Privacy policy</a>
       </p>

@@ -1627,8 +1627,100 @@ section {
 
 .console-nav {
   padding: 4px 12px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 2px;
+  flex: 1;
+}
+
+/* Settings sits at the foot of the rail, as it does in the product, but stays
+   inside the tablist so its role="tab" remains valid. */
+.console-tab.is-foot {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0;
+}
+
+/* The tabs are real buttons, but nothing invites the first click. The bubble
+   sits outside the fake browser chrome, above it, with its tail pointing down
+   into the sidebar rail. Kept in normal flow so it cannot be clipped by the
+   console's overflow:hidden, and so it needs no repositioning per breakpoint. */
+.console-hint {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 24px);
+  margin: 0 0 17px 22px;
+  padding: 9px 13px;
+  border-radius: 10px;
+  background: #fff6d5;
+  color: var(--gray-900);
+  font-family: var(--font-subtitle);
+  font-weight: 600;
+  font-size: 0.86rem;
+  line-height: 1.3;
+  box-shadow: 0 8px 22px -10px rgba(0, 0, 0, 0.5);
+  animation: consoleHintBob 2.2s var(--ease) infinite;
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+/* The tail, pointing down at the console's sidebar. */
+.console-hint::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 22px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-bottom: 0;
+  border-top-color: #fff6d5;
+}
+
+.console-hint svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+/* Second position: inside a view, pointing down at that view's own tabs. The
+   hint and the seg are both inline-flex, so it needs its own line to sit above
+   rather than beside them. */
+.console-hint.in-view {
+  display: flex;
+  width: fit-content;
+  margin: 0 0 17px;
+}
+
+.console-hint.is-gone {
+  animation: none;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+
+/* A double bounce then a rest: far easier to notice than a slow drift, and it
+   still settles, so it does not nag for the whole time the section is on screen. */
+@keyframes consoleHintBob {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+
+  12% {
+    transform: translateY(-10px);
+  }
+
+  26% {
+    transform: translateY(0);
+  }
+
+  38% {
+    transform: translateY(-6px);
+  }
 }
 
 .console-tab {
@@ -1723,8 +1815,8 @@ section {
   display: flex;
   gap: 11px;
   padding: 12px 22px;
-  background: var(--red-tint);
-  border-bottom: 1px solid var(--gray-200);
+  background: #fff8e1;
+  border-bottom: 1px solid #f2e2b0;
   font-size: 0.86rem;
   line-height: 1.45;
   color: var(--gray-700);
@@ -1758,6 +1850,12 @@ section {
   gap: 14px;
 }
 
+/* `display: grid` above outranks the UA's `[hidden] { display: none }`, so the
+   segmented panels need this to stay hidden. Same trap as .source-panel. */
+.mini-grid[hidden] {
+  display: none;
+}
+
 .mini {
   border: 1px solid var(--gray-200);
   border-radius: 11px;
@@ -1768,8 +1866,15 @@ section {
 .mini-head {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 12px;
+}
+
+/* Long prompt and endpoint names must not push the badge out of the card. */
+.mini-head h4 {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .mini-head h4 {
@@ -1779,6 +1884,293 @@ section {
 .mini-head .pill {
   margin-left: auto;
   font-size: 0.68rem;
+}
+
+/* --- Logo strips --------------------------------------------------------- */
+
+.strip-label {
+  margin: 0 0 18px;
+  font-family: var(--font-subtitle);
+  font-weight: 600;
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  text-align: center;
+}
+
+.logo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 34px);
+  /* Wide enough that the seven "Built on" marks stay on one row at desktop
+     widths, and narrow enough that they do not sprawl across the full shell. */
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Every mark in the set is 10mm tall, so one height gives even optical weight.
+   max-width matters for the widest of them, which would otherwise overflow a
+   narrow column on its own. */
+.logo-strip img {
+  height: 26px;
+  width: auto;
+  max-width: 100%;
+  filter: grayscale(1) contrast(0.55) brightness(0.75);
+  transition: filter 0.2s var(--ease);
+}
+
+.logo-strip a:hover img,
+.logo-strip a:focus-visible img {
+  filter: none;
+}
+
+/* The customer mark is roughly half as wide as the stack wordmarks at a shared
+   height, so it needs its own size to read at all. */
+.logo-credit {
+  margin: 22px 0 24px;
+}
+
+.logo-credit .strip-label {
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.logo-credit img {
+  height: 44px;
+  width: auto;
+  filter: grayscale(1) contrast(0.6) brightness(0.8);
+  transition: filter 0.2s var(--ease);
+}
+
+.logo-credit a:hover img,
+.logo-credit a:focus-visible img {
+  filter: none;
+}
+
+/* The Twake wordmark is roughly 8:1, so it is sized by height with the width
+   left to follow. The reset makes every img display:block, so it stacks above
+   the heading rather than running inline with it. */
+/* Block so the heading text does not flow beside the mark, but only as wide as
+   the mark itself so the click target is not the full heading width. */
+.inline-mark-link {
+  display: block;
+  width: fit-content;
+  transition: opacity 0.2s var(--ease);
+}
+
+.inline-mark-link:hover {
+  opacity: 0.75;
+}
+
+.inline-mark {
+  height: 30px;
+  width: auto;
+  margin-bottom: 12px;
+}
+
+/* --- Console: pieces reproduced from the running admin UI ---------------- */
+
+/* Quick Actions rows on the Overview. */
+.qa {
+  display: grid;
+  gap: 8px;
+}
+
+.qa span {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--gray-200);
+  border-radius: 9px;
+  font-size: 0.82rem;
+  color: var(--gray-500);
+}
+
+.qa b {
+  display: block;
+  color: var(--gray-900);
+  font-size: 0.88rem;
+}
+
+/* Job state badges. */
+.state {
+  font-family: var(--font-subtitle);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.state-done {
+  background: #e6f6ea;
+  color: #1b6b36;
+}
+
+.state-run {
+  background: #e7eefc;
+  color: #1c4d9c;
+}
+
+.state-fail {
+  background: var(--red-tint);
+  color: var(--red-dark);
+}
+
+.state-idle {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+/* "used by N partitions" — amber, as in the product. */
+.pill-use {
+  background: #fff6d5;
+  border-color: #efdca4;
+  color: #7a5a10;
+}
+
+/* The model id under an endpoint name, and the "Updated …" footer. */
+.mono-sub {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--gray-500);
+  overflow-wrap: anywhere;
+}
+
+.mini-foot {
+  margin: 12px 0 0;
+  font-size: 0.74rem;
+  color: var(--gray-400);
+}
+
+/* Prompt cards. */
+.prompt-count {
+  margin: -6px 0 18px;
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+
+.prompt-body {
+  margin: 10px 0 0;
+  padding: 9px 11px;
+  background: var(--gray-50);
+  border-radius: 7px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--gray-600);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  /* Belt and braces: the clamp alone lets a third line bleed through. */
+  max-height: calc(0.78rem * 1.5 * 2 + 18px);
+}
+
+.mono-sub {
+  overflow-wrap: anywhere;
+}
+
+.group-label {
+  margin: 0 0 2px;
+  font-family: var(--font-subtitle);
+  font-weight: 600;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  color: var(--gray-500);
+}
+
+.group-desc {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  color: var(--gray-400);
+}
+
+[data-seg-item="prompts"] + [data-seg-item="prompts"] {
+  margin-top: 24px;
+}
+
+/* Ray actors list. */
+.actors {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 8px;
+}
+
+.actors li {
+  position: relative;
+  padding: 9px 12px 9px 24px;
+  border: 1px solid var(--gray-200);
+  border-radius: 9px;
+  font-size: 0.78rem;
+}
+
+.actors li::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 15px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #35a35c;
+}
+
+.actors b {
+  display: block;
+  font-size: 0.84rem;
+}
+
+.actors span {
+  color: var(--gray-500);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.metrics-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.sys-config {
+  margin: 0;
+  max-height: 300px;
+  overflow: auto;
+  padding: 12px 14px;
+  background: #f4f7fd;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.55;
+  color: var(--gray-700);
+}
+
+.settings-cards {
+  display: grid;
+  gap: 14px;
+  max-width: 560px;
+}
+
+.mini p {
+  margin: 0 0 11px;
+  font-size: 0.83rem;
+  line-height: 1.55;
+  color: var(--gray-600);
+}
+
+.mini p:last-child {
+  margin-bottom: 0;
+}
+
+.mini p + .tagline {
+  margin-top: 2px;
 }
 
 .mini dl {
@@ -1817,22 +2209,60 @@ section {
   color: var(--gray-600);
 }
 
+.view-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 6px 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--gray-500);
+  font-size: 0.83rem;
+}
+
+.view-search svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
 .seg {
   display: inline-flex;
   gap: 3px;
+  max-width: 100%;
   background: var(--gray-100);
   border-radius: 9px;
   padding: 3px;
   margin-bottom: 16px;
+  overflow-x: auto;
 }
 
 .seg span {
+  flex: none;
+  white-space: nowrap;
   font-family: var(--font-subtitle);
   font-weight: 600;
   font-size: 0.83rem;
   padding: 5px 13px;
   border-radius: 7px;
   color: var(--gray-500);
+}
+
+/* Only the segmented controls that actually filter something are interactive. */
+.seg[data-seg] span {
+  cursor: pointer;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.seg[data-seg] span:hover:not(.on) {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--gray-700);
 }
 
 .seg span.on {
@@ -1896,6 +2326,12 @@ section {
   background: var(--red);
   border-color: var(--red);
   color: var(--white);
+}
+
+.pill-ok {
+  background: #e6f6ea;
+  border-color: #b7e3c4;
+  color: #1b6b36;
 }
 
 .pill-dark {
@@ -2518,10 +2954,19 @@ section {
 
   .console-nav {
     display: flex;
+    flex-direction: row;
+    flex: none;
     gap: 6px;
     overflow-x: auto;
     padding: 12px;
     min-width: 0;
+  }
+
+  .console-tab.is-foot {
+    margin-top: 0;
+    padding-top: 9px;
+    border-top: 0;
+    border-radius: 9px;
   }
 
   .console-tab {

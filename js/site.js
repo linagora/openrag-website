@@ -585,6 +585,37 @@
 
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.console-tab'));
   var views = Array.prototype.slice.call(document.querySelectorAll('.console-view'));
+  var consoleHint = document.getElementById('consoleHint');
+  var consoleHintText = document.getElementById('consoleHintText');
+  /* The hint gets one second life, over the first view that has its own tabs. */
+  var hintMoved = false;
+
+  function dismissConsoleHint() {
+    if (consoleHint) consoleHint.classList.add('is-gone');
+  }
+
+  /* Half the sections have no tabs of their own, and the first two in the rail
+     are among them, so a section without tabs must leave the invitation
+     standing. Otherwise anyone exploring top-down kills the hint before ever
+     reaching a section that could show its second half. */
+  function advanceConsoleHint(tab) {
+    if (!consoleHint || consoleHint.classList.contains('is-gone')) return;
+
+    var view = document.getElementById(tab.dataset.view);
+    var seg = view && view.querySelector('.seg[data-seg]');
+
+    if (!hintMoved) {
+      if (!seg) return;
+      hintMoved = true;
+      if (consoleHintText) consoleHintText.textContent = 'These tabs work too';
+      consoleHint.classList.add('in-view');
+      seg.parentNode.insertBefore(consoleHint, seg);
+      return;
+    }
+
+    /* Already relocated: any further section change retires it. */
+    dismissConsoleHint();
+  }
 
   function selectTab(tab) {
     tabs.forEach(function (t) {
@@ -607,6 +638,7 @@
   tabs.forEach(function (tab, index) {
     tab.addEventListener('click', function () {
       selectTab(tab);
+      advanceConsoleHint(tab);
     });
 
     tab.addEventListener('keydown', function (e) {
@@ -617,6 +649,39 @@
       var next = tabs[(index + dir + tabs.length) % tabs.length];
       next.focus();
       selectTab(next);
+      advanceConsoleHint(next);
+    });
+  });
+
+  /* ---------------------------------------------------------------------
+     Segmented controls inside the console views
+
+     Each control declares a group via data-seg; the things it filters carry
+     data-seg-item with the same name. "all" shows everything.
+     --------------------------------------------------------------------- */
+
+  Array.prototype.forEach.call(document.querySelectorAll('.seg[data-seg]'), function (seg) {
+    var group = seg.getAttribute('data-seg');
+    var options = Array.prototype.slice.call(seg.children);
+    var items = Array.prototype.slice.call(
+      document.querySelectorAll('[data-seg-item="' + group + '"]')
+    );
+
+    function apply(value) {
+      options.forEach(function (o) {
+        o.classList.toggle('on', o.getAttribute('data-val') === value);
+      });
+      items.forEach(function (item) {
+        var on = value === 'all' || item.getAttribute('data-val') === value;
+        item.hidden = !on;
+      });
+    }
+
+    options.forEach(function (option) {
+      option.addEventListener('click', function () {
+        dismissConsoleHint();
+        apply(option.getAttribute('data-val'));
+      });
     });
   });
 
