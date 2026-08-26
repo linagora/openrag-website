@@ -1,13 +1,4 @@
-# TEMPORARY — the site is currently previewed at
-# https://linagora.github.io/openrag-website/ and must not be indexed there.
-# Restore the production directives at the bottom of this file when open-rag.ai
-# is switched over to GitHub Pages. See README.md, "Going live".
 User-agent: *
-Disallow: /
+Allow: /
 
-# Production directives, to restore on go-live:
-#
-# User-agent: *
-# Allow: /
-#
-# Sitemap: https://open-rag.ai/sitemap.xml
+Sitemap: https://open-rag.ai/sitemap.xml
