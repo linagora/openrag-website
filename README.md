@@ -70,10 +70,11 @@ uploads the repository as-is and publishes it.
 It runs on every push to `main`, and on demand from the *Actions* tab. There is
 no build step and no staging: what is committed is what is served.
 
-> A push does not always create a run — it has been observed to land on `main`
-> without triggering the workflow. If the live site does not update, check the
-> *Actions* tab for a run against your commit rather than assuming it is queued,
-> and use **Run workflow** to deploy manually.
+> The run is not always created promptly: a push has been seen to land on `main`
+> with its workflow run appearing only fourteen minutes later. If the live site
+> has not updated, give it a few minutes before concluding anything is wrong.
+> **Run workflow** in the *Actions* tab deploys the current `main` on demand, and
+> is harmless if the delayed run then arrives as well.
 
 ## Known issue: `www.open-rag.ai` does not serve
 
