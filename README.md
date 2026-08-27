@@ -3,6 +3,8 @@
 Source of [open-rag.ai](https://open-rag.ai/), the website of
 [OpenRAG](https://github.com/linagora/openrag) by [LINAGORA](https://linagora.com/).
 
+![The OpenRAG website](images/screenshot.png)
+
 It is a static site: plain HTML, CSS and JavaScript, with no build step and no
 external dependency. Every asset is served from this repository.
 
@@ -11,23 +13,53 @@ index.html      the single page
 css/            stylesheet
 js/             behaviour (no framework)
 fonts/          self-hosted web fonts
-images/         logos, illustrations, social card
+images/         illustrations, social card, screenshot
+images/logos/   third-party and LINAGORA marks
 video/          embedded demonstration video
-robots.txt      crawler directives (currently blocking, see below)
+tools/          helper scripts, run by hand (see below)
+robots.txt      crawler directives
 sitemap.xml     sitemap referenced by robots.txt
-CNAME           production domain, applied on go-live
+CNAME           production domain
 ```
 
 ## Working locally
 
-Open `index.html` directly in a browser, or serve the directory over HTTP to get
-the same behaviour as in production:
+Serve the directory over HTTP rather than opening `index.html` from disk:
 
 ```sh
 python3 -m http.server 8000
 ```
 
 Then browse to <http://localhost:8000/>.
+
+**Use `localhost`, not your machine's LAN address.** The contact form decrypts
+its recipient with the Web Crypto API, which browsers expose only in a *secure
+context* — HTTPS, or `localhost` as a special case. Over `http://192.168.x.x` the
+form detects this and says an HTTPS connection is required, which is correct
+behaviour but makes the form untestable. To test from another device, forward the
+port (`ssh -L 8000:localhost:8000 …`) rather than browsing to the LAN IP.
+
+## The contact form
+
+The page publishes no email address. The recipient ships AES-GCM encrypted, and
+the key is derived by an iterated PBKDF2 that runs in the visitor's browser when
+they tick *I am human* — around a tenth of a second of CPU. Harvesters that do not
+execute JavaScript get nothing, and paying that cost per page does not add up at
+harvesting scale.
+
+Nothing is withheld from the published constants: the barrier is the work, not
+secrecy, so a determined reader still gets there. It is a cost barrier against
+indiscriminate scraping, not a secret.
+
+To change the address:
+
+```sh
+node tools/encrypt-address.mjs <address>
+```
+
+That prints a fresh salt, IV and ciphertext to paste over the `POW_*` constants
+in [`js/site.js`](js/site.js). The salt and IV are random each run, so the old
+ciphertext reveals nothing about the new one.
 
 ## Deployment
 
@@ -38,62 +70,58 @@ uploads the repository as-is and publishes it.
 It runs on every push to `main`, and on demand from the *Actions* tab. There is
 no build step and no staging: what is committed is what is served.
 
-## Current state: preview
+> A push does not always create a run — it has been observed to land on `main`
+> without triggering the workflow. If the live site does not update, check the
+> *Actions* tab for a run against your commit rather than assuming it is queued,
+> and use **Run workflow** to deploy manually.
 
-The site is authored for the apex domain `https://open-rag.ai/`, but that domain
-still serves the previous site, hosted elsewhere. Until the DNS is switched over,
-this repository is published to the GitHub-provided URL instead:
+## Known issue: `www.open-rag.ai` does not serve
 
-**<https://linagora.github.io/openrag-website/>**
+The apex domain works. The `www` subdomain fails the TLS handshake, because the
+GitHub-issued certificate covers `open-rag.ai` only:
 
-Two consequences, both temporary:
+```console
+$ gh api repos/linagora/openrag-website/pages --jq '.https_certificate.domains'
+["open-rag.ai"]
+```
 
-- [`robots.txt`](robots.txt) is set to `Disallow: /` so the preview is never
-  indexed and cannot compete with the production domain later. The production
-  directives are kept, commented out, at the bottom of that file.
-- The absolute `https://open-rag.ai/…` URLs in the page — canonical link, Open
-  Graph and Twitter cards, JSON-LD, and the sitemap — still point at the
-  production domain, so social cards and structured data do not resolve against
-  the preview. This is harmless while testing and correct on go-live. Everything
-  else is relative and works unchanged from the `/openrag-website/` subpath.
+The DNS is already correct — `www` is a `CNAME` to `linagora.github.io.`, and
+GitHub's edge routes the hostname: over plain HTTP it returns `301` to the apex.
+Only the certificate is missing, because provisioning does not always rerun by
+itself after a DNS change.
 
-## Going live
+To fix: **Settings → Pages**, clear the custom domain, save, re-enter
+`open-rag.ai`, save. Then confirm with the command above that the certificate
+covers both names. Issuance usually takes minutes, occasionally up to an hour.
 
-When the DNS for `open-rag.ai` is moved to GitHub Pages:
+## DNS
 
-1. Point the apex domain at GitHub with the DNS records below. The domain
-   currently resolves elsewhere, so this is a migration, not a fresh setup.
-2. **Restore [`robots.txt`](robots.txt)** to the production directives commented
-   at the bottom of the file — `Allow: /` plus the `Sitemap:` line. This is easy
-   to forget and silently keeps the whole site out of search results.
-3. **Settings → Pages → Custom domain**: enter `open-rag.ai`. The [`CNAME`](CNAME)
-   file in the repository already records it.
-4. Tick **Enforce HTTPS** once the certificate has been issued, a few minutes
-   after the records propagate.
-5. Check the canonical link, `og:image` and the sitemap now resolve, and that
-   `https://linagora.github.io/openrag-website/` redirects to the custom domain.
+The apex domain resolves to GitHub Pages:
 
-## One-time repository configuration
+| Type | Name | Value |
+| ---- | ---- | ----- |
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| AAAA | `@` | `2606:50c0:8000::153` |
+| AAAA | `@` | `2606:50c0:8001::153` |
+| AAAA | `@` | `2606:50c0:8002::153` |
+| AAAA | `@` | `2606:50c0:8003::153` |
+| CNAME | `www` | `linagora.github.io.` |
 
-Not covered by the workflow:
+⚠️ **This domain also carries email.** The zone holds `MX` records and an SPF
+`TXT` record. Change the `A` and `AAAA` records only — replacing the zone breaks
+mail delivery.
 
-1. **Settings → Pages → Build and deployment → Source**: select
-   **GitHub Actions**.
-2. DNS for the apex domain `open-rag.ai`, needed only when going live:
+## Repository configuration
 
-   | Type | Name | Value |
-   | ---- | ---- | ----- |
-   | A | `@` | `185.199.108.153` |
-   | A | `@` | `185.199.109.153` |
-   | A | `@` | `185.199.110.153` |
-   | A | `@` | `185.199.111.153` |
-   | AAAA | `@` | `2606:50c0:8000::153` |
-   | AAAA | `@` | `2606:50c0:8001::153` |
-   | AAAA | `@` | `2606:50c0:8002::153` |
-   | AAAA | `@` | `2606:50c0:8003::153` |
+Set once, not covered by the workflow:
 
-   Optionally add a `CNAME` record for `www` pointing to `linagora.github.io.`
-   so that `www.open-rag.ai` redirects to the apex domain.
+- **Settings → Pages → Build and deployment → Source**: **GitHub Actions**.
+- **Settings → Pages → Custom domain**: `open-rag.ai`. The [`CNAME`](CNAME) file
+  alone does not set this for Actions-based deployments — the setting does.
+- **Settings → Pages → Enforce HTTPS**: enabled.
 
 ## Licence
 
