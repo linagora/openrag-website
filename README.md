@@ -76,25 +76,6 @@ no build step and no staging: what is committed is what is served.
 > **Run workflow** in the *Actions* tab deploys the current `main` on demand, and
 > is harmless if the delayed run then arrives as well.
 
-## Known issue: `www.open-rag.ai` does not serve
-
-The apex domain works. The `www` subdomain fails the TLS handshake, because the
-GitHub-issued certificate covers `open-rag.ai` only:
-
-```console
-$ gh api repos/linagora/openrag-website/pages --jq '.https_certificate.domains'
-["open-rag.ai"]
-```
-
-The DNS is already correct — `www` is a `CNAME` to `linagora.github.io.`, and
-GitHub's edge routes the hostname: over plain HTTP it returns `301` to the apex.
-Only the certificate is missing, because provisioning does not always rerun by
-itself after a DNS change.
-
-To fix: **Settings → Pages**, clear the custom domain, save, re-enter
-`open-rag.ai`, save. Then confirm with the command above that the certificate
-covers both names. Issuance usually takes minutes, occasionally up to an hour.
-
 ## DNS
 
 The apex domain resolves to GitHub Pages:
@@ -110,6 +91,11 @@ The apex domain resolves to GitHub Pages:
 | AAAA | `@` | `2606:50c0:8002::153` |
 | AAAA | `@` | `2606:50c0:8003::153` |
 | CNAME | `www` | `linagora.github.io.` |
+
+`www.open-rag.ai` redirects to the apex, which is the intent. GitHub issued the
+certificate for `open-rag.ai` alone, so the redirect is served over HTTP — enough
+for a browser reaching `www`, since the apex sets no HSTS. Only a link written
+explicitly as `https://www.open-rag.ai` fails, and none point there.
 
 ⚠️ **This domain also carries email.** The zone holds `MX` records and an SPF
 `TXT` record. Change the `A` and `AAAA` records only — replacing the zone breaks
