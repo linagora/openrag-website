@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>OpenRAG — Sovereign, Open Source Retrieval-Augmented Generation</title>
-<meta name="description" content="OpenRAG is a lightweight, modular and extensible Retrieval-Augmented Generation (RAG) framework by LINAGORA. Partition isolation, distributed indexing with Ray, multimodal parsing, Milvus vector search and an OpenAI-compatible API. AGPL-3.0, version 2.1 out now.">
+<meta name="description" content="OpenRAG is a lightweight, modular and extensible Retrieval-Augmented Generation (RAG) framework by LINAGORA. Partition isolation, distributed indexing with Ray, multimodal parsing, Milvus vector search and an OpenAI-compatible API. AGPL-3.0, version 2.2 out now.">
 <meta name="author" content="LINAGORA">
 <meta name="publisher" content="LINAGORA">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="OpenRAG">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="OpenRAG — Sovereign, Open Source Retrieval-Augmented Generation">
-<meta property="og:description" content="Version 2.1 is here. A managed prompt library, hexagonal architecture, a new console, pipeline presets and hardened tenant isolation. A digital common, and the RAG engine behind Twake.ai. 100% open source, AGPL-3.0.">
+<meta property="og:description" content="Version 2.2 is here. Milvus 3.0, configurable speech-to-text, structure-aware chunking and retrieval scoped to chosen files. A digital common, and the RAG engine behind Twake.ai. 100% open source, AGPL-3.0.">
 <meta property="og:url" content="https://open-rag.ai/">
 <meta property="og:image" content="https://open-rag.ai/images/openrag-card.png">
 <meta property="og:image:alt" content="The OpenRAG logo: a beaver wearing round glasses, reading a book.">
@@ -44,7 +44,7 @@
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Retrieval-Augmented Generation framework",
       "operatingSystem": "Linux, Docker, Kubernetes",
-      "softwareVersion": "2.1.1",
+      "softwareVersion": "2.2.0",
       "url": "https://open-rag.ai/",
       "downloadUrl": "https://github.com/linagora/openrag",
       "codeRepository": "https://github.com/linagora/openrag",
@@ -139,9 +139,9 @@
 <!-- ====================== HERO ====================== -->
 <section class="hero" id="top">
   <div class="shell">
-    <a class="badge-v2 reveal" href="https://github.com/linagora/openrag/releases/tag/v2.1.1" rel="noopener">
-      <span class="tag">Version 2.1 is here!</span>
-      Prompt management, admin UI search, Helm chart overhaul
+    <a class="badge-v2 reveal" href="https://github.com/linagora/openrag/releases/tag/v2.2.0" rel="noopener">
+      <span class="tag">Version 2.2 is here!</span>
+      Milvus 3.0, configurable speech-to-text, structure-aware chunking
       <span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
 
@@ -169,7 +169,7 @@
     <dl class="hero-facts reveal reveal-d3">
       <div class="hero-fact"><dt>License</dt><dd>AGPL-3.0</dd></div>
       <div class="hero-fact"><dt>Latest release</dt>
-        <dd><a href="https://github.com/linagora/openrag/releases/tag/v2.1.1" rel="noopener">v2.1.1</a></dd></div>
+        <dd><a href="https://github.com/linagora/openrag/releases/tag/v2.2.0" rel="noopener">v2.2.0</a></dd></div>
       <div class="hero-fact"><dt>Vector store</dt><dd>Milvus</dd></div>
       <div class="hero-fact"><dt>Distributed with</dt><dd>Ray</dd></div>
       <div class="hero-fact"><dt>API</dt><dd>OpenAI-compatible</dd></div>
@@ -919,7 +919,7 @@
               <div class="mini-head"><h4>System status</h4></div>
               <dl>
                 <dt>API</dt><dd><span class="pill pill-ok">Up</span></dd>
-                <dt>Version</dt><dd>2.1.1</dd>
+                <dt>Version</dt><dd>2.2.0</dd>
                 <dt>Ray actors</dt><dd>7/7 alive</dd>
               </dl>
             </div>
@@ -1345,8 +1345,8 @@
             <div class="mini">
               <div class="mini-head"><h4>API Status</h4><span class="spacer"></span><span class="pill">Refresh</span></div>
               <dl>
-                <dt>API</dt><dd><span class="pill pill-red">Up</span></dd>
-                <dt>Version</dt><dd>2.1.1</dd>
+                <dt>API</dt><dd><span class="pill pill-ok">Up</span></dd>
+                <dt>Version</dt><dd>2.2.0</dd>
               </dl>
             </div>
           </div>
@@ -1728,12 +1728,13 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
       <p class="eyebrow">Release notes</p>
       <h2>Version 2 is here!</h2>
       <p class="section-sub">
-        A major release rebuilding OpenRAG on a clean, layered architecture, and a prompt
-        library managed from the console rather than from template files on disk.
+        A major release rebuilding OpenRAG on a clean, layered architecture, then a prompt
+        library managed from the console rather than from template files on disk, and now
+        Milvus 3.0 with speech-to-text configurable like any other model endpoint.
       </p>
     </div>
 
-    <div class="grid grid-2">
+    <div class="grid grid-3">
       <article class="rel reveal">
         <div class="rel-head">
           <span class="v mono">v2.0.0</span>
@@ -1762,6 +1763,23 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
             <li><b>Admin UI</b> &mdash; full prompt CRUD, search in user management, and a partition-member picker replacing manual user-id entry.</li>
             <li><b>Safer model endpoints</b> &mdash; endpoint names with unsafe characters are rejected instead of silently becoming unreachable, and renaming one cascades to every stored reference.</li>
             <li><b>Helm chart overhaul</b> &mdash; per-component ingress, a global image registry, extra objects, and an admin-UI image that runs under a restricted OpenShift SCC.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="rel reveal reveal-d2">
+        <div class="rel-head">
+          <span class="v mono">v2.2.0</span>
+          <span class="pill pill-red">Milvus 3.0</span>
+          <span class="d">3 September 2026</span>
+        </div>
+        <div class="rel-body">
+          <ul class="ticks">
+            <li><b>Milvus 3.0</b> &mdash; the vector store moves to its next major version. Existing 2.x deployments must be migrated before upgrading: download the <a href="https://github.com/linagora/openrag/releases/download/v2.2.0/milvus_v3_migration.zip" rel="noopener">migration package</a> and follow the <a href="https://linagora.github.io/openrag/documentation/milvus_migration/" rel="noopener">migration documentation</a>.</li>
+            <li><b>Speech-to-text</b> &mdash; OpenAI-compatible transcription endpoints are now configurable, transcription prompts are managed like any other prompt, and both can be selected per indexation preset.</li>
+            <li><b>Structure-aware chunking</b> &mdash; a <span class="mono">structured_section</span> strategy that splits on a document&rsquo;s own structure.</li>
+            <li><b>Narrower retrieval</b> &mdash; scope a query to a chosen list of files, and supply a custom system prompt per request.</li>
+            <li><b>Case-insensitive lexical search</b> &mdash; BM25 no longer distinguishes case. Existing deployments need the accompanying <a href="https://linagora.github.io/openrag/documentation/milvus_migration/#schema-migrations" rel="noopener">schema migration</a>.</li>
           </ul>
         </div>
       </article>
@@ -1840,7 +1858,7 @@ docker compose --profile cpu up -d</pre>
         <p class="card-n">KUBERNETES</p>
         <h4>Helm chart</h4>
         <p class="mono" style="margin-top:10px">oci://ghcr.io/linagora/openrag-stack</p>
-        <p style="margin-top:10px">Chart 0.6.2, app version 2.1.1. OpenShift deployment is documented too.</p>
+        <p style="margin-top:10px">Chart 0.6.3, app version 2.2.0. OpenShift deployment is documented too.</p>
       </article>
       <article class="card">
         <p class="card-n">ROADMAP</p>
