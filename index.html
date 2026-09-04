@@ -1775,11 +1775,11 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
         </div>
         <div class="rel-body">
           <ul class="ticks">
-            <li><b>Milvus 3.0</b> &mdash; the vector store moves to its next major version. Existing 2.x deployments must be migrated before upgrading; a migration package and documentation ship with the release.</li>
+            <li><b>Milvus 3.0</b> &mdash; the vector store moves to its next major version. Existing 2.x deployments must be migrated before upgrading: download the <a href="https://github.com/linagora/openrag/releases/download/v2.2.0/milvus_v3_migration.zip" rel="noopener">migration package</a> and follow the <a href="https://linagora.github.io/openrag/documentation/milvus_migration/" rel="noopener">migration documentation</a>.</li>
             <li><b>Speech-to-text</b> &mdash; OpenAI-compatible transcription endpoints are now configurable, transcription prompts are managed like any other prompt, and both can be selected per indexation preset.</li>
             <li><b>Structure-aware chunking</b> &mdash; a <span class="mono">structured_section</span> strategy that splits on a document&rsquo;s own structure.</li>
             <li><b>Narrower retrieval</b> &mdash; scope a query to a chosen list of files, and supply a custom system prompt per request.</li>
-            <li><b>Case-insensitive lexical search</b> &mdash; BM25 no longer distinguishes case. Existing deployments need the accompanying schema migration.</li>
+            <li><b>Case-insensitive lexical search</b> &mdash; BM25 no longer distinguishes case. Existing deployments need the accompanying <a href="https://linagora.github.io/openrag/documentation/milvus_migration/#schema-migrations" rel="noopener">schema migration</a>.</li>
           </ul>
         </div>
       </article>
