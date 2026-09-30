@@ -3219,7 +3219,7 @@ html.contact-open {
 }
 
 .contact-modal {
-  width: min(900px, calc(100vw - 32px));
+  width: min(600px, calc(100vw - 32px));
   max-height: calc(100vh - 48px);
   padding: 0;
   border: 0;
@@ -3261,25 +3261,37 @@ html.contact-open {
   height: 20px;
 }
 
+/* The Odoo page brings its own margins, so the frame runs edge to edge and
+   the dialog's text is aligned on them: 45px beside a 600px frame, 15px once
+   the frame drops under 576px and Odoo stacks its labels. */
 .contact-body {
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - 48px);
-  padding: 38px 38px 34px;
+}
+
+/* Sits in the 64px of empty padding at the top of the Odoo page rather than
+   stacking a second gap above it. */
+.contact-body .eyebrow {
+  position: absolute;
+  top: 23px;
+  left: 45px;
+  margin: 0;
 }
 
 /* The framed page cannot tell us its height across origins, so the frame
-   gets the form's desktop height, shrinks on short screens and scrolls
-   internally when the form outgrows it. */
+   gets the form's height at 600px wide, shrinks on short screens and
+   scrolls internally when the form outgrows it. */
 .contact-frame {
-  height: 619px;
+  height: 615px;
   min-height: 0;
   width: 100%;
   border: 0;
 }
 
 .contact-note {
-  margin: 14px 0 0;
+  margin: 0;
+  padding: 0 45px 26px;
   font-size: 0.88rem;
   color: var(--gray-600);
 }
@@ -3288,8 +3300,14 @@ html.contact-open {
   color: var(--red);
 }
 
-@media (max-width: 560px) {
-  .contact-body {
-    padding: 30px 22px 26px;
+@media (max-width: 607px) {
+  .contact-body .eyebrow {
+    left: 15px;
+  }
+
+  /* The stacked form scrolls inside the frame, so Odoo's bottom padding is
+     no longer there to space the note from it. */
+  .contact-note {
+    padding: 12px 15px 20px;
   }
 }
