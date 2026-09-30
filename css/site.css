@@ -3268,12 +3268,6 @@ html.contact-open {
   padding: 38px 38px 34px;
 }
 
-.contact-body h2 {
-  font-size: clamp(1.5rem, 3vw, 1.9rem);
-  line-height: 1.15;
-  margin: 0 0 24px;
-}
-
 /* The framed page cannot tell us its height across origins, so the frame
    gets the form's desktop height, shrinks on short screens and scrolls
    internally when the form outgrows it. */
