@@ -2037,8 +2037,8 @@ docker compose --profile cpu up -d</pre>
 
       <noscript>
         <p class="cta-alt">
-          The contact form needs JavaScript.
-          <a href="https://github.com/linagora/openrag/issues" rel="noopener">Reach us on GitHub</a> instead.
+          Without JavaScript,
+          <a href="https://odoo.linagora.com/en/contact-us-openrag" rel="noopener">open the contact form</a> directly.
         </p>
       </noscript>
     </div>
@@ -2136,63 +2136,15 @@ docker compose --profile cpu up -d</pre>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
   </button>
 
-  <form class="contact-form" id="contactForm">
+  <div class="contact-body">
     <p class="eyebrow">Contact us</p>
     <h2 id="contactTitle">Tell us about your project</h2>
 
-    <div class="contact-field">
-      <label class="sr-only" for="cfName">Name</label>
-      <input id="cfName" name="name" type="text" placeholder="Name" autocomplete="name" required>
-    </div>
+    <iframe class="contact-frame" title="Contact form" src="https://odoo.linagora.com/en/contact-us-openrag" loading="lazy"></iframe>
 
-    <div class="contact-field">
-      <label class="sr-only" for="cfEmail">Email</label>
-      <input id="cfEmail" name="email" type="email" placeholder="Email" autocomplete="email" required>
-    </div>
-
-    <div class="contact-field">
-      <label class="sr-only" for="cfCompany">Company</label>
-      <input id="cfCompany" name="company" type="text" placeholder="Company" autocomplete="organization" required>
-    </div>
-
-    <div class="contact-field">
-      <label for="cfInquiry">Inquiry type</label>
-      <select id="cfInquiry" name="inquiry" required>
-        <option value="" selected disabled>Select&hellip;</option>
-        <option>Marketing</option>
-        <option>HR</option>
-        <option>Sales</option>
-        <option>Press &amp; public relations</option>
-        <option>Support</option>
-        <option>Other</option>
-      </select>
-    </div>
-
-    <div class="contact-field">
-      <label for="cfMessage">Message</label>
-      <textarea id="cfMessage" name="message" rows="4" maxlength="1200" required></textarea>
-    </div>
-
-    <div class="contact-human">
-      <input type="checkbox" id="cfHuman" required>
-      <label for="cfHuman">I am human</label>
-      <span class="contact-status" id="contactStatus" role="status"></span>
-    </div>
-    <div class="contact-progress" id="contactProgress" hidden><span id="contactBar"></span></div>
-
-    <button class="btn btn-primary btn-lg contact-send" type="submit">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>
-      Send
-    </button>
-
-    <p class="contact-note" id="contactNote" hidden></p>
-
-    <div class="contact-fallback" id="contactFallback" hidden>
-      <p>Mail app didn&rsquo;t open? Copy the message and send it to
-        <span class="mono" id="contactAddress"></span>.</p>
-      <button class="btn btn-ghost" type="button" id="contactCopy">Copy message</button>
-    </div>
-  </form>
+    <p class="contact-note">Form not showing?
+      <a href="https://odoo.linagora.com/en/contact-us-openrag" target="_blank" rel="noopener">Open it in a new tab</a>.</p>
+  </div>
 </dialog>
 
 <script src="js/site.js"></script>

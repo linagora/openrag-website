@@ -32,34 +32,11 @@ python3 -m http.server 8000
 
 Then browse to <http://localhost:8000/>.
 
-**Use `localhost`, not your machine's LAN address.** The contact form decrypts
-its recipient with the Web Crypto API, which browsers expose only in a *secure
-context* — HTTPS, or `localhost` as a special case. Over `http://192.168.x.x` the
-form detects this and says an HTTPS connection is required, which is correct
-behaviour but makes the form untestable. To test from another device, forward the
-port (`ssh -L 8000:localhost:8000 …`) rather than browsing to the LAN IP.
-
 ## The contact form
 
-The page publishes no email address. The recipient ships AES-GCM encrypted, and
-the key is derived by an iterated PBKDF2 that runs in the visitor's browser when
-they tick *I am human* — around a tenth of a second of CPU. Harvesters that do not
-execute JavaScript get nothing, and paying that cost per page does not add up at
-harvesting scale.
-
-Nothing is withheld from the published constants: the barrier is the work, not
-secrecy, so a determined reader still gets there. It is a cost barrier against
-indiscriminate scraping, not a secret.
-
-To change the address:
-
-```sh
-node tools/encrypt-address.mjs <address>
-```
-
-That prints a fresh salt, IV and ciphertext to paste over the `POW_*` constants
-in [`js/site.js`](js/site.js). The salt and IV are random each run, so the old
-ciphertext reveals nothing about the new one.
+The contact dialog frames LINAGORA's Odoo form at
+<https://odoo.linagora.com/en/contact-us-openrag>; submissions go straight to
+Odoo, and the page publishes no email address.
 
 ## Deployment
 
