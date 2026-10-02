@@ -3289,6 +3289,20 @@ html.contact-open {
   border: 0;
 }
 
+/* Margins rather than a transform centre it, so the spin animation's own
+   transform is left alone. */
+.contact-loading {
+  position: absolute;
+  inset: 0;
+  width: 32px;
+  height: 32px;
+  margin: auto;
+  border: 3px solid var(--gray-300);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
 .contact-note {
   margin: 0;
   padding: 0 45px 26px;

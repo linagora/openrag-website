@@ -729,6 +729,8 @@
 
   var triggers = document.querySelectorAll('.contact-trigger');
   var closeBtn = document.getElementById('contactClose');
+  var frame = dialog.querySelector('.contact-frame');
+  var loading = document.getElementById('contactLoading');
 
   function open() {
     dialog.showModal();
@@ -743,6 +745,14 @@
       open();
     });
   });
+
+  /* The frame is lazy, so it only starts loading on the first open and then
+     stays loaded: the spinner is needed once and never comes back. */
+  if (frame && loading) {
+    frame.addEventListener('load', function () {
+      loading.hidden = true;
+    });
+  }
 
   if (closeBtn) {
     closeBtn.addEventListener('click', function () {
