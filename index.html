@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>OpenRAG — Sovereign, Open Source Retrieval-Augmented Generation</title>
-<meta name="description" content="OpenRAG is a lightweight, modular and extensible Retrieval-Augmented Generation (RAG) framework by LINAGORA. Partition isolation, distributed indexing with Ray, multimodal parsing, Milvus vector search and an OpenAI-compatible API. AGPL-3.0, version 2.2 out now.">
+<meta name="description" content="OpenRAG is a lightweight, modular and extensible Retrieval-Augmented Generation (RAG) framework by LINAGORA. Partition isolation, distributed indexing with Ray, multimodal parsing, Milvus vector search and an OpenAI-compatible API. AGPL-3.0, version 2.3 out now.">
 <meta name="author" content="LINAGORA">
 <meta name="publisher" content="LINAGORA">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="OpenRAG">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="OpenRAG — Sovereign, Open Source Retrieval-Augmented Generation">
-<meta property="og:description" content="Version 2.2 is here. Milvus 3.0, configurable speech-to-text, structure-aware chunking and retrieval scoped to chosen files. A digital common, and the RAG engine behind Twake.ai. 100% open source, AGPL-3.0.">
+<meta property="og:description" content="Version 2.3 is here. One vector field per embedder, job history that survives restarts, readiness checks, metrics and alerting, and safer uploads. A digital common, and the RAG engine behind Twake.ai. 100% open source, AGPL-3.0.">
 <meta property="og:url" content="https://open-rag.ai/">
 <meta property="og:image" content="https://open-rag.ai/images/openrag-card.png">
 <meta property="og:image:alt" content="The OpenRAG logo: a beaver wearing round glasses, reading a book.">
@@ -44,7 +44,7 @@
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Retrieval-Augmented Generation framework",
       "operatingSystem": "Linux, Docker, Kubernetes",
-      "softwareVersion": "2.2.2",
+      "softwareVersion": "2.3.0",
       "url": "https://open-rag.ai/",
       "downloadUrl": "https://github.com/linagora/openrag",
       "codeRepository": "https://github.com/linagora/openrag",
@@ -139,9 +139,9 @@
 <!-- ====================== HERO ====================== -->
 <section class="hero" id="top">
   <div class="shell">
-    <a class="badge-v2 reveal" href="https://github.com/linagora/openrag/releases/tag/v2.2.2" rel="noopener">
-      <span class="tag">Version 2.2 is here!</span>
-      Milvus 3.0, configurable speech-to-text, structure-aware chunking
+    <a class="badge-v2 reveal" href="https://github.com/linagora/openrag/releases/tag/v2.3.0" rel="noopener">
+      <span class="tag">Version 2.3 is here!</span>
+      Per-embedder vectors, persistent job history, metrics and alerting
       <span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
 
@@ -169,7 +169,7 @@
     <dl class="hero-facts reveal reveal-d3">
       <div class="hero-fact"><dt>License</dt><dd>AGPL-3.0</dd></div>
       <div class="hero-fact"><dt>Latest release</dt>
-        <dd><a href="https://github.com/linagora/openrag/releases/tag/v2.2.2" rel="noopener">v2.2.2</a></dd></div>
+        <dd><a href="https://github.com/linagora/openrag/releases/tag/v2.3.0" rel="noopener">v2.3.0</a></dd></div>
       <div class="hero-fact"><dt>Vector store</dt><dd>Milvus</dd></div>
       <div class="hero-fact"><dt>Distributed with</dt><dd>Ray</dd></div>
       <div class="hero-fact"><dt>API</dt><dd>OpenAI-compatible</dd></div>
@@ -919,7 +919,7 @@
               <div class="mini-head"><h4>System status</h4></div>
               <dl>
                 <dt>API</dt><dd><span class="pill pill-ok">Up</span></dd>
-                <dt>Version</dt><dd>2.2.2</dd>
+                <dt>Version</dt><dd>2.3.0</dd>
                 <dt>Ray actors</dt><dd>7/7 alive</dd>
               </dl>
             </div>
@@ -1346,7 +1346,7 @@
               <div class="mini-head"><h4>API Status</h4><span class="spacer"></span><span class="pill">Refresh</span></div>
               <dl>
                 <dt>API</dt><dd><span class="pill pill-ok">Up</span></dd>
-                <dt>Version</dt><dd>2.2.2</dd>
+                <dt>Version</dt><dd>2.3.0</dd>
               </dl>
             </div>
           </div>
@@ -1728,30 +1728,15 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
       <p class="eyebrow">Release notes</p>
       <h2>Version 2 is here!</h2>
       <p class="section-sub">
-        A major release rebuilding OpenRAG on a clean, layered architecture, then a prompt
-        library managed from the console rather than from template files on disk, and now
-        Milvus 3.0 with speech-to-text configurable like any other model endpoint.
+        A prompt library managed from the console rather than from template files on disk,
+        then Milvus 3.0 with speech-to-text configurable like any other model endpoint, and
+        now one vector field per embedder, durable job history, and built-in readiness checks,
+        metrics and alerting.
       </p>
     </div>
 
     <div class="grid grid-3">
       <article class="rel reveal">
-        <div class="rel-head">
-          <span class="v mono">v2.0.0</span>
-          <span class="pill pill-red">Hexagonal architecture</span>
-          <span class="d">8 July 2026</span>
-        </div>
-        <div class="rel-body">
-          <ul class="ticks">
-            <li><b>Hexagonal architecture</b> &mdash; restructured into core, services, api and di layers, improving testability and easing long-term maintenance.</li>
-            <li><b>New admin UI</b> &mdash; React console: partitions, documents, jobs, users, model endpoints, pipeline presets.</li>
-            <li><b>Pipeline presets</b> &mdash; named indexation and retrieval configuration bundles, assignable per partition.</li>
-            <li><b>Security hardening</b> &mdash; search filter-injection fix, SSRF guards, secret redaction, security headers, rate limiting, and non-root images.</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="rel reveal reveal-d1">
         <div class="rel-head">
           <span class="v mono">v2.1.0</span>
           <span class="pill pill-red">Prompt management</span>
@@ -1767,7 +1752,7 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
         </div>
       </article>
 
-      <article class="rel reveal reveal-d2">
+      <article class="rel reveal reveal-d1">
         <div class="rel-head">
           <span class="v mono">v2.2.0</span>
           <span class="pill pill-red">Milvus 3.0</span>
@@ -1780,6 +1765,24 @@ response_content = chat_completion.choices[<span class="s">0</span>].message.con
             <li><b>Structure-aware chunking</b> &mdash; a <span class="mono">structured_section</span> strategy that splits on a document&rsquo;s own structure.</li>
             <li><b>Narrower retrieval</b> &mdash; scope a query to a chosen list of files, and supply a custom system prompt per request.</li>
             <li><b>Case-insensitive lexical search</b> &mdash; BM25 no longer distinguishes case. Existing deployments need the accompanying <a href="https://linagora.github.io/openrag/documentation/milvus_migration/#schema-migrations" rel="noopener">schema migration</a>.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="rel reveal reveal-d2">
+        <div class="rel-head">
+          <span class="v mono">v2.3.0</span>
+          <span class="pill pill-red">Observability</span>
+          <span class="d">1 October 2026</span>
+        </div>
+        <div class="rel-body">
+          <ul class="ticks">
+            <li><b>One vector field per embedder</b> &mdash; each partition is searched with its own embedder, and embedder changes are guarded once data is indexed.</li>
+            <li><b>Job history that survives restarts</b> &mdash; indexing job state and history are stored in PostgreSQL.</li>
+            <li><b>Readiness, metrics and alerting</b> &mdash; <span class="mono">GET /ready</span> reports PostgreSQL, Milvus, Ray and the model endpoints, alongside Prometheus metrics, alert rules with runbooks, and Grafana dashboards for Helm and Compose.</li>
+            <li><b>Safer uploads</b> &mdash; content is checked against its extension, and a duplicate upload during indexing is refused.</li>
+            <li><b>Degraded, not failed</b> &mdash; a failing caption, contextualization or tagging step keeps the file, and the admin console shows which step degraded.</li>
+            <li><b>Upgrading</b> &mdash; the API has breaking changes, and existing deployments must migrate their Milvus collection. Follow the <a href="https://linagora.github.io/openrag/documentation/upgrading/" rel="noopener">upgrade guide</a> and <a href="https://linagora.github.io/openrag/documentation/upgrading/#update-api-clients" rel="noopener">update API clients</a>; from releases older than 2.2.1, upgrade to 2.2.2 first.</li>
           </ul>
         </div>
       </article>
@@ -1858,7 +1861,7 @@ docker compose --profile cpu up -d</pre>
         <p class="card-n">KUBERNETES</p>
         <h4>Helm chart</h4>
         <p class="mono" style="margin-top:10px">oci://ghcr.io/linagora/openrag-stack</p>
-        <p style="margin-top:10px">Chart 0.6.5, app version 2.2.2. OpenShift deployment is documented too.</p>
+        <p style="margin-top:10px">Chart 0.7.0, app version 2.3.0. OpenShift deployment is documented too.</p>
       </article>
       <article class="card">
         <p class="card-n">ROADMAP</p>
